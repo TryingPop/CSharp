@@ -23,6 +23,8 @@ namespace Exam._01
 
             Console.Write("태어난 년도 입력 : ");
             birth = int.Parse(Console.ReadLine());
+            // Convert.ToInt32(바꿀 것);
+            // 대체 가능
 
             Console.Write("이름 입력 : ");
             name = Console.ReadLine();
@@ -31,8 +33,13 @@ namespace Exam._01
 
             Console.WriteLine($"{name}님 안녕하세요.");
             Console.WriteLine($"당신의 나이는 만 {age}세 입니다.");
+            // Console.WriteLine($"{name}님 안녕하세요. \n당신의 나이는 만 {age}세 입니다.");
+            // 한 줄로 표현 가능
+
         }
-        
+
+
+
 
     }
 }

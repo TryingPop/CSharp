@@ -19,19 +19,19 @@ namespace Exam._01
             char grade;
 
             Console.Write("입력한 점수는 {0}점 이고, 등급은 ", score);
-            if (score >= 90)
+            if (score >= 90 && score <= 100)
             {
                 grade = 'A';
             }
-            else if (score >= 80)
+            else if (score >= 80 && score < 90)
             {
                 grade = 'B';
             }
-            else if (score >= 70)
+            else if (score >= 70 && score < 80)
             {
                 grade = 'C';
             }
-            else if (score >= 60)
+            else if (score >= 60 && score < 70)
             {
                 grade = 'D';
             }

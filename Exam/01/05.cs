@@ -16,6 +16,8 @@ namespace Exam._01
         {
             string strScore = "60,72,82,86,92";
             string[] score = strScore.Split(',');
+            // string[] score = strScore.Split(",");
+            // 딱히 차이 없다
 
             int total = 0;
 

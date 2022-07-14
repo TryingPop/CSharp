@@ -13,16 +13,16 @@ namespace Ch03
 {
     internal class _5_배열
     {
-        static void Main(string[] args)
+        static void Main5(string[] args)
         {
             // 배열
             // new : 인스턴스 생성 연산
             int[] arr1 = new int[3];
-
             // 배열에서 값을 지정안하면 초기값으로 0을 갖는다
-            arr1[0] = 1;
-            // 배열 변수를 출력하면 배열 형태가 나온다
+            // Console.WriteLine(arr1[0]);
+            // 0 값이 출력된다
 
+            // 배열 변수를 출력하면 배열 형태가 나온다
             // Console.WriteLine(arr1);
             // System.int32[] 가 출력된다
 

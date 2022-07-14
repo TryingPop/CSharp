@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+/* 날짜 : 22.07.14
+ * 내용 : 백준 2단계 5번 문제
+ * 
+ */
+
+namespace BaekJoon._02
+{
+    internal class _02_05
+    {
+        static void Main5(string[] args)
+        {
+            string[] strinputs = Console.ReadLine().Split(' ');
+            int[] inputs = Array.ConvertAll(strinputs, int.Parse);
+
+            inputs[1] -= 45;
+
+            if ( inputs[1] < 0)
+            {
+                inputs[0] -= 1;
+                inputs[1] += 60;
+            }
+
+            if (inputs[0] < 0)
+            {
+                inputs[0] += 24;
+            }
+
+            Console.WriteLine("{0} {1}", inputs[0], inputs[1]);
+        }
+    }
+}

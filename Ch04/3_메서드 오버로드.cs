@@ -32,16 +32,38 @@ namespace Ch04
             Console.WriteLine("{0}", r2);
             Console.WriteLine("{0}", r3);
             Console.WriteLine("{0}", r4);
+            Console.WriteLine();
 
-            // 함정용이 있을시 함정용이 발동한다
-            Ex();
+            // 비교 주의!
 
-            // Console.WriteLine(Ex());
-            // void 반환이라 코드 실행 불가능
-            
-            // double과 int처럼 구분해야하는 숫자면 
-            // Ex2(2);
-            
+            // Ex1
+            // Ex1();
+            // Console.WriteLine(Ex1());
+            // 코드 2개 모두 함수 구분이 힘들다고
+            // 런타임 실행 불가 메세지 나온다
+
+            // Console.WriteLine(Ex1(2.0)); 
+            // a가 int인데 double을 못 넣는다
+
+
+            // Ex2
+            // 입력받는 변수 타입에 맞춰 실행한다
+            // Ex2(); 
+            // 역시 런타임 실행 안된다
+            Console.Write($"{Ex2(2.0)},  ");
+            Console.WriteLine("{0}", Ex2(2.0).GetType());
+            Console.Write($"{Ex2(2)},  ");
+            Console.WriteLine("{0}", Ex2(2).GetType());
+            Console.WriteLine();
+
+            Ex3();
+            // Console.WriteLine(Ex3());
+            // void라 못불러온다
+            Console.WriteLine();
+
+            Ex4();
+            Console.WriteLine(Ex4());
+
         } // end of Main
 
         public static int Plus(int a = 0, int b = 2)
@@ -66,26 +88,43 @@ namespace Ch04
 
 
         // 비교용
-        public static void Ex()
+        // Ex1
+        public static int Ex1(int a = 0, int b = 1)
         {
-            Console.WriteLine("함정용");
+            return a + b;
         }
-
-        public static int Ex(int a = 0, int b = 1)
+        public static double Ex1(int a = 0, double b = 2)
         {
             return a + b;
         }
 
-
-        // 비교용2
+        // Ex2
         public static int Ex2(int a = 0, int b = 1)
         {
             return a + b;
         }
 
-        public static double Ex2(double a = 0, double b = 1)
+        public static double Ex2(double a = 0, double b = 2)
         {
             return a + b;
         }
+
+        // Ex3
+        public static void Ex3()
+        {
+            Console.WriteLine("함정용");
+        }
+
+        public static int Ex3(int a = 0, int b = 1)
+        {
+            return a + b;
+        }
+
+        // Ex4
+        public static int Ex4(int a = 0, int b = 2)
+        {
+            return a + b;
+        }
+        
     }
 }

@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/* 날짜 : 2022.07.14
+ * 내용 : 증가, 감소 연산자 연습문제
+ */
+
 namespace Exam._01
 {
     internal class _01_04

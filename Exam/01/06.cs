@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/* 날짜 : 2022.07.14
+ * 내용 : 조건문 연습문제
+ */
+
 namespace Exam._01
 {
     internal class _01_06

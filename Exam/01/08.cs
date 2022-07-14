@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/* 날짜 : 2022.07.14
+ * 내용 : 피라미드 출력 연습문제
+ */
+
 namespace Exam._01
 {
     internal class _01_08

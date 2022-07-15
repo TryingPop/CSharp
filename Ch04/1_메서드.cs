@@ -53,7 +53,9 @@ namespace Ch04
 
         // 메서드 정의
         // 접근권한이 먼저 설정하지만 생략 가능
-        // 이 경우 public이 초기값으로 잡힌다 main에서는 생략
+        // 이 경우 private로 잡힌다
+        // 그러면 다른 클래스에서는 이 메서드에 접근이 불가능하다
+        // Book/Ch06/ex13 참조
         // 이후 정적인지 동적인지 설정
         // void return값이 없다
         public static int f(int x)

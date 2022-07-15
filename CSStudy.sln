@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ch04", "Ch04\Ch04.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exam", "Exam\Exam.csproj", "{CEBF32F1-F78B-4961-879F-294CA0B5F25B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaekJoon", "BaekJoon\BaekJoon.csproj", "{91354EBC-2B07-4ED6-9CA8-5C0EB9989736}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaekJoon", "BaekJoon\BaekJoon.csproj", "{91354EBC-2B07-4ED6-9CA8-5C0EB9989736}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

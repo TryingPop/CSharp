@@ -18,8 +18,8 @@ namespace Book.Ch04
         {
             int[] intArray = { 52, 273, 32, 65, 103 };
 
-            // 배열 만들면 값이 저장되어있는지
-            // 혹은 생성되는지 질문하기
+            // 배열 만들면 값이 저장되어있다
+            // 시작할 때 크기를 측정하기 때문에
             Console.WriteLine(intArray.Length);
         }
     }

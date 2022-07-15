@@ -14,7 +14,7 @@ namespace BaekJoon._03
 {
     internal class _03_02
     {
-        static void Main(string[] args)
+        static void Main2(string[] args)
         {
             while (true)
             {

@@ -18,16 +18,16 @@ namespace Book.Ch06
         {
             public void TestMethod()
             {
-                ex14.Main(new string[] { "" });
+                ex14.Main14(new string[] { "" });
             }
         }
 
         public void TestMethod()
         {
-            ex14.Main(new string[] { "" });
+            ex14.Main14(new string[] { "" });
         }
 
-        static void Main(string[] args)
+        static void Main14(string[] args)
         {
 
         }

@@ -18,7 +18,7 @@ namespace Book.Ch06
         {
             public void TestMethod()
             {
-                // Program.Main(new string[] { "" });
+                // Program.Main13(new string[] { "" });
             }
         }
 

@@ -25,7 +25,7 @@ namespace Book.Ch06
             }
         }
 
-        static void Main(string[] args)
+        static void Main20_2(string[] args)
         {
             Console.WriteLine("첫 번째 위치");
             Sample sample = new Sample();

@@ -13,7 +13,7 @@ namespace BaekJoon._03
 {
     internal class _04_03
     {
-        static void Main(string[] args)
+        static void Main3(string[] args)
         {
             /*
             int a = int.Parse(Console.ReadLine());

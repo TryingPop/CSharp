@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/* 날짜 : 2022.07.15
- * 내용 : 코드 6-20_1
+/* 날짜 : 2022.07.18
+ * 내용 : 코드 6-21
  * 
  * 소멸자
  */
 
+// 내일 확인하기 왜 안나오는지?
 namespace Book.Ch06
 {
     internal class ex21
@@ -29,13 +30,14 @@ namespace Book.Ch06
 
             ~Product()
             {
-                Console.WriteLine(this.name + "의 소멸자 호출");
+                Console.WriteLine($"{this.name}의 소멸자 호출");
             }
         }
 
-        static void Main(string[] args)
+        static void Main21(string[] args)
         {
             Product product = new Product("과자", 1000);
+            
         }
     }
 }

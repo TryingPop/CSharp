@@ -9,33 +9,29 @@ using System.Threading.Tasks;
  * 
  */
 
-namespace BaekJoon._03
+namespace BaekJoon._04
 {
-    internal class _04_03
+    internal class _03
     {
         static void Main3(string[] args)
         {
-            /*
-            int a = int.Parse(Console.ReadLine());
-            int b = int.Parse(Console.ReadLine());
-            int c = int.Parse(Console.ReadLine());
+            int[] ints = new int[10];
+            int num;
+            int A = int.Parse(Console.ReadLine());
+            int B = int.Parse(Console.ReadLine());
+            int C = int.Parse(Console.ReadLine());
 
-            string d = (a * b * c).ToString();
+            string D = (A * B * C).ToString();
 
-            for (int i =0; i <= 9; i++)
+            for (int i = 0; i < D.Length; i++)
             {
-                int count = d.Count(f => f == i);
-                Console.WriteLine(count);
+                num = int.Parse(D[i].ToString());
+                ints[num] += 1;
             }
-            */
-
-            string[] exam = "1234512412".Split();
-            foreach (var item in exam)
+            foreach (int i in ints)
             {
-                Console.WriteLine(item);
+                Console.WriteLine(i);
             }
-
-
         }
     }
 }

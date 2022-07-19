@@ -57,7 +57,7 @@ namespace Ch05
     internal class _3_클래스_변수와_메서드
     {
         // static : Data영역에 보관한다(전역변수)
-        static void Main(string[] args)
+        static void Main3(string[] args)
         {
             // int의 초기값이 0이고 생성자쪽에서 +1씩 추가된다.
             Increment inc1 = new Increment() { };

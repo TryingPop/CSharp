@@ -33,7 +33,7 @@ namespace BaekJoon._05
             }
         }
 
-        static void Main(string[] args)
+        static void Main3(string[] args)
         {
             int input = int.Parse(Console.ReadLine());
             int num = 0;

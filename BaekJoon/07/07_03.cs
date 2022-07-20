@@ -13,35 +13,18 @@ namespace BaekJoon._07
 {
     internal class _07_03
     {
-        static void Main(string[] args)
+        static void Main3(string[] args)
         {
-            int x = 1;
-            int y = 1;
-            int num = int.Parse(Console.ReadLine());
-            int n = 0;
-            int end = 0;
+            int input = int.Parse( Console.ReadLine() );
+            
+            int result = 1;
 
-            while (((n)*(n+1)) < 2 * num)
-            { 
-                n++;
-            }
-            end = (n * (n + 1)) / 2;
-           
-            if (n % 2 == 0)
+            while (input >= ((3 * result) * (result - 1)) + 2 && input != 1)
             {
-                y = n;
-                num -= end;
-                x -= num;
-                y += num;
+                result++;
             }
-            else
-            {
-                x = n;
-                num -= end;
-                x += num;
-                y -= num;
-            }
-            Console.WriteLine("{0}/{1}", y, x);
+
+            Console.WriteLine(result);
         }
     }
 }

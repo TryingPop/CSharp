@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exam", "Exam\Exam.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaekJoon", "BaekJoon\BaekJoon.csproj", "{91354EBC-2B07-4ED6-9CA8-5C0EB9989736}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ch05", "Ch05\Ch05.csproj", "{D1E0226F-AA84-4902-A792-17C64179DAC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ch05", "Ch05\Ch05.csproj", "{D1E0226F-AA84-4902-A792-17C64179DAC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ch06", "Ch06\Ch06.csproj", "{9C6046B0-C64C-4DF1-BA33-F3964B7D682B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{D1E0226F-AA84-4902-A792-17C64179DAC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1E0226F-AA84-4902-A792-17C64179DAC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1E0226F-AA84-4902-A792-17C64179DAC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C6046B0-C64C-4DF1-BA33-F3964B7D682B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C6046B0-C64C-4DF1-BA33-F3964B7D682B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C6046B0-C64C-4DF1-BA33-F3964B7D682B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C6046B0-C64C-4DF1-BA33-F3964B7D682B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

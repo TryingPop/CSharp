@@ -20,88 +20,49 @@ namespace BaekJoon._07
             int len1 = inputs[0].Length;
             int len2 = inputs[1].Length;
 
-            int len = len1;
+            int len = Math.Max(len1, len2);
+            len += 1;
 
-            if (len1 < len2)
+            int[] input1 = new int[len];
+            int[] input2 = new int[len];
+            int[] result = new int[len];
+
+            for (int i = 0; i < len1; i++)
             {
-                len = len2;
+                input1[i] = (int)(inputs[0][len1 - 1 - i] - '0');
             }
 
-            int[] num1 = new int[1 + (len / 7)];
-            int[] num2 = new int[num1.Length];
-            int[] resultarr = new int[num1.Length];
-
-            int arg1 = 0;
-            int arg2 = 0;
-
-
-            // num1 과 num2 각각을 7자리씩 자르는 과정
-            for (int i = 0; i < 1 + (len1 / 7); i++)
+            for (int i = 0; i < len2; i++)
             {
-                arg1 = len1 - (7 * (i + 1));
-                arg2 = 7;
-                if (arg1 < 0)
-                {
-                    if (arg1 != -7)
-                    {
-                        arg2 += arg1;
-                        arg1 = 0;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-                num1[i] = int.Parse(inputs[0].Substring(arg1, arg2));
+                input2[i] = (int)(inputs[1][len2 - 1 - i] - '0');
             }
 
-            for (int i = 0; i < 1 + (len2 / 7); i++)
+            for (int i = 0; i < len; i++)
             {
-                arg1 = len2 - (7 * (i + 1));
-                arg2 = 7;
-                if (arg1 < 0)
+                result[i] += input1[i] + input2[i];
+                if (result[i] >= 10 && i < len - 1)
                 {
-                    if (arg1 != -7)
-                    {
-                        arg2 += arg1;
-                        arg1 = 0;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-                num2[i] = int.Parse(inputs[1].Substring(arg1, arg2));
-            }
-
-            // 같은 자리끼리 합하는 과정 7자리로 잘랐으므로 
-            // 8자리가 되면 앞자리를 제거하고 다음 항에 +1을 시킨다
-            for (int i = 0; i < num1.Length; i++)
-            {
-                resultarr[i] += num1[i] + num2[i];
-                if ((i <= num1.Length - 2) && (resultarr[i] >= 10000000))
-                {
-                    resultarr[i] -= 10000000;
-                    resultarr[i + 1] += 1;
+                    result[i] -= 10;
+                    result[i + 1] += 1;
                 }
             }
 
-            bool output = false;
+            bool output_started = false;
 
-            for (int i = resultarr.Length - 1; i >= 0; i--)
+            for (int i = len - 1; i >= 0; i--)
             {
-                if (resultarr[i] == 0)
+                if (output_started)
+                {
+                    Console.Write("{0}", result[i]);
+                }
+                else if (result[i] == 0)
                 {
                     continue;
                 }
-                if (output)
-                {
-                    Console.Write("{0:0000000}", resultarr[i]);
-                }
                 else
                 {
-                    Console.Write(resultarr[i]);
-                    output = true;
+                    Console.Write(result[i]);
+                    output_started = true;
                 }
             }
             Console.WriteLine();

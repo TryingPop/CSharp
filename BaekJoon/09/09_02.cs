@@ -17,11 +17,16 @@ namespace BaekJoon._09
         {
             int num = int.Parse(Console.ReadLine());
 
-            long result = 1;
-            for (int i = 2;i <= num; i++)
+            static int Fibo(int n)
             {
-                result *= i;
+                if (n <= 1)
+                {
+                    return n;
+                }
+                return Fibo(n - 1) + Fibo(n - 2);
             }
+
+            int result = Fibo(num);
             Console.WriteLine(result);
         }
     }

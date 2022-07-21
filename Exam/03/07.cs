@@ -12,8 +12,8 @@ namespace Exam._03
 {
     class Customer
     {
-        private int id;
-        private string name;
+        private int id; 
+        private string name; 
         protected string grade;
         protected double point;
         protected double pointRatio;
@@ -49,7 +49,7 @@ namespace Exam._03
     {
         private double saleRatio;
 
-        public VipCustomer(int id, string name) : base(id, name)
+        public VipCustomer(int id, string name) : base(id, name) // base 로 옮겨서 연산
         {
             base.grade = "VIP";
             base.point = 1000;

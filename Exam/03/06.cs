@@ -18,7 +18,7 @@ namespace Exam._03
         }
     }
 
-    class Landload : Rent
+    class Landlord : Rent
     {
         public void GetMoney()
         {
@@ -31,7 +31,7 @@ namespace Exam._03
     {
         static void Main6(string[] args)
         {
-            Landload master = new Landload();
+            Landlord master = new Landlord();
             master.GetMoney();
         }
     }

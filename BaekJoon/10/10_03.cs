@@ -18,7 +18,7 @@ namespace BaekJoon._10
             int num = int.Parse(Console.ReadLine());
             int[] result = new int[num];
             int[,] uarr = new int[num, 2];
-
+            
             for (int i = 0; i < num; i++)
             {
                 string[] strarr = Console.ReadLine().Split(" ");
@@ -26,8 +26,26 @@ namespace BaekJoon._10
 
                 uarr[i, 0] = iarr[0];
                 uarr[i, 1] = iarr[1];
+            }
 
+            for (int i = 0; i < num; i++)
+            { 
+                for(int j = 0; j < num; j++)
+                {
+                    if (i == j) { continue; }
+                    else
+                    {
+                        if (uarr[i, 0] < uarr[j, 0] && uarr[i, 1] < uarr[j, 1])
+                        {
+                            result[i]++;
+                        }
+                    }
+                }
+            }
 
+            foreach (int res in result)
+            {
+                Console.Write($"{res + 1} ");
             }
         }
     }

@@ -17,34 +17,36 @@ namespace BaekJoon._08
         {
             StringBuilder sb = new StringBuilder();
 
-            int num = int.Parse(Console.ReadLine());
+            int input = int.Parse(Console.ReadLine());
 
-            bool chk = true;
-            if (num != 1)
+            FindNum(input, sb);
+            Console.WriteLine(sb);
+
+        }
+
+        static void FindNum(int num, StringBuilder sb)
+        {
+            for (int i = 2; i <= num; i++)
             {
-                while (chk)
+                if (num == 1)
                 {
-                    int n = num;
+                    break;
+                }
 
-                    for (int i = 2; i < n; i++)
-                    {
-                        if ( num == 1)
-                        {
-                            chk = false;
-                            break;
-                        }
-                        if (num % i == 0)
-                        {
-                            while (num % i == 0)
-                            {
-                                num /= i;
-                                sb.AppendLine(i.ToString());
-                            }
-                        }
-                    }
+                if (i > ((int)Math.Sqrt(num)) + 1)
+                {
+                    sb.AppendLine(num.ToString());
+                    break;
+                }
+
+                if (num % i == 0)
+                {
+                    num /= i;
+                    sb.AppendLine(i.ToString());
+                    FindNum(num, sb);
+                    break;
                 }
             }
-            Console.WriteLine(sb);
         }
     }
 }

@@ -15,30 +15,41 @@ namespace BaekJoon._09
     {
         static void Main4(string[] args)
         {
+            StringBuilder sb = new StringBuilder();
             int num = int.Parse(Console.ReadLine());
 
-            SelfFunc(num);
-
-        }
-
-        // 타입이 불분명한건 그냥 void 하고 return; 하면 된다
-        static void SelfFunc(int n, int m = 0)
-        {
-            if (n <= 1)
+            for (int i = 0; i < num; i++)
             {
-                return;
+                for (int j = 0; j < num; j++)
+                {
+                    sb.Append(Chk(i, j, num/3));
+                    if (j == num - 1)
+                    {
+                        sb.AppendLine("");
+                    }
+                }
             }
 
-            SelfFunc(n / 3);
-            
+            Console.WriteLine(sb);
         }
-
-        static void LemmaFunc1(int m)
+        static string Chk(int num1, int num2,int chk)
         {
-        }
+            if ((num1 % (3*chk)) / chk == 1 && (num2 % (3*chk)) / chk == 1)
+            {
+                return " ";
+            }
 
-        static void LemmaFunc2(int m)
-        {
+            else
+            {
+                if (chk <= 1)
+                {
+                    return "*";
+                }
+                else
+                {
+                    return Chk(num1, num2, chk/3);
+                }
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace BaekJoon._10
 {
     internal class _10_03
     {
-        static void Main(string[] args)
+        static void Main3(string[] args)
         {
             int num = int.Parse(Console.ReadLine());
             int[] result = new int[num];

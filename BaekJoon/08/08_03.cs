@@ -25,24 +25,26 @@ namespace BaekJoon._08
                 while (chk)
                 {
                     int n = num;
+
                     for (int i = 2; i < n; i++)
                     {
-                        if ( i == ((int)Math.Sqrt(n)) + 1)
+                        if ( num == 1)
                         {
                             chk = false;
-                            sb.AppendLine(num.ToString());
                             break;
                         }
                         if (num % i == 0)
                         {
-                            num /= i;
-                            sb.AppendLine(i.ToString());
-                            break;
+                            while (num % i == 0)
+                            {
+                                num /= i;
+                                sb.AppendLine(i.ToString());
+                            }
                         }
                     }
                 }
             }
-            
+            Console.WriteLine(sb);
         }
     }
 }

@@ -13,20 +13,20 @@ namespace BaekJoon._09
 {
     internal class _09_06
     {
-        static void Main5(string[] args)
+        static void Main(string[] args)
         {
             int num = int.Parse(Console.ReadLine());
+            StringBuilder sb = new StringBuilder();
+            int len = FindNum(num);
+            
+            sb.AppendLine(len.ToString());
 
-            SelfFunc(num);
 
+            Console.WriteLine(sb);
+            
         }
 
         // 타입이 불분명한건 그냥 void 하고 return; 하면 된다
-        static void SelfFunc(int n, int m = 0)
-        {
-
-        }
-
         static int FindNum(int n)
         {
             if (n == 1)
@@ -35,6 +35,15 @@ namespace BaekJoon._09
             }
 
             return 2 * FindNum(n - 1) + 1;
+        }
+
+        static void Left(int n, ref int[] m)
+        {
+            int len = m.Length;
+            for (int i = n; i >= 0; i--)
+            {
+                
+            }
         }
     }
 }

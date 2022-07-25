@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 3단계 10번 문제
  * 
+ * 별 찍기 - 2
  */
 
 namespace BaekJoon._03

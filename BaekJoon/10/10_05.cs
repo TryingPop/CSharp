@@ -15,123 +15,87 @@ namespace BaekJoon._10
 {
     internal class _10_05
     {
-        static void Main(string[] args)
+        static void Main5(string[] args)
         {
             int num = int.Parse(Console.ReadLine());
-            
-            int head = -1;
-            int tale = 0;
-            int lenT = 0;
-            bool flag = false;
+            int head = 0;
+            int tail = 0;
+            bool chk = false;
+            int ni = 0;
 
-            string result;
-            for (int i = 0; i < num; i++)
+
+            for (int i = 0; i < num - 1; i++)
             {
-                FindNum(ref head, ref tale, ref lenT, ref flag);
+                FindNum(ref head, ref tail, ref chk, ref ni);
             }
-            if (lenT == 0)
+
+            string result = "666";
+            string chk2 = tail.ToString();
+            if (head != 0)
             {
-                if (head == 0)
-                {
-                    Console.WriteLine("666");
-                }
-                else
-                {
-                    Console.WriteLine(head + "666");
-                }
+                result = head.ToString() + result;
             }
-            else if (lenT == 1)
+
+            if (ni != 0)
             {
-                Console.WriteLine(head + "66" + tale);
+                while (chk2.Length < ni)
+                {
+                    chk2 = "0" + chk2;
+                }
+
+                result = result + chk2;
+
             }
-            else if (lenT == 2)
-            {
-                if (tale < 10)
-                {
-                    Console.WriteLine(head + "60" + tale);
-                }
-                else
-                {
-                    Console.WriteLine(head + "6" + tale);
-                }
-            }
-            else if (lenT == 3)
-            {
-                if (tale < 10)
-                {
-                    Console.WriteLine(head + "600" + tale);
-                }
-                else if (tale < 100)
-                {
-                    Console.WriteLine(head + "60" + tale);
-                }
-                else
-                {
-                    Console.WriteLine(head + "6" + tale);
-                }
-            }
-            else if (lenT == 4)
-            {
-                if (tale < 10)
-                {
-                    Console.WriteLine(head + "000" + tale);
-                }
-                else if (tale < 100)
-                {
-                    Console.WriteLine(head + "00" + tale);
-                }
-                else if (tale < 1000)
-                {
-                    Console.WriteLine(head + "0" + tale);
-                }
-                else
-                {
-                    Console.WriteLine(head + tale);
-                }
-            }
+
+            Console.WriteLine(result);
+
         }
 
-        static void FindNum(ref int head, ref int tale, ref int lenT, ref bool flag)
+        static void FindNum(ref int head, ref int tail, ref bool chk, ref int ni)
         {
-            if (flag)
+            if (chk)
             {
-                if (tale < ((int)Math.Pow(10, lenT))-1)
+                tail++;
+                if (tail == ((int)Math.Pow(10, ni)))
                 {
-                    tale++;
-                    return;
-                }
-                else
-                {
-                    flag = false;
-                    tale = 0;
-                    lenT = 0;
-                    head++;
-                    return;
+                    tail = 0;
+                    chk = false;
+
+                    while (ni > 0)
+                    {
+                        ni--;
+                        head *= 10;
+                        if (ni == 0)
+                        {
+                            head += 7;
+                        }
+                        else
+                        {
+                            head += 6;
+                        }
+                    }
                 }
             }
             else
             {
-                if (head % 10 != 5)
+                head += 1;
+
+                if (head % 10 == 6)
                 {
-                    head++;
-                    return;
-                }
-                else
-                {
-                    head++;
-                    flag = true;
-                    lenT = 1;
-                    if (head % 100 == 66)
+                    head /= 10;
+                    int i = 1;
+                    ni = i;
+                    while ((head % 10) == 6)
                     {
-                        lenT = 2;
-                        if (head % 1000 == 666)
-                        {
-                            lenT = 3;
-                        }
+                        head /= 10;
+                        i++;
+                        ni = i;
                     }
-                    return;
+                    chk = true;
+                    tail = 0;
                 }
             }
+            return;
         }
     }
 }

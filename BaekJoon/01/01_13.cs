@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 1단계 13번 문제
  * 
+ * 곱셈
+ * 세 자리 수를 2개 입력받아 곱셈 계산식 출력하기
  */
 
 namespace BaekJoon._01

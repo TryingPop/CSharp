@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 2단계 3번 문제
  * 
+ * 윤년
+ * 년도를 입력받아 윤년인지 판별하기
  */
 
 namespace BaekJoon._02

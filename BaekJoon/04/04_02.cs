@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.15
  * 내용 : 백준 4단계 2번 문제
  * 
+ * 최댓값
  */
 
 namespace BaekJoon._03
@@ -20,10 +21,10 @@ namespace BaekJoon._03
             for (int i = 0; i < 9; i++)
             {
                 int num = int.Parse(Console.ReadLine());
-                if (i == 0 || num < max)
+                if (i == 0 || num > max)
                 {
                     max = num;
-                    j++;
+                    j = i + 1;
                 }
             }
             Console.WriteLine(max);

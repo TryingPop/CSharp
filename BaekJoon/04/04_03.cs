@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.15
  * 내용 : 백준 4단계 3번 문제
  * 
+ * 숫자의 개수
  */
 
 namespace BaekJoon._04

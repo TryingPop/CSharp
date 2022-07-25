@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 1단계 9번 문제
  * 
+ * 사칙연산
+ * A, B를 입력받아 A + B, A - B, A * B, A / B를 줄마다 각각 출력하기
  */
 
 namespace BaekJoon._01

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 3단계 11번 문제
  * 
+ * X보다 작은 수
+ * 정수의 갯수, 기준, 정수들을 입력받아 기준보다 작은 정수들 순서대로 출력하기
  */
 
 namespace BaekJoon._03
@@ -29,8 +31,6 @@ namespace BaekJoon._03
                     Console.Write(num + " ");
                 }
             }
-            
-
         }
     }
 }

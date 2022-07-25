@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.15
  * 내용 : 백준 3단계 12번 문제
  * 
+ * 	A+B - 4
+ * 	A, B를 입력받아 각 케이스마다 A + B를 출력하기
  */
 
 namespace BaekJoon._03
@@ -26,6 +28,7 @@ namespace BaekJoon._03
                 }
                 Console.WriteLine(inputs[0] + inputs[1]);
             }
+
         }
     }
 }

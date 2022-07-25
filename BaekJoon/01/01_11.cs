@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 1단계 11번 문제
  * 
+ * 1998년생인 내가 태국에서는 2541년생?!
+ * 불기연도를 입력받아 서기연도로 출력하기
  */
 
 namespace BaekJoon._01

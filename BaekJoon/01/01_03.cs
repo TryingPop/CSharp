@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 1단계 3번 문제
  * 
+ * 고양이
+ * 고양이를 출력하기
  */
 
 namespace BaekJoon._01

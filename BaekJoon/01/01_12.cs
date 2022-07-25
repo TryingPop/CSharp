@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 1단계 12번 문제
  * 
+ * 나머지
+ * A, B, C를 입력받아 각 줄마다 (A+B)%C, ((A%C) + (B%C))%C, (A×B)%C, ((A%C) × (B%C))%C를 출력하기
  */
 
 namespace BaekJoon._01

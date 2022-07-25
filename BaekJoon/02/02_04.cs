@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 2단계 4번 문제
  * 
+ * 사분면 고르기
+ * 좌표를 입력받아 몇 사분면에 속하는지 출력하기
  */
 
 namespace BaekJoon._02

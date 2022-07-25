@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.15
  * 내용 : 백준 3단계 13번 문제
  * 
+ * 더하기 사이클
  */
 
 namespace BaekJoon._03

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 1단계 1번 문제
  * 
+ * Hello World
+ * Hello World 출력하기
  */
 
 namespace BaekJoon._01

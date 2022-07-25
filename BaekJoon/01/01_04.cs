@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 1단계 4번 문제
  * 
+ * 개
+ * 개를 출력하기
  */
 
 namespace BaekJoon._01

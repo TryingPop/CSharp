@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 1단계 14번 문제
  * 
+ * 두 수 비교하기
+ * A, B를 입력받아 두수간 등호를 출력하기
  */
 
 namespace BaekJoon._02

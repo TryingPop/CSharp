@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 1단계 2번 문제
  * 
+ * We love kriii
+ * 두 줄에 걸쳐 "강한친구 대한육군"을 한 줄에 한 번씩 출력하기
  */
 
 namespace BaekJoon._01

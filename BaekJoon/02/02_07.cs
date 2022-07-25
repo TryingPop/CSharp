@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.14
  * 내용 : 백준 2단계 7번 문제
  * 
+ * 주사위 세개
+ * 주사위 3개의 값을 입력받아 결과값 출력하기
  */
 
 namespace BaekJoon._02

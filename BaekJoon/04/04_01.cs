@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.15
  * 내용 : 백준 4단계 1번 문제
  * 
+ * 최소, 최대
  */
 
 namespace BaekJoon._03

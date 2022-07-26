@@ -75,12 +75,14 @@ namespace Ch09
 
             // 데이터가 5이상 큰 순서대로 추출
             // 타입 : IOrderedEnumerable<int>
-            // List의 메서드 사용 불가능
+            // 인터페이스 타입
+            // List 클래스가 아니므로 쓸 수 있는 메서드 확인이 중요
             var rsList4 = from n in myList
                           where n >= 5
                           orderby n descending
                           select n;
 
+            
             Console.WriteLine("rsList4 : " + String.Join(", ", rsList4));
 
             // Linq 객체 리스트 활용

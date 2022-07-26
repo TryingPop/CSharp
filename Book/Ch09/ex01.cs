@@ -1,4 +1,10 @@
-﻿/* 날짜 : 2022.07.26
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+/* 날짜 : 2022.07.26
  * 내용 : 코드 9-1
  * 
  * 기본 클래스와 자료 생성
@@ -19,7 +25,7 @@ namespace Book.Ch09
             }
         }
 
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
             List<Product> list = new List<Product>()
             {

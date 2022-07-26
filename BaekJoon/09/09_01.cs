@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.21
  * 내용 : 백준 9단계 1번 문제
  * 
+ * 팩토리얼
  */
 
 namespace BaekJoon._09

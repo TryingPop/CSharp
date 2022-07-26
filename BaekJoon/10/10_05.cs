@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.22
  * 내용 : 백준 10단계 5번 문제
  * 
+ * 영화감독 숌
  */
 
-// 6000넘어가면 이상한값 나온다
-// 알고리즘 다시 짜기!
 namespace BaekJoon._10
 {
     internal class _10_05

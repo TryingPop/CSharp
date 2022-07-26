@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.20
  * 내용 : 백준 7단계 6번 문제
  * 
+ * 부녀회장이 될테야
  */
 
 namespace BaekJoon._07
@@ -32,7 +33,7 @@ namespace BaekJoon._07
 
                 while (height > 0)
                 {
-                    for (int j = 0; j < width-1; j++)
+                    for (int j = 0; j < width - 1; j++)
                     {
                         chkarr[j] = chkarr[j..].Sum();
                     }
@@ -41,7 +42,7 @@ namespace BaekJoon._07
 
                 for (int l = 0; l < width; l++)
                 {
-                    chkarr[l] *= (l+1);
+                    chkarr[l] *= (l + 1);
                 }
 
                 Console.WriteLine(chkarr.Sum());

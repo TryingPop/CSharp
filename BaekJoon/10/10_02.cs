@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.21
  * 내용 : 백준 10단계 2번 문제
  * 
+ * 분해합
  */
 
 namespace BaekJoon._10

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.21
  * 내용 : 백준 8단계 6번 문제
  * 
+ * 골드바흐의 추측
  */
 
 namespace BaekJoon._08

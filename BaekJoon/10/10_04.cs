@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.22
  * 내용 : 백준 10단계 5번 문제
  * 
+ * 체스판 다시 칠하기
  */
 
 namespace BaekJoon._10

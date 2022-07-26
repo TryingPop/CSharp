@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.18
  * 내용 : 백준 4단계 6번 문제
  * 
+ * OX퀴즈
  */
 
 namespace BaekJoon._04

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.19
  * 내용 : 백준 6단계 7번 문제
  * 
+ * 상수
  */
 
 namespace BaekJoon._06

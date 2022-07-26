@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.19
  * 내용 : 백준 7단계 4번 문제
  * 
+ * 달팽이는 올라가고 싶다
  */
 
 namespace BaekJoon._07

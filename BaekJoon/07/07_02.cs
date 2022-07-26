@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.19
  * 내용 : 백준 7단계 2번 문제
  * 
+ * 벌집
  */
 
 namespace BaekJoon._07
@@ -15,13 +16,15 @@ namespace BaekJoon._07
     {
         static void Main2(string[] args)
         {
-            int num = int.Parse(Console.ReadLine());
-            int result = 0;
-            
-            while ((3*result*(result-1)) + 2 <= num)
+            int input = int.Parse(Console.ReadLine());
+
+            int result = 1;
+
+            while (input >= ((3 * result) * (result - 1)) + 2 && input != 1)
             {
                 result++;
             }
+
             Console.WriteLine(result);
         }
     }

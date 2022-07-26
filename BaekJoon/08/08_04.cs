@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.21
  * 내용 : 백준 8단계 4번 문제
  * 
+ * 소수 구하기
  */
 
 namespace BaekJoon._08
@@ -19,11 +20,11 @@ namespace BaekJoon._08
 
             int min = int.Parse(inputs[0]);
             int max = int.Parse(inputs[1]);
-            
+
             StringBuilder sb = new StringBuilder();
 
             bool chk = true;
-            
+
             if (min == 1)
             {
                 min = 2;
@@ -46,7 +47,7 @@ namespace BaekJoon._08
                         break;
                     }
                 }
-                
+
                 if (chk)
                 {
                     sb.AppendLine(i.ToString());

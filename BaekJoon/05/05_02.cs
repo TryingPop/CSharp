@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.18
  * 내용 : 백준 5단계 2번 문제
  * 
+ * 셀프 넘버
  */
 
 namespace BaekJoon._05

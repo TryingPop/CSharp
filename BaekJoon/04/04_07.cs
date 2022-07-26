@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.18
  * 내용 : 백준 4단계 1번 문제
  * 
+ * 평균은 넘겠지
  */
 
 namespace BaekJoon._03

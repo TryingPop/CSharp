@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.19
  * 내용 : 백준 6단계 6번 문제
  * 
+ * 단어의 개수
  */
 
 namespace BaekJoon._06

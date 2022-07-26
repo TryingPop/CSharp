@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.21
  * 내용 : 백준 9단계 4번 문제
  * 
+ * 별 찍기 - 10
  */
 
 namespace BaekJoon._09

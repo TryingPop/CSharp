@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.20
  * 내용 : 백준 7단계 7번 문제
  * 
+ * 설탕 배달
  */
 
 namespace BaekJoon._07

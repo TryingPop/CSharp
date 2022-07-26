@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.19
  * 내용 : 백준 6단계 10번 문제
  * 
+ * 그룹 단어 체커
  */
 
 namespace BaekJoon._06
@@ -45,7 +46,7 @@ namespace BaekJoon._06
                     {
                         chkarr[idx] = 0;
                     }
-                }                
+                }
             }
             Console.WriteLine(result);
         }

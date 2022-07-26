@@ -35,7 +35,7 @@ namespace Ch09
     {
         // 고급 문법 
         // 컬렉션에서 활용
-        static void Main(string[] args)
+        static void Main3(string[] args)
         {
             // 컬렉션 생성
             List<int> myList = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
@@ -74,6 +74,8 @@ namespace Ch09
             Console.WriteLine("rsList3 : " + String.Join(", ", rsList3));
 
             // 데이터가 5이상 큰 순서대로 추출
+            // 타입 : IOrderedEnumerable<int>
+            // List의 메서드 사용 불가능
             var rsList4 = from n in myList
                           where n >= 5
                           orderby n descending

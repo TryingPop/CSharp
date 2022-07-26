@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.19
  * 내용 : 백준 7단계 1번 문제
  * 
+ * 손익분기점
  */
 
 namespace BaekJoon._07

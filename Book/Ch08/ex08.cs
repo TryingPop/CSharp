@@ -23,6 +23,8 @@ namespace Book.Ch08
         static void Main8(string[] args)
         {
             Point point;
+            // x를 선언하기 전에 x속성을 불러올 수 없다.
+            // Console.WriteLine(point.x);
             point.x = 10;
             point.y = 10;
 

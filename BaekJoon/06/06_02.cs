@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.19
  * 내용 : 백준 6단계 2번 문제
  * 
+ * 숫자의 합
  */
 
 namespace BaekJoon._06
@@ -18,7 +19,7 @@ namespace BaekJoon._06
             int result = 0;
             int length = int.Parse(Console.ReadLine());
 
-            for (int i=0; i < length; i++)
+            for (int i = 0; i < length; i++)
             {
                 int input = Console.Read() - 48;
                 result += input;

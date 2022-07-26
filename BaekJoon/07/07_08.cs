@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.20
  * 내용 : 백준 7단계 8번 문제
  * 
+ * 큰 수 A+B
  */
 
 namespace BaekJoon._07

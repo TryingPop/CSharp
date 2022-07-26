@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.22
  * 내용 : 백준 10단계 1번 문제
  * 
+ * 블랙잭
  */
 
 namespace BaekJoon._10

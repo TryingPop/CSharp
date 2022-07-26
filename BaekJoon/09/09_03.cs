@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 /* 날짜 : 22.07.21
  * 내용 : 백준 9단계 3번 문제
  * 
+ * 재귀함수가 뭔가요?
  */
 
 namespace BaekJoon._09

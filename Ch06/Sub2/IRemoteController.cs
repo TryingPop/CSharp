@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ch06.Sub2
 {
+    // 인터페이스를 상속 받을 때 인터페이스 안의 속성과 메서드를 모두 정의해줘야한다.
     // 인터페이스 : 오직 추상메서드만 갖는 구조체
     // 인터페이스 만들 때 대문자 I로 시작
     internal interface IRemoteController

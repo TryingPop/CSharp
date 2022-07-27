@@ -52,6 +52,9 @@ namespace Ch08
             // 참조변수는 null로 초기화 해줘야한다
 
             FileStream fs = null;
+
+            // 바이너리 파일은
+            // BinaryReader 클래스 이용하면 된다.
             StreamReader sr = null;
             try
             {
@@ -91,6 +94,9 @@ namespace Ch08
             try
             {
                 fs2 = new FileStream(path2, FileMode.OpenOrCreate, FileAccess.Write);
+                // StreamWriter 
+                // args에 append : true 라고 입력하면
+                // 이어붙이기 가능
                 sw = new StreamWriter(fs2);
 
                 sw.WriteLine("Welcom World!");

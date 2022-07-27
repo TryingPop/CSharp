@@ -16,8 +16,8 @@ namespace Book.Ch09
     {
         // 메서드 내부 구현 불가능
         // 마찬가지로 속성 내부 구현 불가능
-        int TestInstanceMethod();
-        int TestProperty { get; set; }
+        abstract int TestInstanceMethod();
+        abstract int TestProperty { get; set; }
     }
 
     internal class ex10

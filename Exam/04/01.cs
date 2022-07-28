@@ -32,7 +32,7 @@ namespace Exam._04
             
 
         }
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
             Point3D p1;
             p1.x = 10;

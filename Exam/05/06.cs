@@ -35,7 +35,7 @@ namespace Exam._05
         {
             string path = @"C:\Users\502\Desktop\Orange.dat";
 
-            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write))
+            using (FileStream fs = new FileStream(path, FileMode.Create))
             {
                 BinaryFormatter serializer = new BinaryFormatter();
 

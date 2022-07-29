@@ -38,7 +38,7 @@ namespace Exam._05
                 }
                 catch (FormatException e)
                 {
-                    throw new Exception("숫자가 아닙니다. 숫자를 입력하세요.");
+                    Console.WriteLine("숫자가 아닙니다. 숫자를 입력하세요.");
                     continue;
                 }
                 catch (Exception e)

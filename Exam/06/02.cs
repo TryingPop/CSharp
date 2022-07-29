@@ -29,8 +29,9 @@ namespace Exam._06
                     sw.WriteLine($"{x}단");
                     for (int y = 1; y <= 9; y++)
                     {
-                        Console.WriteLine($"{x} X {y} = {x*y:00}");
+                        sw.WriteLine($"{x} X {y} = {x*y:00}");
                     }
+                    sw.WriteLine();
                 }
             }
             catch (Exception e)

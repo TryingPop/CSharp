@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace Exam._05
 {
+    // 파일로 생성되는 것을 알려주는 구문 + 직렬화에 영향
+    // Attribute
     [Serializable]
     class Orange
     {

@@ -52,8 +52,9 @@ namespace Private
             DateTime start = DateTime.Now;
             // task는 ThreadPool에서 논다?
             // ThreadPool의 갯수 제한 0 ~ 2개
-            ThreadPool.SetMinThreads(0, 0);
-            ThreadPool.SetMaxThreads(2, 0);
+            // Task에는 영향을 안미친다
+            // ThreadPool.SetMinThreads(0, 0);
+            // ThreadPool.SetMaxThreads(5, 0);
 
             var list = new List<Task<int>>();
 
@@ -87,15 +88,10 @@ namespace Private
             Console.WriteLine("Sum = " +list.Sum(x=> x.Result));
             DateTime end = DateTime.Now;
             Console.WriteLine($"{(end - start).TotalSeconds}초 걸렸습니다");
+            // Thread 5 개가 작업을 실행
+            // ThreadPool에서 Thread 갯수 제한 건 코드가 영향을 안준다
             Console.WriteLine("비교 1번 끝");
             Console.ReadLine();
-
-            // Thread가 5개 돌아간다
-            // task는 ThreadPool 쓰레드랑 독립?
-
-
-
-
 
 
 

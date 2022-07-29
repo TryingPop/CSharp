@@ -28,6 +28,7 @@ namespace Exam._06
 
         class DataManager
         {
+            // const 때문에 static이 초기값 선언 되어서 클래스 변수가 된다.
             private const string SERVER = "127.0.0.1";
             private const string PORT = "3306";
             private const string USERNAME = "root";
@@ -168,6 +169,7 @@ namespace Exam._06
 
                 return users;
             }
+
             public int DeleteUser()
             {
                 Console.Write("이름 삭제 : ");
@@ -197,7 +199,7 @@ namespace Exam._06
                 return count;
             }
         }
-        static void Main10(string[] args)
+        static void Main(string[] args)
         {
             Console.WriteLine("***************************");
             Console.WriteLine("데이터 매니저 프로그램 v2.0");

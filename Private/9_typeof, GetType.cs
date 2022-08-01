@@ -30,6 +30,7 @@ namespace Private
             Console.WriteLine(dog.GetType() == typeof(Dog));
             
             // false
+            // 함수의 인자가 Animal이라도 dog는 Dog의 인스턴스라 다르다
             Console.WriteLine(dog.GetType() == typeof(Animal));
         }
 

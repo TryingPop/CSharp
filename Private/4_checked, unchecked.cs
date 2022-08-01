@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/* 날짜 : 22.07.29
+ * 내용 : checked - overflow 감지
+ */
+
 namespace Private
 {
     internal class _4_checked__unchecked
     {
-        static void Main(string[] args)
+        static void Main4(string[] args)
         {
             int ten = 10;
             // int overflow = 2147483648; // unit 속성을 int로 변환할 수 없다고 에러를 감지한다
@@ -40,4 +44,5 @@ namespace Private
 }
 
 
-// https://moonpmj.tistory.com/72 발췌 
+// 참고 사이트
+// https://moonpmj.tistory.com/72

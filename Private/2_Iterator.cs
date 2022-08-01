@@ -74,7 +74,9 @@ namespace Private
     }
 }
 
-// https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=netscout82&logNo=20120602703 발췌
+
+// 참고 사이트
+// https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=netscout82&logNo=20120602703 
 // https://m.blog.naver.com/netscout82/20120661670
 
 

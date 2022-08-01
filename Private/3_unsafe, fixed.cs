@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/* 날짜 : 22.07.29
+ * 내용 : Unsafe - fixed, pointer
+ */
 
 namespace Private
 {

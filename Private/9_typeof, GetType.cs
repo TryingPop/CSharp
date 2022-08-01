@@ -12,7 +12,7 @@ namespace Private
 {
     internal class _9_typeof__GetType
     {
-        static void Main(string[] args)
+        static void Main9(string[] args)
         {
             // 클래스 자체의 타입을 가져온다
             Type type = typeof(int);

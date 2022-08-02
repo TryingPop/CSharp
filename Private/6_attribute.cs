@@ -89,7 +89,7 @@ namespace Private
         public static extern int MessageBox(int hParent, string Message, string Caption, int Type);
 
         // 비트 연산자
-        // 메서드, 프로퍼티, 클래스에 사용가능, 복수 사용 가능
+        // 메서드, 프로퍼티, 클래스에 사용가능, 어트리뷰트 복수 사용 가능
         [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = true)]
         public class AuthorAttribute : Attribute 
         {
@@ -126,7 +126,7 @@ namespace Private
             }
         }
 
-        [AttributeUsage(AttributeTargets.Method)]
+        [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
         class ExampleAttribute : Attribute
         {
             public string Name { get; set; }
@@ -166,6 +166,7 @@ namespace Private
 
 // 생성자는 필수가 아니나 생성자를 작성하면 매개변수는 필수
 
+// 주석은 사라지는 반면 컴파일러는 남아있는다
 // 컴파일러한테 알려주는 역할
 // 웹프로그래밍 문법
 // python의 decorate와 차이점 참고하기!

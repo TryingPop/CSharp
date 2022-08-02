@@ -8,7 +8,6 @@ namespace Project1
         public MiniProject1()
         {
             InitializeComponent();
-            
         }
 
         private void btnNum_Click(object sender, EventArgs e)

@@ -35,7 +35,21 @@ namespace Private
             }
         }
 
-        static void Main7(string[] args)
+        class Dog : Animal, IDisposable
+        {
+            public string species;
+            public Dog(int age, string name, string species) : base(age, name)
+            {
+                this.species = species;
+            }
+
+            public void Dispose()
+            {
+                Console.WriteLine("Dispose...");
+            }
+        }
+
+        static void Main(string[] args)
         {
             // using System.Reflection;
             // 명령어가 필요하다
@@ -74,9 +88,28 @@ namespace Private
             Console.WriteLine();
 
             // 이외에도 event, interface etc... 이 있다
+
+            Console.WriteLine();
+            Type type2 = typeof(Dog);
+            // 특정 인터페이스가 있는지 확인하는 방법
+            Type a = type2.GetInterface("IDisposable");
+            Type b = type2.GetInterface("IComparable");
+            Console.Write("Dog에 IDisposable 인터페이스가 있습니까? : ");
+            Console.WriteLine(a is not null);
+
+            Console.Write("Dog에 IComparable 인터페이스가 있습니까? : ");
+            Console.WriteLine(b is not null);
+
+            Type type3 = typeof(IDisposable);
+            Type[] c = type3.GetNestedTypes();
+
+            
         }
     }
 }
 
 // 참고 사이트
 // https://blog.hexabrain.net/152
+// https://zzangwoo.tistory.com/entry/%EB%B3%B5%EC%8A%B5-Reflection-C-%EB%A6%AC%ED%94%8C%EB%A0%89%EC%85%98
+// https://nowonbun.tistory.com/488
+// https://rito15.github.io/posts/memo-cs-reflection/

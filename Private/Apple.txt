@@ -1,0 +1,5 @@
+Void Show()
+System.Type GetType()
+System.String ToString()
+Boolean Equals(System.Object)
+Int32 GetHashCode()

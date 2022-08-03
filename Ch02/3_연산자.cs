@@ -123,3 +123,21 @@ namespace Ch02
         }
     }
 }
+
+// 증감 연산자 주의할 점
+
+// Console.WriteLine(num++);
+// 와
+// Console.WriteLine(num);
+// num += 1;
+// 같다.
+
+// 반면
+// ++num;
+// 와
+// num += 1;
+// Console.WriteLine(num);
+// 같다
+
+// 대입 연산자에서 주의하기!
+// Console.WriteLine(num)을 result = num으로 바꿔서도 생각해보기!

@@ -13,7 +13,7 @@ namespace Ch02
 {
     internal class _6_문자열
     {
-        static void Main(string[] args)
+        static void Main6(string[] args)
         {
             string greeting = "Good Morning";
             Console.WriteLine(greeting);

@@ -126,14 +126,19 @@ namespace Ch08
                 // using은 python with 구문과 같다 즉, 끝나면 자동으로 close
                 // 앞에서 file1의 경로 파일이 닫히지 않으면 이미 연결되어져 있다고 새로 열 수 없다
                 // Write 덮어쓰기
-                using StreamReader reader = new StreamReader(new FileStream(file1, FileMode.Open));
-                using StreamWriter writer = new StreamWriter(new FileStream(file2, FileMode.Open));
-
-                string txt;
-                while((txt = reader.ReadLine()) != null)
+                using (StreamReader reader = new StreamReader(new FileStream(file1, FileMode.Open)))
                 {
-                    writer.WriteLine(txt);
+                    using (StreamWriter writer = new StreamWriter(new FileStream(file2, FileMode.Open)))
+                    {
+                        string txt;
+                        while ((txt = reader.ReadLine()) != null)
+                        {
+                            writer.WriteLine(txt);
+                        }
+                    }
                 }
+                
+
             }
             catch (Exception e)
             {

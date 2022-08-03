@@ -16,7 +16,7 @@ namespace Ch01
     {
         // svm 입력 후 Tap 2번 누름
         // 메소드
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
             // 기본 출력
             Console.WriteLine("Hello World!");

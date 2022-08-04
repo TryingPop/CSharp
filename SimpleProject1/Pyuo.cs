@@ -11,90 +11,96 @@ namespace SimpleProject1
         // 맵 사이즈 X, Y
         public const byte mapSizeX = 8;
         public const byte mapSizeY = 15;
-
+        public static byte count = 0;
 
         // 뿌요 제거 판별할 판
         // 판에 놓여 있는 돌
         // 0 : 없음, 1 : 빨강, 2 : 노랑, 3 : 초록, 4 : 파랑, 5 : 보라
         public static byte[,] map = new byte[mapSizeX, mapSizeY];
-        public static byte[,] chkmap = map.Clone() as byte[,];
-        public static byte[,] bchkmap = map.Clone() as byte[,]; 
+        // 계산 확인용 판
+        public static byte[,] bmap = map.Clone() as byte[,];
+        // 연결된 갯수 표기 판
+        public static byte[,] cmap = map.Clone() as byte[,];
+        
 
-
-        public int chkPyuo()
+        // 4개 이상이 뭉친게 있는지 확인! << 잘못되었다.
+        public static void chkPyuo(int posX, int posY)
         {
-            int score = 1;
-            int result = 0;
-            while (chkmap != map)
+            Pyuo.count = 1;
+            if (map[posX, posY] == 0)
             {
-                for (int posX = 0; posX < mapSizeX; posX++)
-                {
-                    for (int posY = mapSizeY - 1; posY >= 0; posY--)
-                    {
-                        if (map[posX, posY] != chkmap[posX, posY])
-                        {
-                            int range = 0;
-                            int count = 0;
 
-                            while (ChkConnected(posX, posY, range, ref count))
-                            {
-                                range++;
-                            }
-
-                            if (count >= 4)
-                            {
-                                OrderPyuo(bchkmap);
-                                // bchkmap에 블록 내리는거 먼저 실행
-                                map = chkmap.Clone() as byte[,];
-                                chkmap = bchkmap.Clone() as byte[,];
-                                score++;
-                                result += score * count;
-                            }
-                            else
-                            {
-                                bchkmap = chkmap.Clone() as byte[,];
-                            }
-                        }
-                    }
-                }
-                if (bchkmap == chkmap)
-                {
-                    map = chkmap.Clone() as byte[,];
-                }
+                return;
             }
-            return result;
-        }
+            byte range = 1;
+            bool chk = true;
 
-        // 맵 인덱스 범위 넘어가는지 체크
-        public static bool SafeIdx(int posX, int posY)
-        {
-            if (posX < 0 || posX >= mapSizeX || posY < 0 || posY >= mapSizeY)
+            while (chk)
             {
-                return false;
+                chk = ChkConnected(posX, posY, range, ref count);
+                range++;
             }
-            else 
-            { 
-                return true; 
+
+            if (count >= 4)
+            {
+                cmap[posX, posY] = 0;
+                map = cmap.Clone() as byte[,];
+                Pyuo.count = 1;
             }
             
         }
 
-        // ChkConnected의 보조 함수
-        public static void ResPos(int posX, int posY, int range,int dNum, out int resX, out int resY)
+        // 특정 좌표에서 시작하여 뭉친 갯수 찾는 메서드 << 잘못되었다.
+        public static bool ChkConnected(int posX, int posY, byte range, ref byte count)
         {
-            switch (dNum)
+            bool result = false;
+            int resX = posX - range;
+            int resY = posY;
+
+            for (byte dir = 0; dir < 4; dir++)
+            {
+                for (byte n = 0; n < range; n++)
+                {
+                    GetPos(resX, resY, dir, out resX, out resY);
+
+                    if (!SafeIdx(resX, resY))
+                    {
+                        continue;
+                    }
+
+                    if (map[posX, posY] == map[resX, resY])
+                    {
+                        count++;
+                        cmap[resX, resY] = 0;
+                        result = true;
+                    }
+                }
+            }
+
+
+            return result;
+        }
+
+        // 뭉친 갯수 찾는 보조함수 << 잘못 되었다.
+        public static void GetPos(int posX, int posY, byte dir, out int resX, out int resY)
+        {
+            switch (dir)
             {
                 case 0:
-                    posX += range;
+                    posX += 1;
+                    posY += 1;
                     break;
                 case 1:
-                    posX -= range;
+                    posX += 1;
+                    posY -= 1;
                     break;
                 case 2:
-                    posY += range;
+                    posX -= 1;
+                    posY -= 1;
                     break;
                 case 3:
-                    posY -= range;
+                    posX -= 1;
+                    posY += 1;
                     break;
                 default:
                     break;
@@ -104,32 +110,22 @@ namespace SimpleProject1
             return;
         }
 
-        // 특정 좌표에서 시작하여 연결된 뿌요 갯수 찾는 함수
-        public static bool ChkConnected(int posX, int posY, int range, ref int count)
-        {
-            bool result = false;
-            for (int dNum = 0; dNum < 4; dNum++)
-            {
-                int resX;
-                int resY;
-                ResPos(posX, posY, range, dNum, out resX, out resY);
-                
-                if (SafeIdx(resX, resY) || chkmap[posX, posY] == 0)
-                {
-                    continue;
-                }
 
-                if (chkmap[posX, posY] == chkmap[resX, resY])
-                {
-                    count++;
-                    bchkmap[resX, resY] = 0;
-                    result = true;
-                }
+        // 맵 인덱스 범위 넘어가는지 체크
+        public static bool SafeIdx(int posX, int posY)
+        {
+            if (posX < 0 || posX >= mapSizeX || posY < 0 || posY >= mapSizeY)
+            {
+                return false;
             }
-            return result;
+            else
+            {
+                return true;
+            }
+
         }
 
-        // 뿌요 아래로 내리기
+        // 돌 아래로 내리기
         public static void OrderPyuo(byte[,] map)
         {
             for (int posX = 0; posX < mapSizeX; posX++)
@@ -151,6 +147,20 @@ namespace SimpleProject1
             }
         }
 
-
+        // map이 같은지 확인
+        public static bool ChkMaps()
+        {
+            for (int posX = 0; posX < mapSizeX; posX++)
+            {
+                for (int posY = 0; posY < mapSizeY; posY++)
+                {
+                    if (bmap[posX, posY] != map[posX, posY])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
     }
 }

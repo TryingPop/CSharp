@@ -15,6 +15,7 @@ namespace SimpleProject1
         private const int frame = 10;
         private const int optframe = 50;
 
+        bool isWorking = false;
         int score = 0;
         Random rand = new Random();
 
@@ -34,9 +35,14 @@ namespace SimpleProject1
 
             this.BackColor = Color.Gray;
 
-            Pyuo.map[0, 0] = 2;
-            Pyuo.map[2, 0] = 3;
-
+            Pyuo.map[0, 14] = 1;
+            Pyuo.map[1, 14] = 1;
+            Pyuo.map[2, 14] = 1;
+            Pyuo.map[1, 13] = 2;
+            Pyuo.map[2, 13] = 2;
+            Pyuo.map[3, 14] = 2;
+            Pyuo.map[1, 12] = 1;
+            Pyuo.map[3, 8] = 2;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -113,9 +119,27 @@ namespace SimpleProject1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            // 뿌요 내리는거
             Pyuo.OrderPyuo(Pyuo.map);
-            DrawPyuo();
+
+            // 이전 맵과 같은가?
+            if (Pyuo.ChkMaps())
+            {
+                Pyuo.cmap = Pyuo.map.Clone() as byte[,];
+
+                for (int i = 0; i < Pyuo.mapSizeX; i++)
+                {
+                    for (int j = 0; j < Pyuo.mapSizeY; j++)
+                    {
+                        Pyuo.chkPyuo(i, j);
+                    }
+                }
+            }
+
+            Pyuo.bmap = Pyuo.map.Clone() as byte[,];
             this.Invalidate();
+            
         }
+
     }
 }

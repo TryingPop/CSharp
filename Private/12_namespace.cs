@@ -45,7 +45,7 @@ namespace Private
             }
         }
 
-        static void Main(string[] args)
+        static void Main12(string[] args)
         {
             // 위에 using ForExample를 선언해서 A를 불러오면
             // 가까운 A를 가져온다

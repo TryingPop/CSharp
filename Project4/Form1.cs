@@ -1,14 +1,5 @@
 namespace Project4
 {
-    /*
-    class Rect : Rectangle
-    {
-        public Rect()
-        {
-        }
-    }*/
-
-
     public partial class Form1 : Form
     {
         Graphics g;

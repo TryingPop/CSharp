@@ -17,8 +17,10 @@ namespace Ch07
 {
     internal class _2_Queue
     {
-        static void Main2(string[] args)
+        static void Main1(string[] args)
         {
+            // 리스트보다 성능이 부족
+            // 리스트보다 단순한 자료형 구조
             Queue<string> que = new Queue<string>();
 
             que.Enqueue("김유신");
@@ -29,8 +31,11 @@ namespace Ch07
 
             while (que.Count > 0)
             {
+                // 큐 원소 제거
                 Console.WriteLine(que.Dequeue());
             }
+
+            Console.WriteLine(que.Count);
         }
     }
 }

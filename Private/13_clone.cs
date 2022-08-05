@@ -8,7 +8,7 @@ namespace Private
 {
     internal class _13_clone
     {
-        static void Main(string[] args)
+        static void Main13(string[] args)
         {
             byte[] arr1 = { 1, 2, 3 };
             // 얕은 복사 : 주소값 복사
@@ -20,7 +20,6 @@ namespace Private
 
             arr1[0] = (byte)4;
             Console.WriteLine(copy[0]); 
-
         }
     }
 }

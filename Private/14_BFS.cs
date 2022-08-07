@@ -13,7 +13,7 @@ namespace Private
 {
     internal class _14_BFS
     {
-        static void Main(string[] args)
+        static void Main14(string[] args)
         {
             MapController mapController = new MapController();
 

@@ -16,13 +16,13 @@ namespace SimpleProject1
         private const int dolsize = 30;
         private const int frame = 10;
         private const int optframe = 50;
-        bool drawturn = false;
-        bool keyinput = false;
         bool userTurn = false;
         int score = 0;
         byte speed = 1;
         bool spacebar = true;
         Random rand = new Random();
+        // private Rectangle imgrect = new Rectangle();
+
 
         public Form1()
         {
@@ -37,22 +37,8 @@ namespace SimpleProject1
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
 
             g = this.CreateGraphics();
-
-            this.BackColor = Color.Gray;
             
-            bmap[0, 15] = -1;
-            map[0, 15] = 1;
-            map[1, 15] = 1;
-            map[2, 15] = 1;
-            map[1, 14] = 2;
-            map[2, 14] = 2;
-            map[3, 15] = 2;
-            map[1, 13] = 1;
-            map[3, 9] = 2;
-            map[0, 14] = 3;
-            map[0, 13] = 3;
-            map[1, 12] = 3;
-            map[2, 13] = 3;
+            this.BackColor = Color.Gray;
 
         }
 
@@ -64,9 +50,9 @@ namespace SimpleProject1
             {
                 this.DrawDols();
             }
-            spacebar = true;
         }
 
+        // 판 그리기
         public void DrawLine()
         {
             for (int x = 0; x <= mapSizeX; x++)
@@ -85,6 +71,8 @@ namespace SimpleProject1
             }
         }
 
+        // 색상에 맞는 돌 배치
+        // color, 좌표
         public void FillDol(int num, int X, int Y)
         {
             if (num != 0)
@@ -119,12 +107,23 @@ namespace SimpleProject1
             }
         }
 
+        // 맵의 인덱스를 좌표로 바꿔주는 메서드
+        public void SetPos(int x, int y, out int X, out int Y)
+        {
+            X = x * dolsize + frame;
+            Y = (y - 1) * dolsize + frame + optframe; 
+        }
+
+        // 돌 그리기
         public void DrawDols()
         {
+            int X;
+            int Y;
             for (int i = 0; i < 2; i++)
             {
-                int X = (Dols[i].x * dolsize + frame);
-                int Y = ((Dols[i].y - 1) * dolsize + frame + optframe );
+                // X = (Dols[i].x * dolsize + frame);
+                // Y = ((Dols[i].y - 1) * dolsize + frame + optframe );
+                SetPos(Dols[i].x, Dols[i].y, out X, out Y);
                 if (Dols[i].y >=1)
                 {
                     FillDol(Dols[i].color, X, Y);
@@ -132,15 +131,16 @@ namespace SimpleProject1
             }
         }
 
+        // 맵의 돌 배치
         public void DrawMap()
         {
             for (int posX = 0; posX < mapSizeX; posX++)
             {
                 for (int posY = mapSizeY; posY > 0; posY--)
                 {
-                    int X = (posX * dolsize + frame);
-                    int Y = ((posY - 1) * dolsize + frame + optframe);
-
+                    int X;
+                    int Y;
+                    SetPos(posX, posY, out X, out Y);
                     FillDol(map[posX, posY], X, Y);
                 }
             }
@@ -150,47 +150,67 @@ namespace SimpleProject1
         {
             if (userTurn)
             {
-                drawturn = turnChk(speed);
-                if (drawturn)
-                {
-                    Dols[0].y += 1;
-                    Dols[1].y += 1;
-                }
+                Dols[0].y += 1;
+                Dols[1].y += 1;
                 userTurn = AddDols();
+                
+                // 특정부분만 화면 교체
+                // int X;
+                // int Y;
+                // SetPos(Dols[0].x - 1, Dols[0].y - 2, out X, out Y);
+                // imgrect = new Rectangle(X, Y, 3 * dolsize, 3 * dolsize);
+                // this.Invalidate(imgrect);
             }
             else
             {
-                drawturn = turnChk(5);
-
-                // 돌 내리는거
-                if (drawturn)
+                // 돌 정렬 및 돌이 다 내려왔는지 판별
+                // 이후 돌이 다 내려온 경우 4개 이상 모인돌 판별
+                // 게임 오버 판별
+                // 게임 오버가 아닐 시 유저턴시작
+                if (OrderDol())
                 {
-                    OrderDol();
-
-                    // 이전 맵과 같은가?
-                    if (ChkMaps())
+                    for (int i = 0; i < mapSizeX; i++)
                     {
-                        for (int i = 0; i < mapSizeX; i++)
+                        for (int j = 0; j < mapSizeY; j++)
                         {
-                            for (int j = 0; j < mapSizeY; j++)
-                            {
-                                ChkLink(i, j);
-                            }
-                        }
-
-                        
-                        if (ChkMaps())
-                        {
-                            GenerateDols();
-                            userTurn = true;
+                            ChkLink(i, j);
                         }
                     }
+
+
+                    if (ChkMaps())
+                    {
+                        if (Dols != null)
+                        {
+                            if (GameOver())
+                            {
+                                timer1.Stop();
+                                var result = MessageBox.Show("게임 오버", "Game Over", MessageBoxButtons.YesNo);
+                                
+                                if (result == DialogResult.Yes)
+                                {
+                                    map = new int[mapSizeX, mapSizeY + 1];
+                                    timer1.Start();
+                                }
+                            }
+                        }
+                        GenerateDols();
+                        userTurn = true;
+                    }
                 }
+                
             }
-            if (drawturn || keyinput)
+            this.Invalidate();
+        }
+
+        // 화면 깜짝임 장지 코드
+        protected override CreateParams CreateParams
+        {
+            get
             {
-                this.Invalidate();
-                keyinput = false;
+                var cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
             }
         }
 
@@ -204,35 +224,35 @@ namespace SimpleProject1
                     num1 = Dols[0].x - 1;
                     num2 = Dols[1].x - 1;
 
-                    if (SafeIdx(num1, 0) && SafeIdx(num2, 0))
+                    if (!ChkCollision(num1, Dols[0].y) && !(ChkCollision(num2, Dols[1].y)))
                     {
                         Dols[0].x = num1;
                         Dols[1].x = num2;
-                        keyinput = true;
                     }
                 }
                 if (e.KeyCode == Keys.Right)
                 {
                     num1 = Dols[0].x + 1;
                     num2 = Dols[1].x + 1;
-                    if (SafeIdx(num1, 0) && SafeIdx(num2, 0))
+                    if (!ChkCollision(num1, Dols[0].y) && !(ChkCollision(num2, Dols[1].y)))
                     {
                         Dols[0].x = num1;
                         Dols[1].x = num2;
-                        keyinput = true;
                     }
                 }
                 if (e.KeyCode == Keys.Down)
                 {
                     turnCount++;
                 }
+                
                 if (e.KeyCode == Keys.Space && spacebar)
                 {
                     RotationDols();
-                    keyinput = true;
-                    spacebar = false;
                 }
             }
         }
     }
 }
+
+// 참고 사이트
+// https://easy-coding.tistory.com/70

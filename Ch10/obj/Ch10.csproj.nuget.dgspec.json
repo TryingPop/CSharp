@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\502\\Desktop\\CSStudy\\Ch10\\Ch10.csproj": {}
+    "C:\\Users\\user\\Desktop\\CSStudy\\CSStudy\\Ch10\\Ch10.csproj": {}
   },
   "projects": {
-    "C:\\Users\\502\\Desktop\\CSStudy\\Ch10\\Ch10.csproj": {
+    "C:\\Users\\user\\Desktop\\CSStudy\\CSStudy\\Ch10\\Ch10.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\502\\Desktop\\CSStudy\\Ch10\\Ch10.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\CSStudy\\CSStudy\\Ch10\\Ch10.csproj",
         "projectName": "Ch10",
-        "projectPath": "C:\\Users\\502\\Desktop\\CSStudy\\Ch10\\Ch10.csproj",
-        "packagesPath": "C:\\Users\\502\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\502\\Desktop\\CSStudy\\Ch10\\obj\\",
+        "projectPath": "C:\\Users\\user\\Desktop\\CSStudy\\CSStudy\\Ch10\\Ch10.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\CSStudy\\CSStudy\\Ch10\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\502\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -60,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

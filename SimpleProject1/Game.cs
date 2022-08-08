@@ -39,7 +39,7 @@ namespace SimpleProject1
         private const byte turnNumber = 10;
         public static byte turnCount = 0;
 
-        // 판에 놓여 있는 돌의 색상 갯수
+        // 판에 놓여 있는 돌의 색상
         // public static string[] colors = { "없음", "빨강", "노랑", "초록", "파랑", "보라" };
         public static string[] colors = { "없음", "빨강", "노랑", "초록" };
         // 0 : 없음, 1 : 빨강, 2 : 노랑, 3 : 초록, 4 : 파랑, 5 : 보라
@@ -227,10 +227,10 @@ namespace SimpleProject1
             }
         }
 
-        // 게임 오버 ( 현재 미구현 )
+        // 게임 오버
         public static bool GameOver()
         {
-            if (map[( mapSizeX / 2 ), 0] != 0)
+            if (map[( mapSizeX / 2 ), 1] != 0)
             {
                 return true;
             }

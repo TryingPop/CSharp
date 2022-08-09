@@ -1,15 +1,21 @@
-﻿namespace Private
+﻿/* 날짜 : 22.08.09
+ * 내용 : 길찾기 알고리즘 - JPS(?) 반정도 적용
+ */
+
+namespace Privates
 {
     internal class _17_길찾기
     {
         public static int[,] map = new int[,]
         {
-            { 0, 0, 0, 1, 1, 0 },
-            { 0, 1, 0, 1, 1, 1 },
-            { 0, 1, 0, 0, 0, 0 },
-            { 0, 1, 0, 1, 0, 1 },
-            { 0, 0, 0, 1, 0, 1 },
-            { 0, 1, 0, 1, 0, 0 },
+            { 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0 },
+            { 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0 },
+            { 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0 },
+            { 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0 },
+            { 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0 },
+            { 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0 },
+            { 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0 }
         };
 
         public static int[,] direction = new int[,]
@@ -67,6 +73,7 @@
         // BFS로
         public static void Algorithm_1(int x, int y, int targetX, int targetY)
         {
+            DateTime start = DateTime.Now;
             Queue<Node> nodes = new Queue<Node>();
             Node startNode = new Node(x, y, null);
             nodes.Enqueue(startNode);
@@ -98,7 +105,8 @@
                     }
                 }
             }
-
+            DateTime end = DateTime.Now;
+            Console.WriteLine($"{(end - start).TotalSeconds:F5}");
             if (bestNode != null)
             {
                 while (bestNode.PrevCount > 0)
@@ -114,9 +122,9 @@
             return;
         }
 
-        // jps? 
         public static void Algorithm_2(int x, int y, int targetx, int targety)
         {
+            DateTime start = DateTime.Now;
             Queue<Node> nodes = new Queue<Node> ();
             Node startNode = new Node(x, y, null);
             nodes.Enqueue(startNode);
@@ -137,61 +145,93 @@
                 
                 for (int i = 0; i < direction.GetLength(0); i++)
                 {
-                    int j = 1;
-                    // 인덱스 구문 오류 뜬다 추후에 다시 완료하기
-                    while (map[node.x + direction[i, 0] * j, node.y + direction[i, 1] * j] == 0)
+                    int j = 0;
+                    while (true)
                     {
                         int dx = node.x + direction[i, 0] * j;
                         int dy = node.y + direction[i, 1] * j;
 
-                        if (direction[i, 1] == 0)
+                        if (!ChkIdx(dx, dy))
                         {
-                            if (ChkIdx(dx - direction[i, 0], dy - 1) && ChkIdx(dx, dy - 1))
+                            break;
+                        }
+
+                        if (direction[i,0] != 0)
+                        {
+                            if (ChkIdx(dx, node.y + 1))
                             {
-                                if (map[dx - direction[i, 0], dy - 1] == 0 && map[dx, dy - 1] == 1 && !chkRoad[dx, dy - 1])
+                                if (map[dx, node.y + 1] == 0 && !chkRoad[dx, dy])
                                 {
-                                    Node addNode = new Node(dx, dy - 1, node);
+                                    Node addNode = new Node(dx, dy, node);
                                     nodes.Enqueue(addNode);
-                                    chkRoad[dx, dy - 1] = true;
+                                    chkRoad[dx, dy] = true;
                                 }
                             }
-                            if (ChkIdx(dx - direction[i, 0], dy + 1) && ChkIdx(dx, dy + 1))
+                            
+                            if (ChkIdx(dx, node.y - 1))
                             {
-                                if (map[dx - direction[i, 0], dy + 1] == 0 && map[dx, dy + 1] == 1 && !chkRoad[dx, dy + 1])
+                                if (map[dx, node.y - 1] == 0 && !chkRoad[dx, dy])
                                 {
-                                    Node addNode = new Node(dx, dy + 1, node);
+                                    Node addNode = new Node(dx, dy, node);
                                     nodes.Enqueue(addNode);
-                                    chkRoad[dx, dy + 1] = true;
+                                    chkRoad[dx, dy] = true;
                                 }
                             }
                         }
                         else
                         {
-                            if (ChkIdx(dx - 1, dy - direction[i, 1]) &&ChkIdx(dx - 1, dy))
+                            if (ChkIdx(node.x - 1, dy))
                             {
-                                if (map[dx - 1, dy - direction[i, 1]] == 0 && map[dx - 1, dy] == 1 && !chkRoad[dx -1, dy])
+                                if (map[node.x - 1, dy] == 0 && !chkRoad[dx, dy])
                                 {
-                                    Node addNode = new Node(dx - 1, dy, node);
+                                    Node addNode = new Node(dx, dy, node);
                                     nodes.Enqueue(addNode);
-                                    chkRoad[dx - 1, dy] = true;
+                                    chkRoad[dx, dy] = true;
                                 }
                             }
-                            if (ChkIdx(dx + 1, dy - direction[i, 1]) && ChkIdx(dx + 1, dy))
+
+                            if (ChkIdx(node.x + 1, dy))
                             {
-                                if (map[dx + 1, dy - direction[i, 1]] == 0 && map[dx + 1, dy] == 1 && !chkRoad[dx + 1, dy])
+                                if (map[node.x + 1, dy] == 0 && !chkRoad[dx, dy])
                                 {
-                                    Node addNode = new Node(dx + 1, dy, node);
+                                    Node addNode = new Node(dx, dy, node);
                                     nodes.Enqueue(addNode);
-                                    chkRoad[dx + 1, dy] = true;
+                                    chkRoad[dx, dy] = true;
                                 }
                             }
                         }
+                        
+                        if (ChkIdx(node.x + direction[i, 0] * (j + 1), node.y + direction[i, 1] * (j + 1)))
+                        {
+                            if (map[node.x + direction[i, 0] * (j + 1), node.y + direction[i, 1] * (j + 1)] != 0)
+                            {
+                                if (!chkRoad[dx, dy])
+                                {
+                                    Node addNode = new Node(dx, dy, node);
+                                    nodes.Enqueue(addNode);
+                                    chkRoad[dx, dy] = true;
+                                }
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (!chkRoad[dx, dy])
+                            {
+                                Node addNode = new Node(dx, dy, node);
+                                nodes.Enqueue(addNode);
+                                chkRoad[dx, dy] = true;
+                            }
+                            break;
+                        }
+
                         j++;
                     } 
                 }
                     
             }
-
+            DateTime end = DateTime.Now;
+            Console.WriteLine($"{(end - start).TotalSeconds:F5}");
             if (bestNode != null)
             {
                 while (bestNode.PrevCount > 0)
@@ -207,19 +247,24 @@
             return;
         }
 
-        static void Main(string[] args)
+        // Algorithm1과 Algorithm2 성능차이는 10배 이상 차이
+        static void Main17(string[] args)
         {
-            int targetx = 5;
-            int targety = 5;
+            int targetx = map.GetLength(0) - 1;
+            int targety = map.GetLength(1) - 1;
 
-            // DateTime start1 = DateTime.Now;
-
+            Console.WriteLine("Algorithm 1");
             ClearChkRoad();
-            Algorithm_1(0, 0, targetx, targety);
+            Algorithm_1(1, 2, targetx, targety); // 0.00338s 
+            
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
 
+            Console.WriteLine("Algorithm 2");
             ClearChkRoad();
 
-            // Algorithm_2(0, 0, targetx, targety);
+            Algorithm_2(1, 2, targetx, targety); // 0.00004s
         }
     }
 }

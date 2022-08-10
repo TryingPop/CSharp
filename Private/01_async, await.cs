@@ -50,11 +50,23 @@ namespace Private
         static void Main1(string[] args)
         {
             DateTime start = DateTime.Now;
-            // task는 ThreadPool에서 논다?
-            // ThreadPool의 갯수 제한 0 ~ 2개
-            // Task에는 영향을 안미친다
+            
+            // ThreadPool의 갯수 제한
+            // arg1 : 스레드 풀에 있는 최대 작업자 수
+            // arg2 : 스레드 풀에 있는 최대 비동기 I/O 스레드 수
             // ThreadPool.SetMinThreads(0, 0);
-            // ThreadPool.SetMaxThreads(5, 0);
+            ThreadPool.SetMaxThreads(2, 4);
+
+            // 2개씩 스레드가 동작하는 것을 볼 수 있다
+            // Task는 ThreadPool에 있는 스레드를 사용한다
+
+            // ThreadPool.SetMinThreads(0, 0);
+            // ThreadPool.SetMaxThreads(2, 0);
+            // int a; int b;
+            // ThreadPool.GetMaxThreads(out a, out b); // 32767, 10000 
+            // Console.WriteLine(a); // 32767 
+            // Console.WriteLine(b); // 1000
+            // SetMaxThreads가 정상적으로 작동하지 않는다
 
             var list = new List<Task<int>>();
 
@@ -88,8 +100,6 @@ namespace Private
             Console.WriteLine("Sum = " +list.Sum(x=> x.Result));
             DateTime end = DateTime.Now;
             Console.WriteLine($"{(end - start).TotalSeconds}초 걸렸습니다");
-            // Thread 5 개가 작업을 실행
-            // ThreadPool에서 Thread 갯수 제한 건 코드가 영향을 안준다
             Console.WriteLine("비교 1번 끝");
             Console.ReadLine();
 

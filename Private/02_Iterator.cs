@@ -8,7 +8,11 @@ using System.Threading.Tasks;
  * 내용 : 반복자, 반복기(Iterator) - yield return
  */
 
-// 클래스의 상위 Scope
+// IEnumerable 인터페이스를 상속하면
+// Enumerator 에 의해
+// 사용할 수 있는 반복기
+
+// namespace는 클래스의 상위 Scope
 // 중복된 이름의 클래스를 구분하기 위해서 사용
 namespace Private
 {

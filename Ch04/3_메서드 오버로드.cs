@@ -109,6 +109,11 @@ namespace Ch04
             return a + b;
         }
 
+        public static int Ex3(long a = 0, int b = 1)
+        {
+            return (int)a + b;
+        }
+
         // Ex3
         public static void Ex3()
         {

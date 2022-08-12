@@ -8,7 +8,7 @@ namespace Private
 {
     internal class _23_재귀함수
     {
-        static void Main(string[] args)
+        static void Main23(string[] args)
         {
             Console.WriteLine(DangerFactorial(5));
             Console.WriteLine(Factorial(5));

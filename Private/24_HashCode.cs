@@ -80,7 +80,7 @@ namespace Private
             return ex1.GetHashCode() == ex2.GetHashCode();
         }
 
-        static void Main(string[] args)
+        static void Main24(string[] args)
         {
             var A = new Example(1, 2, 1);
             var B = new Example(1, 2, 2);

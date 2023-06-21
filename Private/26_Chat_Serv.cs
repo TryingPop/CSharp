@@ -5,148 +5,124 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
-using Org.BouncyCastle.Utilities;
-using Org.BouncyCastle.Asn1.Mozilla;
 using System.Threading;
 
 /*
-날짜 : 2023. 6. 21
+날짜 : 2023. 6. 22
 이름 : 배성훈
 내용 : 채팅 서버
     멀티 쓰레드
     tcp/ip 통신
+
+    클라와 이상없이 통신되는거 확인
+    에러는 NetworkStream을 종료하니 메세지 수신에서 문제가 발생
+    
+    현재 닉네임을 저장하는 버전업이 필요하다
+    그래서 닉네임을 저장하고, 글자 수 제한도 할 예정이다
 */
 
-namespace ConsoleApp1           // 추후 Private
+namespace Private
 {
     internal class _26_Chat_Serv
     {
 
+        public static object key = new object();   // 임계영역용 오브젝트
 
-        public class Clnt
+        public static List<TcpClient> clients = new List<TcpClient>();
+
+        public static void Chat(object client)
         {
 
-            public static List<Clnt> clnts = new List<Clnt>();     // 클라이언트들 모임
+            TcpClient tcpClient = (TcpClient)client;
+            NetworkStream ns = tcpClient.GetStream();
+            StreamReader sr = new StreamReader(ns);
+            string msg = string.Empty;
 
-            public TcpClient tcpClnt;
-            public NetworkStream ns;
+            clients.Add(tcpClient);
 
-            byte[] buffer = new byte[100];
-            string msg;
-
-            public Clnt(object clnt)
+            try
             {
-                
-
-                if (clnt as TcpClient == null)
+                while (true)
                 {
 
-                    Console.WriteLine("변환 실패...");
-                }
-                this.tcpClnt = clnt as TcpClient;
-                
-                this.ns = this.tcpClnt.GetStream();
 
-                clnts.Add(this);
-            }
+                    msg = sr.ReadLine();
 
-            public void ReadMessage()
-            {
 
-                if (ns.Read(buffer, 0, buffer.Length) > 0)
-                {
-
-                    msg = Encoding.UTF8.GetString(buffer);
-                    Console.WriteLine("받은 메세지 : {0}", msg);
-                }
-            }
-
-            public void SendMessage()
-            {
-
-                if (msg == string.Empty)
-                {
-
-                    return;
-                }
-
-                byte[] sendMessage = Encoding.UTF8.GetBytes(msg);
-
-                for (int i = 0; i < clnts.Count; i++)
-                {
-
-                    if (clnts[i] == this)
+                    if (msg.Length != 0)
                     {
 
-                        continue;
-                    }
+                        Monitor.Enter(key);
 
-                    ns.Write(sendMessage, 0, sendMessage.Length);
+                        foreach (var item in clients)
+                        {
+
+                            if (item == tcpClient)
+                            {
+
+                                continue;
+                            }
+
+                            SendMessage(item, msg);
+                        }
+                        Monitor.Exit(key);
+
+                        Console.WriteLine("메세지 : {0}\n전송완료", msg);
+                    }
                 }
             }
-
-            public void Disconnect()
+            catch
             {
 
-                this.ns.Close();
-                this.tcpClnt.Close();
-                clnts.Remove(this);
+                Console.WriteLine("전송 에러");
+            }
+            finally
+            {
+
+                sr.Close();
+
+                ns.Close();
+
+                clients.Remove(tcpClient);
+                tcpClient.Close();
+                Console.WriteLine("소켓 종료");
             }
         }
 
-
-        static void Main(string[] args)
+        private static void SendMessage(TcpClient client, string msg)
         {
 
-            StartServ();
+            NetworkStream ns = client.GetStream();
+            StreamWriter sw = new StreamWriter(ns);
+
+            try
+            {
+
+                sw.WriteLine(msg);
+                sw.Flush();
+            }
+            catch
+            {
+
+                Console.WriteLine("전송 실패");
+            }
         }
 
 
         /// <summary>
-        /// Tcp 소켓 통신
+        /// 현재 서버의 아이피 확인
         /// </summary>
-        public static void StartServ()
+        /// <returns>현재 아이피</returns>
+        public static IPAddress GetIP()
         {
 
-            IPAddress ip;
-            int port = 0;
-            TcpListener tcpListener;
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
 
-            SetAddress(out ip, ref port, out tcpListener);
-
-            Console.Clear();
-            Console.WriteLine("서버 IP : {0}\n서버 Port : {1}", ip, port);
-
-            // 읽기 시작
-            Console.WriteLine("서버 대기 상태 시작");
-            tcpListener.Start();
-
-            // 받을 메시지
-            string msg = string.Empty;
-
-            // 클라이언트 읽기
-            while (true)
+            foreach (IPAddress ip in host.AddressList)
             {
-                TcpClient tcpClient = tcpListener.AcceptTcpClient();
-
-                Thread thread = new Thread(ConnectClnt);
-                thread.Start(tcpClient);
-            }
-        }
-
-        public static IPAddress FindIP()
-        {
-
-            IPHostEntry ipEntry = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress[] addr = ipEntry.AddressList;
-
-            for (int i = 0; i < addr.Length; i++)
-            {
-
-                if (addr[i].AddressFamily == AddressFamily.InterNetwork)
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
-
-                    return addr[i];
+                    return ip;
                 }
             }
 
@@ -154,57 +130,75 @@ namespace ConsoleApp1           // 추후 Private
         }
 
         /// <summary>
-        /// 아이피와 포트 설정하는 메소드
+        /// 포트 번호 설정
         /// </summary>
-        public static void SetAddress(out IPAddress Ip, ref int Port, out TcpListener tcpListener)
+        /// <returns>포트 번호</returns>
+        public static int SetPort()
         {
 
-            Ip = FindIP();
-
-            while (true) 
+            while (true)
             {
-
                 try
                 {
 
-                    Console.Write("서버 Port(100 ~ 65535) : ");
-                    Port = int.Parse(Console.ReadLine());
+                    Console.Clear();
+                    Console.Write("포트 입력(1001 ~ 65535) : ");
 
-                    tcpListener = new TcpListener(Ip, Port);
+                    int port = int.Parse(Console.ReadLine());
 
-                    return;
+                    if (port <= 1000 || port > 65536)
+                    {
+
+                        continue;
+                    }
+
+                    return port;
                 }
-                catch   
+                catch
                 {
 
-                    // port 번호를 잘못 입력한 경우
-                    Console.Clear();
-                    Console.WriteLine("Port 번호를 다시 입력해 주세요.");
+                    Console.WriteLine("포트 번호(1001 ~ 65535)를 다시 입력해주세요.");
                 }
             }
         }
 
-        public static void ConnectClnt(object client)
+        public static void ServStart()
         {
 
-            Console.WriteLine("클라이언트 접속...");
-            Clnt clnt = new Clnt(client);
-            Console.WriteLine("클라이언트 접속 완료");
-            try
-            {
-                while (true)
-                {
+            IPAddress ip;
+            int port = 0;
 
-                    clnt.ReadMessage();
-                    clnt.SendMessage();
-                    Thread.Sleep(100);
-                }
-            }
-            finally
+            ip = GetIP();
+            port = SetPort();
+            TcpListener tcpListener = new TcpListener(ip, port);
+
+
+            Console.Clear();
+            Console.WriteLine("IP : {0}", ip.ToString());
+            Console.WriteLine("Port : {0}", port.ToString());
+
+            tcpListener.Start();
+            Console.WriteLine("서버 시작");
+
+            while (true)
             {
 
-                clnt.Disconnect();
+                TcpClient tcpClient = tcpListener.AcceptTcpClient();
+                Monitor.Enter(key);
+                Console.WriteLine("클라이언트 접속 중...");
+
+                Thread thread = new Thread(new ParameterizedThreadStart(Chat));
+                thread.Start(tcpClient);
+                Console.WriteLine("클라이언트 접속 완료");
+                Monitor.Exit(key);
             }
+
+        }
+
+        static void Main(string[] args)
+        {
+
+            ServStart();
         }
     }
 }

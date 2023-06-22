@@ -14,11 +14,11 @@ using System.Threading;
     멀티 쓰레드
     tcp/ip 통신
 
-    클라와 이상없이 통신되는거 확인
-    에러는 NetworkStream을 종료하니 메세지 수신에서 문제가 발생
-    
-    현재 닉네임을 저장하는 버전업이 필요하다
-    그래서 닉네임을 저장하고, 글자 수 제한도 할 예정이다
+    닉네임을 딕셔너리로 저장한다
+    클라쪽에서 연결과 동시에 이름을 같이 전송하니 데이터 수신이 안된다
+
+    컨텍스트 스위칭으로 데이터 손실인지 아니면 네트워크 전송에 따른 데이터 손실인지 모르겠다
+    일단은 콘솔에서 보기 좋게 만들기 위해 콘솔창 지우는 쪽부터 연습했다
 */
 
 namespace Private
@@ -28,7 +28,9 @@ namespace Private
 
         public static object key = new object();   // 임계영역용 오브젝트
 
-        public static List<TcpClient> clients = new List<TcpClient>();
+        // public static List<TcpClient> clients = new List<TcpClient>();
+        public static Dictionary<string, TcpClient> clients = new Dictionary<string, TcpClient>();
+
 
         public static void Chat(object client)
         {
@@ -36,9 +38,12 @@ namespace Private
             TcpClient tcpClient = (TcpClient)client;
             NetworkStream ns = tcpClient.GetStream();
             StreamReader sr = new StreamReader(ns);
-            string msg = string.Empty;
 
-            clients.Add(tcpClient);
+            string msg = string.Empty;
+            string name = SetName();
+
+            clients[name] = tcpClient;
+
 
             try
             {
@@ -48,6 +53,11 @@ namespace Private
 
                     msg = sr.ReadLine();
 
+                    if (msg.Length > 50)
+                    {
+
+                        msg.Substring(0, 50);
+                    }
 
                     if (msg.Length != 0)
                     {
@@ -57,11 +67,14 @@ namespace Private
                         foreach (var item in clients)
                         {
 
+                            /*
+                            // 자기자신은 제외하는 코드
                             if (item == tcpClient)
                             {
 
                                 continue;
                             }
+                            */
 
                             SendMessage(item, msg);
                         }
@@ -83,22 +96,55 @@ namespace Private
 
                 ns.Close();
 
-                clients.Remove(tcpClient);
+                clients.Remove(name);
                 tcpClient.Close();
                 Console.WriteLine("소켓 종료");
             }
         }
 
-        private static void SendMessage(TcpClient client, string msg)
+        public static string SetName(string name = null)
         {
 
-            NetworkStream ns = client.GetStream();
+            bool setRandName = (name == null || name == string.Empty) ? true : false;
+
+
+            while (true)
+            {
+
+                if (setRandName)
+                {
+
+                    name = SetRandomName();
+                }
+
+                if (clients.ContainsKey(name))
+                {
+
+                    setRandName = true;
+                    continue;
+                }
+
+                return name;
+            }
+        }
+
+        public static string SetRandomName()
+        {
+
+            Random rand = new Random();
+            return string.Format("User{0, 5}", rand.Next(1001, 65535));
+        }
+
+        private static void SendMessage(KeyValuePair<string, TcpClient> item, string msg)
+        {
+
+            NetworkStream ns = item.Value.GetStream();
             StreamWriter sw = new StreamWriter(ns);
 
             try
             {
 
-                sw.WriteLine(msg);
+                sw.WriteLine(string.Format("{0} : {1}", item.Key, msg));
                 sw.Flush();
             }
             catch

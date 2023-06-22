@@ -5,16 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
 
 /*
-날짜 : 2023. 6. 22
+날짜 : 2023. 6. 23
 이름 : 배성훈
 내용 : 채팅 클라
     멀티쓰레드
     tcp/ip 통신
  
-    닉네임 설정하게 추가할 예정
+    현재 닉네임 설정을 클라에서 정하고 전송하는게 아닌 서버에서 정해준 닉네임을 이용한다
 */
 
 namespace Private
@@ -32,21 +31,21 @@ namespace Private
             string ip = "192.168.35.213";
             int port = 3303;
 
+
             tcpClient = new TcpClient(ip, port);
-            Console.WriteLine("서버 접속 완료");
+
+            NetworkStream ns = tcpClient.GetStream();
+            StreamWriter sw = new StreamWriter(ns);
 
             Thread thread = new Thread(new ParameterizedThreadStart(RecvMessage));
             thread.Start(tcpClient);
 
-            NetworkStream ns = tcpClient.GetStream();
-            StreamWriter sw = new StreamWriter(ns);
 
             try
             {
                 while (true)
                 {
 
-                    Console.Write("보낼 메세지 : ");
                     msg = Console.ReadLine();
 
                     sw.WriteLine(msg);
@@ -80,9 +79,10 @@ namespace Private
             {
                 while (true)
                 {
+
                     message = sr.ReadLine();
 
-                    Console.WriteLine("받은 메세지 : {0}", message);
+                    Console.WriteLine(message);
                 }
             }
             catch (Exception ex)
@@ -98,6 +98,22 @@ namespace Private
                 ns.Close();
                 ((TcpClient)tcpClient).Close();
             }
+        }
+
+        private static string SetName()
+        {
+
+            Console.Write("닉네임 : ");
+            string name = Console.ReadLine();
+
+            if (name == null || name == string.Empty)
+            {
+
+                Random rand = new Random();
+                name = string.Format("User {0, 5}", rand.Next(1001, 65536));
+            }
+            Console.WriteLine($"{name}님 닉네임이 설정되었습니다.");
+            return name;
         }
     }
 }

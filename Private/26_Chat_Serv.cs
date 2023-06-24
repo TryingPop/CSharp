@@ -14,17 +14,10 @@ using System.Threading;
     멀티 쓰레드
     tcp/ip 통신
 
-    귓속말 기능 추가
-    이름 바꾸기 기능 추가
-
-    귓속말을 읽는 방법 때문에 이름은 띄어쓰기가 불가능하게 했다
-    또한 이전 코드는 StreamWriter를 SendMessage 함수에서 매번 생성하기에
-    메모리 낭비가 심한거 같아 클래스를 생성하고 클래스를 이용하는 형식으로 바꿨다
-
-    그리고 귓말, 이름바꾸기 등을 표현하기 위해서 콘솔창에 색상 바꾸는 것을 추가했다
-
-    앞으로 추가할껀, 유저의 행동을 콘솔창에 보여주는 것 뿐만 아니라 데이터로 저장하는 것과
-    송수신 되는 데이터를 문자열이 아닌 구조체나 클래스로 바꿀 것이다.
+    Clnt 클래스를 최소한 2개로 세분화 시켜야할거 같다
+    
+    1. 메세지 송수신, 해제를 담당하는 클래스
+    2. 메세지 커맨더를 담당하는 클래스
 */
 
 namespace Private
@@ -63,7 +56,7 @@ namespace Private
                     this.sr = new StreamReader(this.ns);
                     this.sw = new StreamWriter(this.ns);
 
-                    this.SetName();
+                    this.GetRandomName();
 
                     this.color = 'r';
                     this.msg = "[소켓 연결]";
@@ -271,11 +264,6 @@ namespace Private
                     string beforename = this.name;
 
                     this.SetName(msg.Substring(3));
-
-                    this.SendMessage(string.Format("{0}로 닉네임이 변경되었습니다.", this.name), 4);
-
-                    this.msg = $"[변경]{beforename}";
-                    this.color = '4';
                     return false;
                 }
                 else if (chk == "w")        // 귓속말 기능
@@ -363,57 +351,58 @@ namespace Private
             /// 이름 설정 메소드
             /// </summary>
             /// <param name="name">바꿀 이름</param>
-            public void SetName(string name = null)
+            public void SetName(string name)            // null or string.Empty는 클라에서 체크
             {
 
-                bool setRandName = (name == null || name == string.Empty) ? true : false;
-
-                try
+                if (Clnt.clients.ContainsKey(name))
                 {
 
-                    Clnt.clients.Remove(this.name); // 초기 생성인 경우 에러 발생한다 
-                }
-                catch { }
-
-                while (true)
-                {
-
-                    if (setRandName)
-                    {
-
-                        name = Clnt.GetRandomName();
-                    }
-
-                    if (Clnt.clients.ContainsKey(name))
-                    {
-
-                        setRandName = true;
-                        continue;
-                    }
-
-                    this.name = name;
-
-                    if (this.name.Length >= 10)
-                    {
-
-                        this.name = this.name.Substring(0, 9);
-                        SendMessage("닉네임은 최대 9글자까지만 가능합니다.", 1);
-                    }
-
-                    Clnt.clients[this.name] = this;
+                    this.color = 'y';
+                    this.msg = $"[닉네임 변경 실패]{name}";
+                    this.SendMessage($"{name}은 존재하는 닉네임입니다.", 4);
                     return;
                 }
+
+
+                this.color = 'y';
+                this.msg = $"[닉네임 변경 성공]{this.name}";
+                this.SendMessage($"{name}으로 닉네임이 변경되었습니다.", 4);
+
+                Clnt.clients.Remove(this.name);
+                this.name = name;
+                Clnt.clients[this.name] = this;
             }
 
             /// <summary>
             /// User + 01001 ~ 65536 사이의 임의의 숫자를 합친 닉네임 설정
             /// </summary>
             /// <returns>User01001 ~ User65535</returns>
-            private static string GetRandomName()
+            private void GetRandomName()
             {
 
                 Random rand = new Random();
-                return string.Format("User{0:D5}", rand.Next(1001, 65536));
+                string name;
+
+                while (true)
+                {
+
+                    name = string.Format("User{0:D5}", rand.Next(1001, 65536));
+
+                    if (!Clnt.clients.ContainsKey(name))
+                    {
+
+                        break;
+                    }
+                }
+
+                if (this.name != string.Empty)
+                {
+
+                    Clnt.clients.Remove(this.name);
+                }
+
+                this.name = name;
+                Clnt.clients[this.name] = this;
             }
 
         }
@@ -514,7 +503,6 @@ namespace Private
         {
 
             Clnt clnt = (Clnt)client;
-            Clnt.clients[clnt.name] = clnt;
 
             try
             {

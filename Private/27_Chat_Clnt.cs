@@ -5,13 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 
 /*
-날짜 : 2023. 6. 24
+날짜 : 2023. 6. 25
 이름 : 배성훈
 내용 : 채팅 클라
     멀티쓰레드
     tcp/ip 통신
+
+    코드 리펙토링이 필요하다
 */
 
 namespace Private
@@ -196,16 +200,26 @@ namespace Private
                 else if (cmd[0] == "-s")    // set의 약자로 사용
                 {
 
-                    if (cmd[1] == "name") // cmd[3]은 띄어쓰기가 있으면 강제로 예외 발생
+                    if (cmd[1] == "name")
                     {
 
-                        message = $"sn|{cmd[2]}";
+                        if (cmd[2].Length > 0)
+                        {
+
+                            message = $"sn|{cmd[2]}";
+                        }
+                        else
+                        {
+
+                            RecvMessage("cy|닉네임을 입력해 주세요.");
+                            return true;
+                        }
                     }
                 }
                 else if (cmd[0] == "-w")    // whisper의 약자로 사용
                 {
 
-                    message = $"w|{cmd[1]}|{cmd[2]}";
+                    message = $"w|{cmd[1]}|" + message.Substring(2 + cmd[1].Length + 2);
                 }
                 else
                 {

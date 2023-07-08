@@ -12,22 +12,103 @@ using System.Threading.Tasks;
 
     조건에 맞춰 정렬하기
     나오는 빈도수, 길이가 길수록, 사전에 나오는 순서대로 우선순위를 두어 문자열 정렬
+
+    10만개 이상의 데이터 관리가 필요하므로 입출력 버퍼 관리가 중요하다!
+
+    정렬은 Sort이용 방법과 Linq 문법을 이용한 Orderby가 있다
+
+    입출력 버퍼 관리를 하기위해 StreamReader, StreamWriter를 이용하고,
+    빠른 정답 출력을 위해 StringBuilder 이용
 */
 
 namespace BaekJoon._12
 {
     internal class _12_05
     {
-
+        
         static void Main5(string[] args)
         {
 
-            int[] chk = Array.ConvertAll(Console.ReadLine().Split(' '), input => int.Parse(input));
+            StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
+
+            int[] chk = Array.ConvertAll(sr.ReadLine().Split(' '), input => int.Parse(input));
             int length = chk[0];
             int min = chk[1];
 
-            int strLength = length;
+            List<string> words = new List<string>();
+            Dictionary<string, int> counts = new Dictionary<string, int>();
 
+            for (int i = 0; i < length; i++)
+            {
+
+                string word = sr.ReadLine();
+
+                if (word.Length < min)
+                {
+
+                    continue;
+                }
+
+                if (counts.TryAdd(word, 0))
+                {
+
+                    words.Add(word);
+                }
+                else
+                {
+
+                    counts[word] += 1;
+                }
+
+                /*
+                if (counts.ContainsKey(word))
+                {
+
+                    counts[word] += 1;
+                }
+                else
+                {
+
+                    words.Add(word);
+                    counts[word] = 1;
+                }
+                */
+            }
+            sr.Close();
+
+            // 정렬
+            words.Sort((x, y) =>
+            {
+
+                int rs1 = -counts[x].CompareTo(counts[y]);
+                int rs2 = -(x.Length).CompareTo(y.Length);
+                int rs3 = string.Compare(x, y);
+
+                return rs1 != 0 ?
+                rs1 : rs2 != 0 ?
+                rs2 : rs3;
+            });
+
+            // words = words.OrderByDescending(word => counts[word]).
+            //     ThenByDescending(word => word.Length).
+            //     ThenBy(word => word).
+            //     ToList();
+
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < words.Count; i++) 
+            {
+
+                sb.AppendLine(words[i]);
+            }
+
+            // 출력 버퍼 관리 -> 속도 향상용
+            StreamWriter sw = new StreamWriter(Console.OpenStandardOutput());
+            Console.WriteLine(sb);
+            sw.Flush();
+            sw.Close();
+
+            /*
             string[] inputs = new string[length];
             int[] counts = new int[length];
 
@@ -160,6 +241,7 @@ namespace BaekJoon._12
 
                 Console.WriteLine(inputs[result[i]]);
             }
+            */
         }
     }
 }

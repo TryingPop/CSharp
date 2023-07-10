@@ -16,7 +16,7 @@ namespace BaekJoon._13
     internal class _13_05
     {
 
-        static void Main3(string[] args)
+        static void Main5(string[] args)
         {
 
             StreamReader sr = new StreamReader(Console.OpenStandardInput());            // 여기 문제에 한해서는 따로 없어도 될거 같다

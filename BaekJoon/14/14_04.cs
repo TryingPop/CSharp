@@ -16,7 +16,7 @@ namespace BaekJoon._14
     internal class _14_04
     {
 
-        static void Main(string[] args)
+        static void Main4(string[] args)
         {
 
             StringBuilder sb = new StringBuilder();

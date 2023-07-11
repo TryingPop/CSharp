@@ -24,24 +24,24 @@ namespace BaekJoon._14
             int length = int.Parse(Console.ReadLine());
 
             long[] results = new long[100];
-            long[] pro = new long[100];
+            // long[] pro = new long[100];
             int num = 7;
 
             results[0] = 1;
-            pro[0] = 1;
+            // pro[0] = 1;
             results[1] = 1;
-            pro[1] = 1;
+            // pro[1] = 1;
             results[2] = 1;
-            pro[2] = 1;
+            // pro[2] = 1;
             results[3] = 2;
-            pro[3] = 2;
+            // pro[3] = 2;
 
             results[4] = 2;
-            pro[4] = 2;
+            // pro[4] = 2;
             results[5] = 3;
-            pro[5] = 3;
+            // pro[5] = 3;
             results[6] = 4;
-            pro[6] = 4;
+            // pro[6] = 4;
 
             for (int i= 0; i < length; i++)
             {
@@ -60,26 +60,16 @@ namespace BaekJoon._14
                     {
 
                         results[j] = results[j - 2] + results[j - 3];
-                        pro[j] = pro[j - 1] + pro[j - 5];
-                        num++;
+                        // pro[j] = pro[j - 1] + pro[j - 5];
                     }
 
+                    num = input;
                     sb.AppendLine(results[input - 1].ToString());
                 }
             }
 
             Console.WriteLine(sb.ToString());
 
-            for (int i = 0; i < results.Length; i++)
-            {
-
-                if (pro[i] != results[i])
-                {
-
-                    Console.WriteLine($"{i}에서 값이 다릅니다.");
-                }
-            }
-            Console.WriteLine("확인 완료!");
         }
     }
 }

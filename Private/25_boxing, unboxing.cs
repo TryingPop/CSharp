@@ -16,7 +16,7 @@ namespace Private
         {
 
         }
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
             // A a = null; // 메모리 생성되지 않음
             // A a = new A(); // 메모리 생성, 변수 a는 생성된 A의 주소만 갖게됨

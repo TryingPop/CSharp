@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 이름 : 배성훈
 내용 : 가장 긴 증가하는 부분 수열
     문제번호 : 11053번
+
+    익숙치 않은 LowerBound 부분! 다시 보기!
 */
 
 namespace BaekJoon._14
@@ -22,7 +24,9 @@ namespace BaekJoon._14
             int length = int.Parse(Console.ReadLine());
             int[] nums = Array.ConvertAll(Console.ReadLine().Split(' '), item => int.Parse(item));
 
+            #region first
             /*
+            // 첫 번째 방법
             // 시행 횟수가 수의 범위 보다 작을 때 좋은 방법
             // 그리고 앞번에 길이도 기록되어져 있다
             int[] lens = new int[length];           // 인덱스 i는 0번부터 i번까지 nums의 원소를 나열한 수열이라 해석하면 된다
@@ -63,7 +67,10 @@ namespace BaekJoon._14
             int result = lens.Max();
             Console.WriteLine(result);
             */
+            #endregion first
 
+            #region second
+            // 두 번째 방법
             // 입력받은 수의 범위
             int[] lens = new int[1001];         // 인덱스 i는 증가하는 부분수열에서 가장 큰 값이 i이다
                                                 // 값은 증가하는 부분수열 중 길이가 가장 큰 길이이다
@@ -96,6 +103,55 @@ namespace BaekJoon._14
 
             int result = lens.Max();
             Console.WriteLine(result);
+            #endregion second
+
+            #region third
+            /*
+            // 세 번째 방법
+            // 다른 사람이 확실하게 다르게 푼 방법
+            // 시간복잡도를 nlogn으로 줄였다
+            const int max = 10001;
+            int N = int.Parse(Console.ReadLine());
+            int[] numbers = Array.ConvertAll(Console.ReadLine().Split(' '), int.Parse);
+            int[] temp = new int[N];    
+            for (int i = 0; i < temp.Length; i++) temp[i] = max;    // 오름차순 정렬
+            for (int i = 0; i < numbers.Length; i++)
+            {
+
+                // 만약 temp의 최대값이 numbers[i]보다 작으면 인덱스 예외 발생
+                // 해당 위치에 맞는 값을 줄이기 실행
+                temp[LowerBound(temp, numbers[i])] = numbers[i];
+            }
+
+            Console.WriteLine(LowerBound(temp, max - 1));
+            */
+            #endregion third
         }
+
+        #region third
+        /*
+        // 오름차순 정렬된 arr에 한해 
+        // key보다 작은 원소의 개수를 출력
+        // 정렬 안된 arr에서는 의미가 약해진다
+        public static int LowerBound(int[] arr, int key)
+        {
+            int lo = 0, hi = arr.Length - 1;
+            while (lo < hi)
+            {
+                int mid = (lo + hi) / 2;
+                if (arr[mid] < key)
+                {
+                    lo = mid + 1;
+                }
+                else
+                {
+                    hi = mid - 1;
+                }
+            }
+            if (arr[lo] < key) lo++;    
+            return lo;
+        }
+        */
+        #endregion third
     }
 }

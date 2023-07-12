@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\a\\Desktop\\git\\CS\\BaekJoon\\BaekJoon.csproj": {}
+    "C:\\Users\\user\\Desktop\\새 폴더 (2)\\CSStudy\\CS\\BaekJoon\\BaekJoon.csproj": {}
   },
   "projects": {
-    "C:\\Users\\a\\Desktop\\git\\CS\\BaekJoon\\BaekJoon.csproj": {
+    "C:\\Users\\user\\Desktop\\새 폴더 (2)\\CSStudy\\CS\\BaekJoon\\BaekJoon.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\a\\Desktop\\git\\CS\\BaekJoon\\BaekJoon.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\새 폴더 (2)\\CSStudy\\CS\\BaekJoon\\BaekJoon.csproj",
         "projectName": "BaekJoon",
-        "projectPath": "C:\\Users\\a\\Desktop\\git\\CS\\BaekJoon\\BaekJoon.csproj",
-        "packagesPath": "C:\\Users\\a\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\a\\Desktop\\git\\CS\\BaekJoon\\obj\\",
+        "projectPath": "C:\\Users\\user\\Desktop\\새 폴더 (2)\\CSStudy\\CS\\BaekJoon\\BaekJoon.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\새 폴더 (2)\\CSStudy\\CS\\BaekJoon\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "D:\\VisualStudio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\a\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -50,8 +45,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -60,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.313\\RuntimeIdentifierGraph.json"
         }
       }
     }

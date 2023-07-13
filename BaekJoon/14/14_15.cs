@@ -16,12 +16,31 @@ namespace BaekJoon._14
     internal class _14_15
     {
 
-        static void Main15(string[] args)
+        static void Main(string[] args)
         {
 
             string input0 = Console.ReadLine();
             string input1 = Console.ReadLine();
 
+            Console.WriteLine(LCS(input0, input1));
+        }
+
+        public static int LCS(string str1, string str2)
+        {
+
+            if (str1 == "" || str2 == "")
+            {
+
+                return 0;
+            }
+
+            if (str1[str1.Length - 1] == str2[str2.Length - 1])
+            {
+
+                return LCS(str1.Remove(str1.Length - 1), str2.Remove(str2.Length - 1)) + 1;
+            }
+
+            return Math.Max(LCS(str1, str2.Remove(str2.Length - 1)), LCS(str1.Remove(str1.Length - 1), str2));
         }
     }
 }

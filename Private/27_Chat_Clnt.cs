@@ -9,13 +9,18 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
 /*
-날짜 : 2023. 6. 25
+날짜 : 2023. 7. 15
 이름 : 배성훈
 내용 : 채팅 클라
     멀티쓰레드
     tcp/ip 통신
 
-    코드 리펙토링이 필요하다
+    EnterServ 메소드를 이용해
+    처음에 접속할 서버의 IP, Port 입력을 받게했고 통신이 성공할 때까지 계속 입력을 받는다
+
+    그리고 명령어 추가
+    -clear : 콘솔창 초기화
+    -quit : 프로그램 종료
 */
 
 namespace Private
@@ -27,42 +32,29 @@ namespace Private
         public static string name = string.Empty;       // 닉네임
 
         public static TcpClient tcpClient;              // 클라이언트
+        public static string ip;
+        public static int port;
 
 
-        static void Main(string[] args)
+        static void Main27(string[] args)
         {
 
-            // 접속할 ip, port 
-            string ip = "192.168.35.213";
-            int port = 3303;
 
+            EnterServ();
             NetworkStream ns;
             StreamWriter sw;
 
             Thread thread;          // 수신용 쓰레드
 
+            ns = tcpClient.GetStream();
+            sw = new StreamWriter(ns);
 
-            try
-            {
+            // 수신용 쓰레드
+            thread = new Thread(new ParameterizedThreadStart(RecvMessage));
+            thread.Start(tcpClient);
 
-                Console.WriteLine("서버와 연결 시도... ");
-                tcpClient = new TcpClient(ip, port);    // 클라이언트 연결 시도
-
-                ns = tcpClient.GetStream();
-                sw = new StreamWriter(ns);
-
-                // 수신용 쓰레드
-                thread = new Thread(new ParameterizedThreadStart(RecvMessage));
-                thread.Start(tcpClient);
-
-                Console.WriteLine("서버와 연결되었습니다.");
-            }
-            catch   // 실패한 경우 종료
-            {
-
-                Console.WriteLine("서버와 연결이 실패했습니다.");
-                return;
-            }
+            IntroMessage();
+            Console.WriteLine("서버에 접속하신 것을 환영 합니다.");
 
             try
             {
@@ -116,6 +108,57 @@ namespace Private
             return;
         }
 
+        public static void EnterServ()
+        {
+
+            while (true)
+            {
+
+                Console.WriteLine("프로그램 종료 시 ip에 -quit 입력");
+                Console.Write("접속할 IP : ");
+                ip = Console.ReadLine();
+
+                if (ip.ToUpper() == "-QUIT")
+                {
+
+                    Environment.Exit(0);
+                }
+
+
+                try
+                {
+
+                    Console.Write("접속할 Port : ");
+                    port = int.Parse(Console.ReadLine());   // 형 변환에서 오류생길 수 있다
+
+                    Console.WriteLine("서버와 연결 시도... ");
+                    tcpClient = new TcpClient(ip, port);    // 클라이언트 연결 시도
+
+                    break;
+                }
+                catch   // 실패한 경우 재시도
+                {
+
+                    Console.Clear();
+                    Console.WriteLine("서버와 연결이 실패했습니다.");
+
+                    continue;
+                }
+            }
+
+            Console.WriteLine();
+        }
+
+        public static void IntroMessage()
+        {
+
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("[서버 정보]");
+            Console.WriteLine($"서버 IP : {ip}");
+            Console.WriteLine($"서버 Port : {port}");
+            Console.ResetColor();
+        }
         /// <summary>
         /// 메세지를 받는 함수
         /// </summary>
@@ -185,19 +228,37 @@ namespace Private
 
             try
             {
-                if (cmd[0] == "-help")
+                if (message.ToUpper() == "-HELP")
                 {
 
                     ReadMessage("cy|사용 가능한 명령어와 주의사항");
+                    Console.WriteLine();
                     ReadMessage("cy|-s name [원하는 닉네임]");
                     ReadMessage("cy|닉네임의 경우 띄어쓰기가 불가능합니다.");
+                    Console.WriteLine();
                     ReadMessage("cy|-w [귓속말 대상] [귓속말 내용] ");
                     ReadMessage("cy|귓속말은 파란색으로 표현됩니다.");
+                    ReadMessage("cy|귓속말 대상의 대소문자에 유의하십시오.");
                     Console.WriteLine();
-                    ReadMessage("cr|특수문자 '|'는 사용할 수 없는 문자입니다.");
+                    ReadMessage("cy|-clear");
+                    ReadMessage("cy|대화내용 정리");
+                    Console.WriteLine();
+                    ReadMessage("cy|-quit or Quit");
+                    ReadMessage("cy|프로그램 종료");
                     return true;
                 }
-                else if (cmd[0] == "-s")    // set의 약자로 사용
+                else if (message.ToUpper() == "-CLEAR")
+                {
+
+                    IntroMessage();
+                    return true;
+                }
+                else if (message.ToUpper() == "-QUIT")
+                {
+
+                    Environment.Exit(0);
+                }
+                else if (cmd[0].ToUpper() == "-S")    // set의 약자로 사용
                 {
 
                     if (cmd[1] == "name")
@@ -216,7 +277,7 @@ namespace Private
                         }
                     }
                 }
-                else if (cmd[0] == "-w")    // whisper의 약자로 사용
+                else if (cmd[0].ToUpper() == "-W")    // whisper의 약자로 사용
                 {
 
                     message = $"w|{cmd[1]}|" + message.Substring(2 + cmd[1].Length + 2);
@@ -228,7 +289,7 @@ namespace Private
             }
             catch
             {
-
+                ReadMessage("cy|명령어를 확인하고 싶으시면 다음을 입력하세요.");
                 ReadMessage("cy|-help");
                 return true;
             }

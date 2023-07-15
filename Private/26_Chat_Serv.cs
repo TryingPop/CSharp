@@ -534,7 +534,7 @@ namespace Private
 
         }
 
-        static void Main(string[] args)
+        static void Main26(string[] args)
         {
 
             StartServ();

@@ -13,7 +13,7 @@ namespace Private
     internal class _28_Consolel
     {
 
-        static void Main(string[] args)
+        static void Main28(string[] args)
         {
 
             // 특수 문자 \r (개행)

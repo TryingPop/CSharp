@@ -9,9 +9,7 @@ CREATE DATABASE `userdb`;
 USE `userdb`;
 # uid, name, ip 를 정보를 갖는 user 테이블 생성
 CREATE TABLE `user` (
-	`uid`		VARCHAR(10),
-	`name`	VARCHAR(10),
+	`name`		VARCHAR(10),
 	`ip`		CHAR(15),
-	`port`	INT
 	);
 	

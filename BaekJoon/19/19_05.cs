@@ -25,6 +25,11 @@ namespace BaekJoon._19
             int len = int.Parse(Console.ReadLine());
 
             Stack<int> stk = new Stack<int>(len);
+
+            /*
+            // 속도는 4ms정도 빠르다
+            // 대신 메모리는 더 먹는다
+            Stack<int> stk = new Stack<int>(len);
             Queue<int> que = new Queue<int>(len);
 
             for (int i = 1; i <= len; i++)
@@ -62,6 +67,53 @@ namespace BaekJoon._19
                     chk = num;
                 }
                 else if (chk > num)
+                {
+
+                    if (stk.Pop() == num)
+                    {
+
+                        sb.AppendLine("-");
+
+                    }
+                    else
+                    {
+
+                        sb.Clear();
+                        sb.AppendLine("NO");
+                        break;
+                    }
+                }
+            }
+            
+            */
+
+            int curNum = 0; // 큐 역할을 대신하는 변수
+            for (int i = 0; i < len; i++)
+            {
+
+                int num = int.Parse(Console.ReadLine());
+
+                if (curNum < num)
+                {
+
+                    while (true)
+                    {
+
+                        curNum++;
+                        stk.Push(curNum);
+                        sb.AppendLine("+");
+
+                        if (curNum == num)
+                        {
+
+                            break;
+                        }
+                    }
+
+                    sb.AppendLine("-");
+                    stk.Pop();
+                }
+                else if (curNum > num)
                 {
 
                     if (stk.Pop() == num)

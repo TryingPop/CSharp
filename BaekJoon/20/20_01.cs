@@ -33,7 +33,7 @@ namespace BaekJoon._20
             Queue<string> que = new Queue<string>(len);
             StringBuilder sb = new StringBuilder();
 
-            int last = 0;
+            int last = 0;               // que의 마지막 원소
             for (int i = 0; i < len; i++)
             {
 
@@ -43,7 +43,7 @@ namespace BaekJoon._20
                 {
 
                     que.Enqueue(input[1]);
-                    last = int.Parse(input[1]);
+                    last = int.Parse(input[1]);         // FIFO 이므로 마지막에 입력한 것이 가장 뒤에 있다
                 }
                 else if (input[0] == "pop")
                 {
@@ -97,7 +97,9 @@ namespace BaekJoon._20
 
                     if (que.Count> 0)
                     {
-
+                        // sb.AppendLine(que.Last().ToString());    // 해당 메소드를 찾아보니 리스트로 형변환해서 찾거나
+                                                                    // 혹은 다음항목 일일히 검색해가며 찾는다
+                                                                    // 실제로 해당 부분 바꾸기 전에는 시간초과 떴다
                         sb.AppendLine(last.ToString());
                     }
                     else

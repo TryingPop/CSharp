@@ -5,22 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 
 /*
-날짜 : 2023. 7. 15
+날짜 : 2023. 7. 19
 이름 : 배성훈
 내용 : 채팅 클라
     멀티쓰레드
     tcp/ip 통신
 
-    EnterServ 메소드를 이용해
-    처음에 접속할 서버의 IP, Port 입력을 받게했고 통신이 성공할 때까지 계속 입력을 받는다
-
-    그리고 명령어 추가
-    -clear : 콘솔창 초기화
-    -quit : 프로그램 종료
+    좀비 프로세스의 원인을 찾았다
+    클라이언트 쪽에서는 해제가 제대로 된다
 */
 
 namespace Private
@@ -34,12 +28,15 @@ namespace Private
         public static TcpClient tcpClient;              // 클라이언트
         public static string ip;
         public static int port;
+        public static bool connect = false;
+        public static bool ban = false;
 
+        public static object key = new object();
 
         static void Main27(string[] args)
         {
 
-
+        Start:
             EnterServ();
             NetworkStream ns;
             StreamWriter sw;
@@ -50,18 +47,29 @@ namespace Private
             sw = new StreamWriter(ns);
 
             // 수신용 쓰레드
-            thread = new Thread(new ParameterizedThreadStart(RecvMessage));
+            thread = new Thread(RecvMessage);
             thread.Start(tcpClient);
 
-            IntroMessage();
-            Console.WriteLine("서버에 접속하신 것을 환영 합니다.");
+            while (!connect && !ban)
+            {
 
+                Thread.Sleep(100);
+            }
+
+            if (!ban)
+            {
+
+                IntroMessage();
+                SetColorString('g', $"{name}님 접속을 환영합니다.");
+            }
             try
             {
 
                 // 전송을 목적으로 만들어진 코드
-                while (true)
+                while (!ban)
                 {
+
+
 
                     // 전송할 메세지 읽기
                     msg = Console.ReadLine();
@@ -89,6 +97,14 @@ namespace Private
                     // 서버 과부하 방지용 코드
                     Thread.Sleep(100);
                 }
+                if (ban)
+                {
+
+                    sw.Flush();
+                    sw.WriteLine($"b|{ip}");
+
+                    Thread.Sleep(100);
+                }
             }
             catch
             {
@@ -98,13 +114,23 @@ namespace Private
             finally
             {
 
-                thread.Abort();
+                thread.Join();
+                try
+                {
 
+                    thread.Interrupt();
+                }
+                catch { }
+
+                // Console.WriteLine("소켓을 해제 중입니다.");
                 sw.Close();
                 ns.Close();
                 tcpClient.Close();
             }
+            SetColorString('r', "접속이 제한된 유저입니다.");
+            Console.ReadKey();
 
+            goto Start;
             return;
         }
 
@@ -123,7 +149,6 @@ namespace Private
 
                     Environment.Exit(0);
                 }
-
 
                 try
                 {
@@ -157,6 +182,7 @@ namespace Private
             Console.WriteLine("[서버 정보]");
             Console.WriteLine($"서버 IP : {ip}");
             Console.WriteLine($"서버 Port : {port}");
+            Console.WriteLine($"사용 중인 닉네임 : {name}");
             Console.ResetColor();
         }
         /// <summary>
@@ -174,8 +200,9 @@ namespace Private
             {
 
                 // 메세지 수신 및 콘솔창에 출력
-                while (true)
+                while (!ban)
                 {
+
 
                     message = sr.ReadLine();
 
@@ -188,6 +215,7 @@ namespace Private
 
                     ReadMessage(message);
                 }
+
             }
             catch (Exception ex)
             {
@@ -195,13 +223,7 @@ namespace Private
                 Console.WriteLine("수신 에러");
                 Console.WriteLine(ex.Message);
             }
-            finally
-            {
-
-                sr.Close();
-                ns.Close();
-                ((TcpClient)tcpClient).Close();
-            }
+            return;
         }
 
         /// <summary>
@@ -315,22 +337,41 @@ namespace Private
             else if (chk == "cy")
             {
 
-                SetColorString('y', message);
+                SetColorString('y', message, 3);
             }
             else if (chk == "cr")
             {
 
-                SetColorString('r', message);
+                SetColorString('r', message, 3);
             }
             else if (chk == "cb")
             {
 
-                SetColorString('b', message);
+                SetColorString('b', message, 3);
             }
             else if (chk == "cg")
             {
 
-                SetColorString('g', message);
+                SetColorString('g', message, 3);
+            }
+            else if (chk == "sn")
+            {
+
+                name = message.Split("|")[1];
+                SetColorString('g', $"{name}으로 닉네임이 변경되었습니다.");
+                SetColorString('g', $"-clear 명령어를 이용하시면 바뀐 닉네임을 확인할 수 있습니다.");
+            }
+            else if (chk == "s")
+            {
+
+                connect = true;
+                name = message.Split('|')[1];
+            }
+            else if (chk == "b")
+            {
+
+                ban = true;
+                name = message.Split('|')[1];
             }
             else
             {
@@ -344,7 +385,7 @@ namespace Private
         /// </summary>
         /// <param name="color">칼라 종류</param>
         /// <param name="message">읽을 문자</param>
-        public static void SetColorString(char color, string message)
+        public static void SetColorString(char color, string message, int sub = 0)
         {
 
             if (color == 'y')
@@ -367,7 +408,7 @@ namespace Private
                 Console.ForegroundColor = ConsoleColor.Green;
             }
 
-            Console.WriteLine(message.Substring(3));
+            Console.WriteLine(message.Substring(sub));
 
             Console.ResetColor();
 

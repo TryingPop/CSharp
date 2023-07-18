@@ -8,16 +8,25 @@ using System.Net.Sockets;
 using System.Threading;
 
 /*
-날짜 : 2023. 6. 24
+날짜 : 2023. 7. 18
 이름 : 배성훈
 내용 : 채팅 서버
     멀티 쓰레드
     tcp/ip 통신
 
-    Clnt 클래스를 최소한 2개로 세분화 시켜야할거 같다
-    
-    1. 메세지 송수신, 해제를 담당하는 클래스
-    2. 메세지 커맨더를 담당하는 클래스
+    좀비 소켓 문제 해결
+    로그인 시, 서버에서 ip 체크를하고, ban >> 명령어를 가진 데이터 전송
+    혹은 중간에 서버에서 클라이언트 벤을 때리는 경우를 구현하기 위해 코드 작성
+
+    서버에서 벤 명령어를 가진 문자를 보내면 클라이언트 쪽에서 문자를 읽고 서버와 연결을 끊는다
+    그런데, 클라는 해제되는 방면에 서버는 해제 안되는 현상 발생(좀비 소켓)
+
+    구글링으로 알아보니 한쪽이 해제하는 것을 못 읽을 경우에 발생한다고 한다
+    시행착오와 코드를 찾아본 결과 서버에서 ReadMessage 함수 때문에 해제를 못읽는 것으로 추정된다
+
+    그래서 클라이언트 쪽에서 b 되었다는 확인 문자를 서버에 보내게 수정
+    그러면 서버는 클라의 문자를 읽고 clnt 객체 안에 벤 변수를 활성화
+    그리고 예외를 발생시켜 서버에서 소켓 해제 작업 진행
 */
 
 namespace Private
@@ -31,8 +40,13 @@ namespace Private
         public static Dictionary<string, TcpClient> clients = new Dictionary<string, TcpClient>();  // 이름과 클라이언트 소켓을 저장하는 딕셔너리
 
         public static TcpListener tcpListener;
+        static void Main26(string[] args)
+        {
 
-        public class Clnt
+            StartServ();
+        }
+
+        public class Clnt : IDisposable
         {
 
             public static Dictionary<string, Clnt> clients = new Dictionary<string, Clnt>();
@@ -45,6 +59,8 @@ namespace Private
             string msg = string.Empty;
             char color = 'w';
             public string name = string.Empty;
+
+            public bool ban = false;
 
             public Clnt(TcpClient client)
             {
@@ -65,7 +81,7 @@ namespace Private
                 catch
                 {
 
-                    this.OnDisconnect();
+                    this.Dispose();
                 }
             }
 
@@ -203,7 +219,7 @@ namespace Private
             /// <summary>
             /// 소켓 해제, 즉 이 클래스의 참조 카운터를 0으로 만듦
             /// </summary>
-            public void OnDisconnect()
+            public void Dispose()
             {
 
                 try
@@ -241,9 +257,12 @@ namespace Private
                 }
                 catch { }
 
+                // Console.WriteLine($"접속 중인 인원 : {clients.Count}");
+
                 this.msg = string.Format("[소켓 해제]");
                 this.color = 'r';
                 this.PrintChat();
+                GC.Collect();
             }
 
             /// <summary>
@@ -287,7 +306,14 @@ namespace Private
 
                     return false;
                 }
+                else if (chk == "b")
+                {
 
+                    this.ban = true;
+                    this.msg = string.Format("[강퇴된 유저의 접속 시도]");
+                    this.color = 'r';
+                    return false;
+                }
                 this.msg = string.Format("{0}", this.msg);
                 this.color = 'w';
                 return true;
@@ -366,7 +392,10 @@ namespace Private
 
                 this.color = 'y';
                 this.msg = $"[닉네임 변경 성공]{this.name}";
-                this.SendMessage($"{name}으로 닉네임이 변경되었습니다.", 4);
+                this.SendMessage($"sn|{name}");
+                // 클라에서 처리
+                // this.SendMessage($"{name}으로 닉네임이 변경되었습니다.", 4);
+                // this.SendMessage($"-clear 명령어를 입력하시면 변경된 닉네임을 확인할 수 있습니다.", 4);
 
                 Clnt.clients.Remove(this.name);
                 this.name = name;
@@ -404,7 +433,6 @@ namespace Private
                 this.name = name;
                 Clnt.clients[this.name] = this;
             }
-
         }
 
         /// <summary>
@@ -488,7 +516,7 @@ namespace Private
                 Console.ResetColor();
                 Clnt clnt = new Clnt(tcpClient);
 
-                Thread thread = new Thread(new ParameterizedThreadStart(StartChat));
+                Thread thread = new Thread(StartChat);
                 thread.Start(clnt);
 
                 Monitor.Exit(key);
@@ -504,10 +532,23 @@ namespace Private
 
             Clnt clnt = (Clnt)client;
 
+            // Console.WriteLine($"현재 유저 수 : {Clnt.clients.Count}");
+
             try
             {
 
-                while (true)
+                if (clnt.ban)
+                {
+
+                    clnt.SendMessage($"b|{clnt.name}");
+                }
+                else
+                {
+
+                    clnt.SendMessage($"s|{clnt.name}");
+                }
+
+                while (!clnt.ban)
                 {
 
                     if (clnt.RecvMessage())
@@ -524,20 +565,19 @@ namespace Private
                         Monitor.Exit(key);
                     }
 
+                    if (clnt.ban)
+                    {
+
+                        throw null;
+                    }
                 }
             }
-            catch
+            catch { }
+            finally
             {
 
-                clnt.OnDisconnect();
+                clnt.Dispose();
             }
-
-        }
-
-        static void Main26(string[] args)
-        {
-
-            StartServ();
         }
     }
 }

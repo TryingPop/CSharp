@@ -16,7 +16,7 @@ namespace BaekJoon._21
     internal class _21_08
     {
 
-        static void Main(string[] args)
+        static void Main8(string[] args)
         {
 
             string str = Console.ReadLine();

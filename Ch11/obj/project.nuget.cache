@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "L7lLwZodD515SY7CYXE/yCAmSCLVAZFcLU6OJl4L35mH+4umzsKb1F9PO2iSORxWKMxALf0KmovHMBktL2G7mQ==",
+  "dgSpecHash": "ib/Ehr6sdRqMeyY46FUqTPYD5cLTPvBAf3hNxSayr6C4IOh+3y2YGlLcV6EGez2jUvtoP3U14aZLtoKnYC+X3g==",
   "success": true,
   "projectFilePath": "C:\\Users\\a\\Desktop\\git\\CS\\Ch11\\Ch11.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\a\\.nuget\\packages\\mysqlconnector\\2.2.6\\mysqlconnector.2.2.6.nupkg.sha512"
+  ],
   "logs": []
 }

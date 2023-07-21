@@ -16,14 +16,16 @@ namespace BaekJoon._23
     internal class _23_19
     {
 
-        static void Main(string[] args)
+        static void Main19(string[] args)
         {
 
             StringBuilder sb = new StringBuilder();
 
 #if false
+            // 하나씩 읽는 방법 이경우 메모리는 적게드나 속도는 약간 느리다
             int c;
 
+            // null을 넣는 경우 -1을 반환
             while (!((c = Console.Read()) == -1))
             {
 

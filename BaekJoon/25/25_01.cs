@@ -12,11 +12,7 @@ using System.Threading.Tasks;
 내용 : N과 M (1)
     문제번호 : 15649번
 
-    자연수 n m 이 주어졌을 때
-    1 ~ n까지의 수를 서로 다른 순서를 고려해서 서로 다른 m개를 나열
-    즉, nPm개 경우의 수를 모두 구해라
-
-    
+    순열(Permutation) 경우의 수 출력하는 문제
 */
 
 namespace BaekJoon._25
@@ -29,18 +25,18 @@ namespace BaekJoon._25
 #if first
             int[] info = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
 
-            int[,] board = new int[info[0] + 1, info[1] + 1];
+
+            int[] board = new int[info[0] + 1];
             bool[] chk = new bool[info[0] + 1];
 
+            board[0] = info[1];
             for (int i = 1; i <= info[0]; i++)
             {
 
-                for (int j = 1; j <= info[1]; j++)
-                {
 
-                    board[i, j] = i;
-                }
+                board[i] = i;
             }
+
 
             Back(board, chk);
 #elif true
@@ -51,17 +47,17 @@ namespace BaekJoon._25
         // 시간이 엄청 걸린다(최고속의 20배), 메모리(최고속의 3배)도 많이 잡아 먹는다
         // 다른사람이 푼 것을 보니 DFS로 풀어나갔따
         // 보드를 너무 크게 설정했다
-        static void Back(int[,] board, bool[] chk, int step = 0, string str = "")
+        static void Back(int[] board, bool[] chk, int step = 0, string str = "")
         {
 
-            if (step >= board.GetLength(1) - 1)
+            if (step >= board[0])
             {
 
                 Console.WriteLine(str);
                 return;
             }
 
-            for (int i = 1; i <= board.GetLength(0) - 1; i++)
+            for (int i = 1; i <= board.Length - 1; i++)
             {
 
                 if (chk[i] == false)

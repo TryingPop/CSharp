@@ -49,25 +49,32 @@ namespace BaekJoon._25
         // 보드를 너무 크게 설정했다
         static void Back(int[] board, bool[] chk, int step = 0, string str = "")
         {
-
+            
+            // 재귀를 이용했으므로 함수 탈출
+            // 길이만큼 진행했는지 확인
             if (step >= board[0])
             {
 
+                // 길이만큼 진행했으니 결과물을 출력과 반환
                 Console.WriteLine(str);
                 return;
             }
 
+            // 조건 확인
             for (int i = 1; i <= board.Length - 1; i++)
             {
 
+                // 중복 불가능하므로 앞에께 사용안된 경우
                 if (chk[i] == false)
                 {
 
+                    // 재귀에서 중복 진입 방지
                     chk[i] = true;
                     
-
+                    // 현재 문자를 추가하고 현재 단계 추가해서 재귀
                     Back(board, chk, step + 1, $"{str}{i} ");
                     
+                    // 재귀에서 해당 위치에 i문자를 포함한 모든 경우의 수를 다했으므로 중복진입 가능하게 변경 
                     chk[i] = false;
                 }
             }

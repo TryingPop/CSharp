@@ -72,10 +72,14 @@ namespace BaekJoon._25
                 return;
             }
 
+            // 앞과 비슷하나 이번에는 오름차순 조건과, 자리 위치 달라도 같은 경우로 인식하기에
+            // 이전 값보다 큰 경우만 체크한다
             for (int i = before + 1; i <= board.Length - 1; i++)
             {
 
+                // 이전 값보다 큰 경우
                 result[step] = i;
+                // 재귀로 진행
                 Back(sw, board, result, step + 1, i);
             }
 

@@ -18,7 +18,7 @@ namespace BaekJoon._25
     internal class _25_05
     {
 
-        static void Main(string[] args)
+        static void Main5(string[] args)
         {
 
             int input = int.Parse(Console.ReadLine());

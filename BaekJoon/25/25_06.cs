@@ -6,12 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
-날짜 : 2023. 7. 23
+날짜 : 2023. 7. 24
 이름 : 배성훈
 내용 : 스도쿠
     문제번호 : 2580번
 
+    해당 경우의 수 검색이 끝난 뒤에 값을 초기화 안해줬다
+    그래서 1%에서 많이 틀리고 초기화를 하니 바로 맞췄다.    
+
+    디버깅과 문제를 분석하니
+    여기서는 가로 검색에는 초기화 안해도 이상이 없으나 
+    초기화 안할 시 세로나 3 * 3 검색에서 문제가 생길 수 있음을 확인하고 수정했다
     
+    문제 해결 25일에 다른 사람 풀이 살펴보고
+    괜찮은거 있으면 코드 추가할 예정이다
+    없으면 다음문제로 넘어간다!
 */
 
 namespace BaekJoon._25
@@ -99,7 +108,7 @@ namespace BaekJoon._25
             Console.WriteLine();
 
             
-#elif true
+#elif seconds
 
             // 판과 제로 좌표 입력
             (int x, int y)[] pos = new (int x, int y)[35];
@@ -298,7 +307,7 @@ namespace BaekJoon._25
         }
 
 
-#elif true
+#elif seconds
         static void Back(int[,] board, (int x, int y)[] zeroPos, int _size, int step, ref bool stop)
         {
             

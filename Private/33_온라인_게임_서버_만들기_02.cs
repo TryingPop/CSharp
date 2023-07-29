@@ -37,9 +37,9 @@ namespace Private
             /// <summary>
             /// 토큰 상태
             /// </summary>
-            enum State 
-            { 
-            
+            enum State
+            {
+
                 // 대기 중
                 Idle,
 
@@ -94,7 +94,7 @@ namespace Private
 
             IMessageDispatcher dispatcher;
 
-            public delegate void CloseDelegate(CUserToken token);
+            public delegate void ClosedDelegate(CUserToken token);
             public ClosedDelegate on_session_closed;
 
             // heartbeat
@@ -229,7 +229,7 @@ namespace Private
                             msg.pop_protocol_id();
 
                             byte interval = msg.pop_byte();
-                            this.heartbeat_sender = new CHearbeatSender(this, interval);
+                            this.heartbeat_sender = new CHeartbeatSender(this, interval);
 
                             if (this.auto_heartbeat)
                             {
@@ -263,7 +263,7 @@ namespace Private
 
                             // ?
                             default:
-                                this.peer.on_message();
+                                this.peer.on_message(msg);
                                 break;
                         }
                     }
@@ -567,6 +567,7 @@ namespace Private
 
                     this.heartbeat_sender.update(time);
                 }
+            }
         }
     }
 }

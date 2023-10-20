@@ -35,7 +35,6 @@ namespace BaekJoon._25
             int[,] board = new int[9, 9];
 
             StreamReader sr = new(Console.OpenStandardInput());
-
 #if first
             // 현재 시간초과 난다
             // Stopwatch로 확인 결과 6000ms 걸린다..

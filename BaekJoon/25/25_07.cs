@@ -20,7 +20,7 @@ namespace BaekJoon._25
     internal class _25_07
     {
 
-        static void Main(string[] args)
+        static void Main7(string[] args)
         {
 
             int len = int.Parse(Console.ReadLine());
@@ -31,7 +31,7 @@ namespace BaekJoon._25
 
             int min = int.MaxValue, max = int.MinValue;
 
-            Dfs(1, nums[0], nums, opNum[0], opNum[1], opNum[2], opNum[3], ref min, ref max);
+            // Dfs7(1, nums[0], nums, opNum[0], opNum[1], opNum[2], opNum[3], ref min, ref max);
 
             Console.WriteLine(max);
             Console.WriteLine(min);
@@ -73,6 +73,7 @@ namespace BaekJoon._25
             }
         }
 
+
         /*
         static void Main77(string[] args)
         {
@@ -104,6 +105,6 @@ namespace BaekJoon._25
         // 그리고 DFS가 아닌 BFS 방법의 탐색이 필요한거 같은데?..? 그래서 가지치기
         // 그래야 진행하면서 같은 개수를써도 가지치기가 될거 같다?
 
-    }
     */
+    }
 }

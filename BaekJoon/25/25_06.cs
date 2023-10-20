@@ -28,7 +28,7 @@ namespace BaekJoon._25
     internal class _25_06
     {
 
-        static void Main(string[] args)
+        static void Main6(string[] args)
         {
 
             // 스도쿠 판 생성

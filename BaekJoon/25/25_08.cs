@@ -20,6 +20,9 @@ using System.Xml.Schema;
     break을 넣었다
 
     그리고 속도를 올리고 싶다면, list를 2개 쓰면 더 빨라진다
+
+    먼저, 백준은 과정보다 정답에 초점을 맞추자
+    속도는 해커랭크에서 챙기자!
  */
 
 namespace BaekJoon._25
@@ -27,7 +30,7 @@ namespace BaekJoon._25
     internal class _25_08
     {
 
-        static void Main(string[] args)
+        static void Main8(string[] args)
         {
 
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));

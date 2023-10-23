@@ -19,7 +19,7 @@ namespace BaekJoon._26
     internal class _26_03
     {
 
-        static void Main(string[] args)
+        static void Main3(string[] args)
         {
 
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));

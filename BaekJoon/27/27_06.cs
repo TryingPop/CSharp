@@ -16,7 +16,7 @@ namespace BaekJoon._27
     internal class _27_06
     {
 
-        static void Main(string[] args)
+        static void Main6(string[] args)
         {
 
             // 입력

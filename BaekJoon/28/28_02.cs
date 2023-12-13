@@ -18,7 +18,7 @@ namespace BaekJoon._28
     internal class _28_02
     {
 
-        static void Main(string[] args)
+        static void Main2(string[] args)
         {
 
             // 입력

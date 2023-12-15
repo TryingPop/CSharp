@@ -86,7 +86,7 @@ namespace BaekJoon._25
         public class PS
         {
 
-            private static StreamWriter sw;
+            private static StreamWriter sw = null;
 
             private readonly int n;
             private readonly int m;

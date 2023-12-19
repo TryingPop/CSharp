@@ -150,7 +150,7 @@ namespace BaekJoon._30
     internal class _30_03
     {
 
-        static void Main(string[] args)
+        static void Main3(string[] args)
         {
 
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));

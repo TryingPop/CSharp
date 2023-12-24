@@ -13,7 +13,7 @@ using System.Threading.Tasks;
     문자열 검색 알고리즘
 
     현재 오!답! 이다!
-
+    temp를 Queue가 아닌 스택으로 해야한다!
 */
 
 namespace BaekJoon._31
@@ -21,7 +21,7 @@ namespace BaekJoon._31
      internal class _31_01
      {
 
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
 
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
@@ -32,38 +32,44 @@ namespace BaekJoon._31
 
             sr.Close();
 
-            Stack<char> stack = new Stack<char>(bomb.Length);
-            Queue<char> temp = new Queue<char>(bomb.Length);
+            Stack<char> result = new Stack<char>(bomb.Length);
+            // Queue가 아닌 스택으로 해야한다...!
+            Stack<char> temp = new Stack<char>(bomb.Length);
 
-            char chk = bomb[^1];
+            char top = bomb[^1];
             for (int i = 0; i < str.Length; i++)
             {
 
                 char c = str[i];
-                stack.Push(c);
+                result.Push(c);
 
-                bool boom = false;
+                // 입장 확인
+                bool enter = result.Peek() == top;
+                // 붐?
 
-                
-                while (stack.Count != 0
-                    && stack.Peek() == chk)
+                // 여기서 루프에 걸릴 위험이 있다
+                while (enter)
                 {
 
+                    bool boom = false;
                     for (int j = bomb.Length - 1; j >= 0; j--)
                     {
 
-                        char top = stack.Pop();
-                        temp.Enqueue(top);
-                        if (top != bomb[j]) break;
+                        char chk = result.Pop();
+                        temp.Push(chk);
+                        if (chk != bomb[j]) break;
 
                         if (j == 0) boom = true;
-                        if (stack.Count == 0) break;
+
+                        if (result.Count == 0) break;
                     }
 
                     if (boom)
                     {
 
                         temp.Clear();
+                        if (result.Count != 0) enter = result.Peek() == top;
+                        else enter = false;
                     }
                     else
                     {
@@ -71,20 +77,23 @@ namespace BaekJoon._31
                         while (temp.Count > 0)
                         {
 
-                            stack.Push(temp.Dequeue());
+                            result.Push(temp.Pop());
                         }
+
+                        enter = false;
                     }
                 }
             }
             
-            if (stack.Count != 0)
+            // 출력
+            if (result.Count != 0)
             {
-                str = new char[stack.Count];
+                str = new char[result.Count];
 
                 for (int i = str.Length - 1; i >= 0; i--)
                 {
 
-                    str[i] = stack.Pop();
+                    str[i] = result.Pop();
                 }
 
                 Console.WriteLine(string.Concat(str));

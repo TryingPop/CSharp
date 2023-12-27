@@ -22,6 +22,7 @@ namespace BaekJoon._32
         static void Main5(string[] args)
         {
 
+            // 입력
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
 
             int num = int.Parse(sr.ReadLine());
@@ -47,7 +48,10 @@ namespace BaekJoon._32
 
             sr.Close();
 
+            // 감염된 개수 출력
             int result = BFS(conns, num);
+
+            // 출력
             Console.WriteLine(result);
         }
 

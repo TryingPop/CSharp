@@ -69,6 +69,8 @@ namespace BaekJoon._32
                 // 정답 출력
                 Console.WriteLine(result);
             }
+
+            sr.Close();
         }
 
         static bool ChkInvalidPos(int _x, int _y, int _sizeX, int _sizeY)

@@ -12,13 +12,10 @@ using System.Xml.XPath;
 내용 : 숨박꼭질
     문제번호 : 1697번
 
-    현재 오답코드이다
-    이진 트리 이동을 고려해서 코드를 작성했다
-    만약 * 2 이동과 - 1이동인 경우로 잘못해석했다
+    BFS 단원이라 BFS로 풀었다
+    이동할 수 있는 좌표를 모두 저장한 뒤 해당 좌표로 이동한다
 
-    이 경우
-    먼저 층계를 찾고
-    위에층에서 이동하며 최소한으로 맞추고 있다;
+    조금만 더 찾아보면 BFS가 아닌 log2의 시간으로 풀 수 있을거 같다
 */
 
 namespace BaekJoon._32
@@ -31,81 +28,69 @@ namespace BaekJoon._32
 
             int[] pos = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
 
-            BFS(pos, out int result);
+            int[] chk = new int[200_000 + 1];
 
-            Console.WriteLine();
+            BFS(chk, pos);
+
+            Console.WriteLine(chk[pos[1]]);
         }
 
-        static void BFS(int[] _pos, out int _result)
+        static void BFS(int[] _chk, int[] _pos)
         {
 
+            // 이건 변하지 않는다!
             if (_pos[0] - _pos[1] >= 0)
             {
 
-                _result = _pos[0] - _pos[1];
+                _chk[_pos[1]] = _pos[0] - _pos[1];
                 return;
             }
 
-            _result = 0;
 
-            if (_pos[0] == 0) 
-            { 
-                
-                _pos[0]++;
-                _result++;
-            }
-
-            // 이제 연산!
-            int floor = 1;
-
-
-            while (true)
+            // 일단 BFS 탐색하자!
+            Queue<int> queue = new Queue<int>();
+            queue.Enqueue(_pos[0]);
+            while (queue.Count > 0)
             {
 
-                if (_pos[0] - floor < floor)
+                if (_chk[_pos[1]] != 0)
                 {
 
+                    queue.Clear();
                     break;
                 }
 
-                floor *= 2;
-            }
+                int node = queue.Dequeue();
+                int curStep = _chk[node] + 1;
 
-            Stack<int> destParents = new Stack<int>();
-            int chk = _pos[1];
-            while (true)
-            {
-
-                int calc = chk - floor;
-                destParents.Push(chk);
-
-                if (calc >= 0 && calc < floor)
+                for (int i = 0; i < 3; i++)
                 {
 
-                    break;
-                }
+                    int next = GetNextNum(node, i);
 
-                chk /= 2;
-            }
-
-            int cur = _pos[0];
-            while(destParents.Count > 0)
-            {
-
-                int top = destParents.Pop();
-                int calc = cur - top;
-                if (calc < 0) calc = -calc;
-
-                _result += calc;
-                cur = top;
-
-                if (destParents.Count > 0)
-                {
-
-                    cur *= 2;
-                    _result++;
+                    if (ChkInValid(next)
+                        || _chk[next] != 0) continue;
+                    _chk[next] = curStep;
+                    queue.Enqueue(next);
                 }
             }
+        }
+
+        static bool ChkInValid(int _num)
+        {
+
+            if (_num > 200_000) return true;
+            else if (_num < 0) return true;
+
+            return false;
+        }
+
+        static int GetNextNum(int _num, int _idx)
+        {
+
+            if (_idx == 0) return _num - 1;
+            if (_idx == 1) return _num + 1;
+            return _num * 2;
         }
 
     }

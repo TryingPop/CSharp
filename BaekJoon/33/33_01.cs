@@ -20,8 +20,8 @@ using System.Threading.Tasks;
     찾아보니 우선순위 큐 로 해야 가능하다고 한다
     아이디어를 찾아보니 순서를 정할 때 작은 가중치(= 거리) 순서로 큐에 넣어 계산
 
-    ... 큐로 했는데 메모리 초과로 실패했다.
-    아마도 안에 있는걸 제거 해야할듯 싶다
+    큐를 넣는 조건을 잘못해서 메모리 초과 떴다
+    
 */
 
 namespace BaekJoon._33
@@ -38,7 +38,7 @@ namespace BaekJoon._33
 
             int start = int.Parse(sr.ReadLine());
 
-            List<int[]>[] root = new List<int[]>[info[1]];
+            List<int[]>[] root = new List<int[]>[info[0] + 1];
             for (int i = 0; i < info[1]; i++)
             {
 
@@ -75,6 +75,7 @@ namespace BaekJoon._33
             public MyQueue(int _size)
             {
 
+                if (_size < 0) _size = 0;
                 arr = new (int dst, int dis)[_size];
                 
                 _count = 0;
@@ -88,13 +89,13 @@ namespace BaekJoon._33
                 // idx 체크.. 커질 수 있네;
                 
                 int idx = _count++;
-                if (arr.Length <= _count)
+                if (arr.Length <= _count - 1)
                 {
 
                     // 사이즈 업! 배로한다!
-                    (int dst, int dis)[] newArr = new (int dst, int dis)[_count * 2];
+                    (int dst, int dis)[] newArr = new (int dst, int dis)[_count * 2 + 1];
 
-                    Array.Copy(arr, 0, newArr, 0, _count);
+                    Array.Copy(arr, 0, newArr, 0, arr.Length);
                     arr = newArr;
                 }
                 arr[idx] = _add;
@@ -140,7 +141,7 @@ namespace BaekJoon._33
                 {
 
                     int left = cur * 2 + 1;
-                    int right = (cur + 1) * 2;
+                    int right = cur * 2 + 2;
 
                     // 양쪽 존재 X
                     if (left >= _count) break;
@@ -190,15 +191,20 @@ namespace BaekJoon._33
         {
 
             // 정점의 개수
-            int[] weights = new int[_info[0] + 1];
-            // 방문 정보
-            bool[] visit = new bool[_info[0] + 1];
+            // 가중치가 10이므로 많아야 정점 개수 * 10의 값! 그래서 20만인데 넉넉하게 1000만 잡았다
+            const int MAX = 10_000_000;
 
-            // Queue<int> queue = new Queue<int>();
+            // 가중치 배열 생성
+            int[] weights = new int[_info[0] + 1];
+
+            // 최대값 부여
+            Array.Fill(weights, MAX);
+
+            // 사이즈 업 되는 큐를 재현? 해봤다
             MyQueue queue = new MyQueue(_info[1]);
 
             queue.Enqueue((_start, 0));
-            visit[_start] = true;
+            weights[_start] = 0;
 
             while(queue.Count > 0)
             {
@@ -215,8 +221,7 @@ namespace BaekJoon._33
                     int dest = _root[curDst][i][0];
                     int weight = _root[curDst][i][1];
 
-                    if (visit[dest] && weights[dest] <= curWeight + weight) continue;
-                    visit[dest] = true;
+                    if (weights[dest] <= curWeight + weight) continue;
                     weights[dest] = curWeight + weight;
                     queue.Enqueue((dest, weights[dest]));
                 }
@@ -225,7 +230,7 @@ namespace BaekJoon._33
             for (int i = 1; i < _info[0] + 1; i++)
             {
 
-                if (visit[i]) _result.Append(weights[i].ToString());
+                if (weights[i] != MAX) _result.Append(weights[i].ToString());
                 else _result.Append("INF");
 
                 _result.Append('\n');

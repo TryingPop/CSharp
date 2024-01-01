@@ -29,15 +29,18 @@ namespace BaekJoon._33
     internal class _33_01
     {
 
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
 
+            // 입력
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
 
             int[] info = sr.ReadLine().Split(' ').Select(int.Parse).ToArray();
 
             int start = int.Parse(sr.ReadLine());
 
+            // 길설정
+            // root의 인덱스 범위를 잘못 설정해서 .. info[1].. 80%대에서 인덱스 에러 떴다!
             List<int[]>[] root = new List<int[]>[info[0] + 1];
             for (int i = 0; i < info[1]; i++)
             {
@@ -52,24 +55,26 @@ namespace BaekJoon._33
             }
             sr.Close();
 
-
+            // 결과 
             StringBuilder sb = new StringBuilder();
 
+            // 탐색 - 다익스트라 알고리즘 우선순위 큐를 이용!
             BFS(root, info, start, sb);
 
+            // 출력
             StreamWriter sw = new StreamWriter(new BufferedStream(Console.OpenStandardOutput()));
             sw.Write(sb);
             sw.Close();
         }
 
         /// <summary>
-        /// 알고리즘 용이므로 불필요한 메모리 확장 연산은 안한다
-        /// 만약 한다면 Enqueue에서 확인해야한다
+        /// 가장 작은 가중치를 0번으로 오게하는 자료구조
         /// </summary>
         public class MyQueue
         {
 
             int _count;
+            // 디버깅 해보니 초기값 0, 0 부여된 채로 시작한다
             (int dst, int dis)[] arr;
 
             public MyQueue(int _size)
@@ -81,27 +86,31 @@ namespace BaekJoon._33
                 _count = 0;
             }
 
+            // 원소의 개수
             public int Count => _count;
 
+            // 추가
             public void Enqueue((int dst, int dis) _add)
             {
 
-                // idx 체크.. 커질 수 있네;
-                
                 int idx = _count++;
+                // 사이즈업 체크 초기에는 안되게 하려고 했으나, 60%대에서 확장되게 했어야했다
                 if (arr.Length <= _count - 1)
                 {
 
-                    // 사이즈 업! 배로한다!
+                    // 사이즈 업! 2배 + 1로한다!
+                    // 여기서 메모리 할당을 요구하기에 잘못하면 메모리 초과가 날 수 있다!
                     (int dst, int dis)[] newArr = new (int dst, int dis)[_count * 2 + 1];
 
                     Array.Copy(arr, 0, newArr, 0, arr.Length);
                     arr = newArr;
                 }
+
                 arr[idx] = _add;
                 ChkUp(idx);
             }
 
+            // 가중치 낮은 값 꺼내기
             public (int dst, int dis) Dequeue()
             {
 
@@ -112,6 +121,7 @@ namespace BaekJoon._33
                 return result;
             }
 
+            // 위로 탐색 - 자기 자신과 큰놈 비교
             private void ChkUp(int idx)
             {
 
@@ -132,6 +142,7 @@ namespace BaekJoon._33
                 }
             }
 
+            // 아래로 탐색인데 맨 밑으로 보내는 역할만 한다
             private void ChkDown(int idx)
             {
 
@@ -178,6 +189,7 @@ namespace BaekJoon._33
                 if (cur < _count) ChkUp(cur);
             }
 
+            // 원소 체인지
             private void Swap(int _idx1, int _idx2)
             {
 
@@ -213,6 +225,12 @@ namespace BaekJoon._33
                 int curDst = node.dst;
                 int curWeight = node.dis;
 
+                // 가중치가 큰 길이 먼저 담기고 뒤에 가중치가 낮은 길이 잡히는 경우
+                // MyQueue에서 가중치 낮은 길이 먼저 시작되고 큰 길은 큐에 남아있다
+                // 이 경우 _root 검색을 안하기 위해 검문한다
+                if (weights[curDst] < curWeight) continue;
+
+                // 길이 존재성 확인
                 if (_root[curDst] == null) continue;
 
                 for (int i = 0; i < _root[curDst].Count; i++)
@@ -221,15 +239,19 @@ namespace BaekJoon._33
                     int dest = _root[curDst][i][0];
                     int weight = _root[curDst][i][1];
 
+                    // 만약 현재보다 빠른 길이 탐색이 되었을 경우 넘기는 코드이다
                     if (weights[dest] <= curWeight + weight) continue;
+
                     weights[dest] = curWeight + weight;
                     queue.Enqueue((dest, weights[dest]));
                 }
             }
 
+            // 결과값 저장
             for (int i = 1; i < _info[0] + 1; i++)
             {
 
+                // 수정 안된 경우면 INF, 수정됬으면 해당 값 출력
                 if (weights[i] != MAX) _result.Append(weights[i].ToString());
                 else _result.Append("INF");
 

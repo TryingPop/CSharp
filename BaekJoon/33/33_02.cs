@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 내용 : 특정한 최단 경로
     문제번호 : 1504번
 
-    풀이 아이디어는 다익스트라 3번 해서 값을 구했다
+    풀이 아이디어는 가중치(거리)가 양수이기에 다익스트라 3번 해서 값을 구했다
     1 -> N으로 가는 루트 중 v와 w 둘 다 거쳐서 가는 경로는
     1 -> v -> w -> N
     1 -> w -> v -> N
@@ -115,13 +115,15 @@ namespace BaekJoon._33
             Console.WriteLine(result);
         }
 
+        // 다익스트라
         static void Dijkstra(List<int[]>[] _roots, int[] _info, int _start, int[] _target, out (int dis, bool v, bool w)[] _result)
         {
 
             _result = new (int dis, bool v, bool w)[_info[0] + 1];
 
-            // 양방향 간선이고 최대 점의 개수 800개, 최대 가중치 1000 이 있다
-            // 4 * 800 * 1000 = 3,200,000 이상의 가중치는 나올 수 없다
+            // 양방향 간선이고 최대 점의 개수 800개, 최대 가중치 1000 이므로
+            // 두 점 사이의 최단 거리는 항상 모든 점을 최대 가중치로 지나는 값보다 작으므로
+            // 3 * 800 * 1000 = 2,400,000 이상의 가중치는 나올 수 없다
             // 그래서 넉넉하게 최대값 1,000만으로 잡았다
             Array.Fill(_result, (10_000_000, false, false));
 
@@ -133,6 +135,7 @@ namespace BaekJoon._33
             _result[_start].v = _start == _target[0];
             _result[_start].w = _start == _target[1];
 
+            // 찾아서 기록
             while(q.Count > 0)
             {
 

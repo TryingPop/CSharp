@@ -9,6 +9,10 @@ using System.Text;
 내용 : 미확인 도착지
     문제번호 : 9370번
 
+    **********************************
+    거리가 양수이므로 다익스트라! 이용
+    **********************************
+
     초기화 부분에서 많이 틀렸다
     j = 1; j <= info[0]로 했어야 하는데, j = 0; j < info[0]으로 해서 쓸모없는 0항을 초기화하고, 
     꼭 해야하는 info[0]항을 초기화 안해서 많이 틀렸었다
@@ -71,6 +75,7 @@ namespace BaekJoon._33
             // 목적지에 쓸거
             int[] pos = new int[2_001];
 
+            // 초기값 설정
             Array.Fill(pos, MAX);
 
             // 가능한 목적지
@@ -108,8 +113,10 @@ namespace BaekJoon._33
 
                     int[] temp = sr.ReadLine().Split(' ').Select(int.Parse).ToArray();
 
+                    // 기본 짝수 설정
                     temp[2] *= 2;
 
+                    // 만약 특정 도로면 홀수로 나오게 한다
                     if (temp[0] == chk[1] && temp[1] == chk[2])
                     {
 
@@ -135,6 +142,7 @@ namespace BaekJoon._33
                     dstable.Add(int.Parse(sr.ReadLine()));
                 }
 
+                // 문제 조건으로 오름차순 설정
                 dstable.Sort();
 
                 Dijkstra(roots, info, chk[0], pos);
@@ -142,6 +150,7 @@ namespace BaekJoon._33
                 for (int j = 0; j < info[2]; j++)
                 {
 
+                    // 특정 도로를 지날 경우 홀수!
                     if (pos[dstable[j]] % 2 == 1)
                     {
 
@@ -191,8 +200,10 @@ namespace BaekJoon._33
 
 #if Wrong
 
+    // 우선순위 큐에 순서 비교를 원하는대로 하는 방법
     public class MyComparer : IComparer<(int dis, bool v, bool w)>
     {
+
         public int Compare((int dis, bool v, bool w) x, (int dis, bool v, bool w) y)
         {
 

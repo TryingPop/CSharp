@@ -37,7 +37,7 @@ namespace BaekJoon._34
     internal class _34_05
     {
 
-        static void Main5(string[] args)
+        static void Main(string[] args)
         {
 
             // 입력
@@ -52,7 +52,7 @@ namespace BaekJoon._34
             // 투 포인트 탐색
             int result = 0;
             int l = 0;
-            int r = right.Length - 1;
+            int rightR = right.Length - 1;
 
             for (int i = 0; i < left.Length; i++)
             {
@@ -60,7 +60,8 @@ namespace BaekJoon._34
                 if (left[i] > info[1]) break;
 
                 long calc = left[i];
-                // 이 부분 이분탐색으로 바꿔야 한다!
+#if first
+                // 이 부분 이진 탐색으로 바꿔야 한다!
                 for (int j = r; j >= 0; j--)
                 {
 
@@ -72,9 +73,44 @@ namespace BaekJoon._34
                         break;
                     }
                 }
+#else
+                // 이진 탐색
+                // 찾을 것이 이하 중에서 가장 큰 값이다!
+                int rightL = 0;
+                while (rightL <= rightR)
+                {
+
+                    // 중앙값
+                    int mid = (rightL + rightR) / 2;
+
+                    // rightL을 초과하는 가장 작은 수가 되게 설정!
+                    // rightR은 이하인 수 중에 가장 큰 수가되게 설정!
+                    if (calc + right[mid] <= info[1])
+                    {
+
+                        // 이상이므로 오른쪽 한 칸 이동!
+                        // 그러면 rightL 초과하는 값 중 가장 작은 값(하한)까지 이동한다!
+                        rightL = mid + 1;
+                    }
+                    else
+                    {
+
+                        // rightR은 목표 값 이하 중에 가장 큰 값(상한)을 향해 이동!
+                        rightR = mid - 1;
+                    }
+                }
+
+                // 우리가 찾을껀 
+                // 이하인 값 들 중 가장 큰 값이고, 해당 인덱스 + 1 이 개수가 된다
+                result += rightR + 1;
+                // 해당 인덱스 + 1 은 rightL과 같으니 rightL을 대입해도 된다!
+                // 그런데 이하 중에 상한을 찾는다는 의미를 강조하기 위해 rightR을 썼다!
+                // 셋 다 정답 제출하니 다 맞았다고 떴다
+                // result += rightL;
+#endif
             }
             Console.WriteLine(result);
-        }
+         }
 
         static void SetSubSum(int _len, int[] _nums, long[] _left, long[] _right)
         {

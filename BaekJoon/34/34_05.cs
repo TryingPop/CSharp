@@ -37,7 +37,7 @@ namespace BaekJoon._34
     internal class _34_05
     {
 
-        static void Main(string[] args)
+        static void Main5(string[] args)
         {
 
             // 입력

@@ -28,7 +28,7 @@ namespace BaekJoon._35
     internal class _35_01
     {
 
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
 
             int n = int.Parse(Console.ReadLine());

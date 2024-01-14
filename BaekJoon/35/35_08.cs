@@ -66,6 +66,7 @@ namespace BaekJoon._35
             // 100 * 100_000
             const int MAX = 10_000_000;
 
+            // 입력
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
 
             int size = int.Parse(sr.ReadLine());
@@ -92,6 +93,7 @@ namespace BaekJoon._35
                 int[] temp = Array.ConvertAll(sr.ReadLine().Split(' '), int.Parse);
 
                 if (dp[temp[0]][temp[1]].dis < temp[2]) continue;
+                // 시작 지점을 before에 넣어준다
                 dp[temp[0]][temp[1]] = (temp[2], temp[0]);
             }
 
@@ -104,12 +106,13 @@ namespace BaekJoon._35
                 for (int start = 1; start <= size; start++)
                 {
 
+                    // dis를 MAX 비교해도 되나 큰 수보다는 작은수로 비교
                     if (dp[start][mid].before == 0) continue;
 
                     for (int end = 1; end <= size; end++)
                     {
 
-                        // 딱히 필요하지 않다! <<< dp[start][end].dis <= chk에서 걸러지기 때문?
+                        // 딱히 필요하지 않다! <<< dp[start][end].dis <= chk에서 걸러지기 때문
                         // if (dp[mid][end].before == 0) continue;
 
                         int chk = dp[start][mid].dis + dp[mid][end].dis;
@@ -117,25 +120,27 @@ namespace BaekJoon._35
                         if (dp[start][end].dis <= chk) continue;
 
                         dp[start][end].dis = chk;
+                        // 뒤에서 부터 읽기에 쓰는 방법
                         dp[start][end].before = dp[mid][end].before;
 
+                        // 처음 오답
                         // dp[start][end].before = mid;
                     }
                 }
             }
 
-            // 읽기
+            // 출력
             StreamWriter sw = new StreamWriter(new BufferedStream(Console.OpenStandardOutput()));
 
-            // 플로이드 워셜 표 출력
+            // 플로이드 워셜 표
             for (int start = 1; start <= size; start++)
             {
 
                 for (int end = 1; end <= size; end++)
                 {
 
+                    // 문제 조건 맞춰 출력해줘야한다
                     int chk = dp[start][end].dis;
-                    // ... 문제 조건에 맞춰서 출력해줘야한다!
                     if (chk == MAX) chk = 0;
                     sw.Write(chk);
                     sw.Write(' ');
@@ -145,6 +150,7 @@ namespace BaekJoon._35
             }
 
 
+            // 경로 역추적
             Stack<int> result = new Stack<int>();
             for (int start = 1; start <= size; start++)
             {
@@ -153,15 +159,20 @@ namespace BaekJoon._35
                 {
 
                     int chk = dp[start][end].before;
+
                     if (chk == 0)
                     {
 
+                        // 경로가 없는 경우
                         sw.Write("0\n");
                         continue;
                     }
 
+                    // 끝 부분은 end로 넣어준다
                     result.Push(end);
 
+                    // 이전 경로 넣어주기
+                    // 시작지점도 여기에 포함된다
                     while (chk != 0)
                     {
 
@@ -171,6 +182,7 @@ namespace BaekJoon._35
 
                     sw.Write(result.Count);
 
+                    // 역으로 읽어서 stack으로 출력
                     while(result.Count > 0)
                     {
 

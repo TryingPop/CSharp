@@ -97,7 +97,7 @@ namespace BaekJoon._36
             var visited = new bool[edges.Length];
             visited[1] = true;
             var result = int.MinValue;
-            result = DFS(1, edges, visited, result);
+            DFS(1, edges, visited, ref result);
             Console.Write(result);
 #endif
 
@@ -149,7 +149,7 @@ namespace BaekJoon._36
 
 #else
 
-        static int DFS(int node, List<Edge>[] edges, bool[] visited, int result)
+        static int DFS(int node, List<Edge>[] edges, bool[] visited, ref int result)
         {
             int max = 0, sec = int.MinValue;
 
@@ -158,7 +158,7 @@ namespace BaekJoon._36
                 if (visited[dest]) continue;
 
                 visited[dest] = true;
-                var wholeDist = DFS(dest, edges, visited, result) + dist;
+                var wholeDist = DFS(dest, edges, visited, ref result) + dist;
                 if (max < wholeDist)
                 {
                     sec = max;

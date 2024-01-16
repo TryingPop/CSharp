@@ -53,7 +53,7 @@ namespace BaekJoon._36
     internal class _36_05
     {
 
-        static void Main6(string[] args)
+        static void Main5(string[] args)
         {
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
             int len = int.Parse(sr.ReadLine());

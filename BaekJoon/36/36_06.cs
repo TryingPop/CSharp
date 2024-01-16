@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -114,7 +113,7 @@ namespace BaekJoon._36
     internal class _36_06
     {
 
-        static void Main(string[] args)
+        static void Main6(string[] args)
         {
 
             const int MAX_NODE = 10_000;

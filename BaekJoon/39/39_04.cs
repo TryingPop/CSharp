@@ -130,9 +130,10 @@ namespace BaekJoon._39
             // dp
             (int contain, int except, bool visit)[] dp = new (int contain, int except, bool visit)[num + 1];
 
-
+            // 탐색
             DFS(lines, start, dp, pop);
 
+            // 출력
             if (dp[start].contain > dp[start].except) Console.WriteLine(dp[start].contain);
             else Console.WriteLine(dp[start].except);
         }

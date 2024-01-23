@@ -33,3 +33,11 @@ C:\Users\502\Desktop\CSStudy\Ch10\obj\Debug\net6.0\refint\Ch10.dll
 C:\Users\502\Desktop\CSStudy\Ch10\obj\Debug\net6.0\Ch10.pdb
 C:\Users\502\Desktop\CSStudy\Ch10\obj\Debug\net6.0\Ch10.genruntimeconfig.cache
 C:\Users\502\Desktop\CSStudy\Ch10\obj\Debug\net6.0\ref\Ch10.dll
+C:\Users\a\Desktop\git\CS\Ch10\obj\Debug\net6.0\Ch10.csproj.AssemblyReference.cache
+C:\Users\a\Desktop\git\CS\Ch10\obj\Debug\net6.0\Ch10.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\a\Desktop\git\CS\Ch10\obj\Debug\net6.0\Ch10.AssemblyInfoInputs.cache
+C:\Users\a\Desktop\git\CS\Ch10\obj\Debug\net6.0\Ch10.AssemblyInfo.cs
+C:\Users\a\Desktop\git\CS\Ch10\obj\Debug\net6.0\Ch10.csproj.CoreCompileInputs.cache
+C:\Users\a\Desktop\git\CS\Ch10\obj\Debug\net6.0\Ch10.dll
+C:\Users\a\Desktop\git\CS\Ch10\obj\Debug\net6.0\refint\Ch10.dll
+C:\Users\a\Desktop\git\CS\Ch10\obj\Debug\net6.0\Ch10.pdb

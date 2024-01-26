@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,13 @@ using System.Threading.Tasks;
 이름 : 배성훈
 내용 : 문자열 집합
     문제번호 : 14425번
+
+    *******************(2024. 1. 26)*******************
+    이전에 풀었으나 트라이 자료구조를 쓰기위해 다시 왔다
+    ***************************************************
+
+    트라이 자료구조를 string으로도 제출하고, char로도 제출해보니, char는 시간초과 뜬다!
+    char는 문자열 길이만큼 생성하는데, 여기서 시간초과 만드는거 같다
 */
 
 namespace BaekJoon._21
@@ -16,9 +24,10 @@ namespace BaekJoon._21
     internal class _21_02
     {
 
-        static void Main2(string[] args)
+        static void Main(string[] args)
         {
 
+#if before
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
 
             int[] info = Array.ConvertAll(sr.ReadLine().Split(' '), int.Parse);
@@ -43,6 +52,99 @@ namespace BaekJoon._21
             }
 
             Console.WriteLine(result);
+#endif
+
+            StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
+
+            int[] info = Array.ConvertAll(sr.ReadLine().Split(' '), int.Parse);
+            Node node = new();
+
+            for (int i = 0; i < info[0]; i++)
+            {
+
+                node.Add(sr.ReadLine());
+            }
+
+            int result = 0;
+            for (int i = 0; i < info[1]; i++)
+            {
+
+                if (node.Search(sr.ReadLine())) result++;
+            }
+            sr.Close();
+
+            Console.WriteLine(result);
+        }
+
+        class Node
+        {
+
+            // Dictionary<string, Node> _child;
+            // public string name;
+            Dictionary<char, Node> _child;
+            bool isEnd;
+
+            public Node()
+            {
+
+                _child = new();
+            }
+            /*
+            public void Add(string _word)
+            {
+
+                if (!_child.ContainsKey(_word))
+                {
+
+                    _child[_word] = new Node();
+                }
+
+                _child[_word].name = _word;
+            }
+
+            public bool Search(string _word)
+            {
+
+                if (!_child.ContainsKey(_word)) return false;
+
+                return true;
+            }
+            */
+
+            public void Add(string _word)
+            {
+
+                Node node = this;
+
+                for (int i = 0; i < _word.Length; i++)
+                {
+
+                    if (!node._child.ContainsKey(_word[i]))
+                    {
+
+                        node._child[_word[i]] = new();
+                    }
+
+                    node = node._child[_word[i]];
+                }
+
+                node.isEnd = true;
+            }
+
+            public bool Search(string _word)
+            {
+
+                Node node = this;
+
+                for (int i = 0; i < _word.Length; i++)
+                {
+
+                    if (!node._child.ContainsKey(_word[i])) return false;
+                    node = node._child[_word[i]];
+                }
+
+                return node.isEnd;
+            }
         }
     }
 }

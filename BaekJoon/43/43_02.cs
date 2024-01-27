@@ -70,7 +70,7 @@ namespace BaekJoon._43
     internal class _43_02
     {
 
-        static void Main(string[] args)
+        static void Main2(string[] args)
         {
 
             int MAX_TEAM = 500;

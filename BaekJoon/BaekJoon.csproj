@@ -12,4 +12,8 @@
     <None Remove="33\33_03.cs~RF39680a95.TMP" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="etc\" />
+  </ItemGroup>
+
 </Project>

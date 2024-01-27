@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
-날짜 : 2023. 7. 19
+날짜 : 2023. 7. 19(2024. 1. 26)
 이름 : 배성훈
 내용 : 문자열 집합
     문제번호 : 14425번

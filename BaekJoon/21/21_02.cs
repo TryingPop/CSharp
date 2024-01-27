@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 
     트라이 자료구조를 string으로도 제출하고, char로도 제출해보니, char는 시간초과 뜬다!
     char는 문자열 길이만큼 생성하는데, 여기서 시간초과 만드는거 같다
+    ... 42_04를 풀려면 char로 만들어야하는데 여기서는 시간초과 난다
 */
 
 namespace BaekJoon._21
@@ -24,7 +25,7 @@ namespace BaekJoon._21
     internal class _21_02
     {
 
-        static void Main(string[] args)
+        static void Main2(string[] args)
         {
 
 #if before
@@ -81,13 +82,15 @@ namespace BaekJoon._21
 
             // Dictionary<string, Node> _child;
             // public string name;
-            Dictionary<char, Node> _child;
+            // Dictionary<char, Node> _child;
+            Node[] _child;
             bool isEnd;
 
             public Node()
             {
 
-                _child = new();
+                // _child = new();
+                _child = new Node[26];
             }
             /*
             public void Add(string _word)
@@ -119,6 +122,8 @@ namespace BaekJoon._21
                 for (int i = 0; i < _word.Length; i++)
                 {
 
+                    int idx = _word[i] - 'a';
+                    /*
                     if (!node._child.ContainsKey(_word[i]))
                     {
 
@@ -126,6 +131,15 @@ namespace BaekJoon._21
                     }
 
                     node = node._child[_word[i]];
+                    */
+
+                    if (node._child[idx] == null)
+                    {
+
+                        node._child[idx] = new();
+                    }
+
+                    node = node._child[idx];
                 }
 
                 node.isEnd = true;
@@ -139,10 +153,16 @@ namespace BaekJoon._21
                 for (int i = 0; i < _word.Length; i++)
                 {
 
-                    if (!node._child.ContainsKey(_word[i])) return false;
-                    node = node._child[_word[i]];
+                    // if (!node._child.ContainsKey(_word[i])) return false;
+                    // node = node._child[_word[i]];
+
+                    int idx = _word[i] - 'a';
+
+                    if (node._child[idx] == null) return false;
+                    node = node._child[idx];
                 }
 
+                
                 return node.isEnd;
             }
         }

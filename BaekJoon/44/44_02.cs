@@ -28,6 +28,8 @@ using System.Threading.Tasks;
     만약 깊은 곳에 있는 같은 노드인 경우, 해당 방법으로 찾는데 엄청난 시간이 소모된다
     그래도 해당 문제를 아슬아슬하게 통과했으니 아이디어가 잘못된거 같지는 않다
     제한은 3초인데 2.2초 걸렸다
+
+    찾아보니, 이진 탐색 아이디어 쓴다! 이는 44_01에서 한다!
 */
 
 namespace BaekJoon._44
@@ -60,6 +62,7 @@ namespace BaekJoon._44
                 lines[temp[1]].Add(temp[0]);
             }
 
+            // 부모 찾기
             Queue<int> q = new Queue<int>();
             q.Enqueue(1);
 
@@ -125,6 +128,7 @@ namespace BaekJoon._44
             }
             sw.Close();
             sr.Close();
+
         }
     }
 

@@ -194,8 +194,6 @@ namespace BaekJoon._44
             return result;
         }
 
-
-
         static int Second((int parent, long dis)[,] _dp, int[] _depth, int _start, int _end, int _find)
         {
 

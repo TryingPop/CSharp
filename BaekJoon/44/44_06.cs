@@ -18,8 +18,6 @@ using System.Threading.Tasks;
 
     노드 한 번에 이동하는 최대 입력 값이 100만이고, 최대 노드 이동은 10만이다
     100 만 * 10만 = 1000억 수치까지 갈 수 있다!
-
-    
 */
 
 namespace BaekJoon._44

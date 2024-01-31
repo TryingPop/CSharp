@@ -21,7 +21,6 @@ using System.Threading.Tasks;
     아이디어를 찾아보니 순서를 정할 때 작은 가중치(= 거리) 순서로 큐에 넣어 계산
 
     큐를 넣는 조건을 잘못해서 메모리 초과 떴다
-    
 */
 
 namespace BaekJoon._33

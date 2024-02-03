@@ -29,7 +29,7 @@ namespace BaekJoon._45
     internal class _45_05
     {
 
-        static void Main(string[] args)
+        static void Main5(string[] args)
         {
 
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));

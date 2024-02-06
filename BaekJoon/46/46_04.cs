@@ -130,6 +130,7 @@ namespace BaekJoon._46
             for (int i = 0; i < len; i++)
             {
 
+                // 10억에 50만개까지 들어올 수 있어서 쪼개서 입력받는다
                 int num = 0;
                 int c;
                 while ((c = sr.Read()) != -1 && c != '\n' && c != ' ')

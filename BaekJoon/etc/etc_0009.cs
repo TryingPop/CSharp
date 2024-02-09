@@ -13,7 +13,7 @@ using System.Threading.Tasks;
     직사각형 문제를 풀기전에 먼저 풀어본다
     일단 스위핑과 구분구적법 아이디어로 풀었다
 
-    
+    좌표압축을 하면, 1 ~ 100까지 도는걸 많아야 8번 하게 줄일 수 있다
 */
 
 namespace BaekJoon.etc

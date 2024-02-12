@@ -43,6 +43,8 @@ using System.Threading.Tasks;
 
     마지막으로 해당 코드를 풀이해서 넣으니 448 ms -> 100ms로 줄어들었다...
     메모리도 20배 이상 절약된다
+
+    코드의 주석을 달고보니 아이디어가 대단하다!
 */
 
 namespace BaekJoon.etc

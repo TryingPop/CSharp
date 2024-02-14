@@ -38,7 +38,7 @@ namespace BaekJoon.etc
     internal class etc_0034
     {
 
-        static void Main(string[] args)
+        static void Main34(string[] args)
         {
 
 

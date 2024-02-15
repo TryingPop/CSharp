@@ -77,7 +77,7 @@ namespace BaekJoon._48
             {
 
                 for (int j = 0; j < width; j++)
-                {
+                { 
 
                     cost[j] = ReadInt(sr);
                 }

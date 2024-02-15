@@ -11,3 +11,5 @@
 	- 벽돌깨기
 ## SimpleProject1
 	- 뿌요뿌요(?)
+## SimpleProject2
+	- 유니티 움직임 코드

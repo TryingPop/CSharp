@@ -1,5 +1,6 @@
 # CSStudy
-
+## 이것이 C#이다
+	- 2022. 7  ~ 2022. 8
 ## Ch01
 	- 1. Hello World
 ## Ch02 
@@ -58,7 +59,9 @@
 ## Ch11
 	- WinForm
 ## BackJoon
-	- 1 ~ 10장
+	- 1 ~ 10 : 2022년 단계별로 풀어보기 1 ~ 10단계 문제
+	- 11 ~ 48 : 현재 단계별로 풀어보기 47단원까지 문제
+	- etc : 단계별로 풀어보기 이외에 문제
 ## Book
 	- 교재 연습문제
 ## Project1
@@ -72,6 +75,7 @@
 ## SimpleProject1
 	- 뿌요뿌요(?)
 ## Private
+	- C# 연습용 코드
 	- 01. async, await
 	- 02. iterator
 	- 03. unsafe, fixed

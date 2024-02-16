@@ -33,7 +33,6 @@ using System.Threading.Tasks;
     그리고 뿌순 벽에 맞는 구간들을 저장했다
 
     다른사람 풀이를 보니, 스위핑? 정렬해서 이분 탐색으로 문제를 해결했다
-    해당 아이디어 따라 내일 다시 제출해봐야겠다!
 */
 
 namespace BaekJoon.etc

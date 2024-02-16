@@ -33,7 +33,6 @@ namespace BaekJoon.etc
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
 
             int n = ReadInt(sr);
-
             int[][] fw = new int[n + 1][];
 
             for (int i = 1; i <= n; i++)

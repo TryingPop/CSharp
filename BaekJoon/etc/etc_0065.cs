@@ -54,9 +54,11 @@ namespace BaekJoon.etc
                     q.Enqueue(i);
                 }
 
+                // 가위바위보 시작
                 for (int i = 0; i < robots[0].Length; i++)
                 {
 
+                    // 해당턴에 살아남은 로봇들 낸거 확인한다
                     while(q.Count > 0)
                     {
 
@@ -83,9 +85,11 @@ namespace BaekJoon.etc
                         }
                     }
 
+                    // 이제 승부 확인한다
                     if (use['R'] && use['S'] && use['P'])
                     {
 
+                        // 무승부 = 전원 생존
                         for (int j = 0; j < r.Count; j++)
                         {
 
@@ -111,6 +115,7 @@ namespace BaekJoon.etc
                     else if (use['R'] && use['S'])
                     {
 
+                        // 묵 vs 찌 -> 묵만 생존
                         for (int j = 0; j < r.Count; j++)
                         {
 
@@ -123,6 +128,7 @@ namespace BaekJoon.etc
                     else if (use['S'] && use['P'])
                     {
 
+                        // 찌 vs 빠 -> 찌만 생존
                         for (int j = 0; j < s.Count; j++)
                         {
 
@@ -135,6 +141,7 @@ namespace BaekJoon.etc
                     else if (use['P'] && use['R'])
                     {
 
+                        // 빠 vs 묵 -> 빠만 생존
                         for (int j = 0; j < p.Count; j++)
                         {
 
@@ -144,6 +151,7 @@ namespace BaekJoon.etc
                         p.Clear();
                         r.Clear();
                     }
+                    // 이하 무승부
                     else if (use['R'])
                     {
 
@@ -178,17 +186,22 @@ namespace BaekJoon.etc
                         p.Clear();
                     }
 
+                    // 낸거 초기화
                     use['R'] = false;
                     use['S'] = false;
                     use['P'] = false;
 
+                    // 우승자 찾았다
                     if (q.Count == 1) break;
                 }
 
+                // 구현 로직상 q는 1개 이상있다!
+                // 1개인 경우는 우승자 정해질 때
                 if (q.Count == 1) sw.WriteLine(q.Dequeue() + 1);
                 else if (q.Count > 1) 
                 { 
                     
+                    // 무승부일 때
                     sw.WriteLine(0);
                     q.Clear();
                 }

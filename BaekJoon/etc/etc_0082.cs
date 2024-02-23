@@ -53,6 +53,7 @@ namespace BaekJoon.etc
                     long other2 = calc / i;
                     if (calc % i != 0) other2++;
 
+                    // 먼저 other1을 가로 개수
                     long w = GetWidth(other1);
                     long h = GetHeight(other2);
                     long area = w * h;
@@ -76,6 +77,7 @@ namespace BaekJoon.etc
                         }
                     }
 
+                    // other1을 세로
                     w = GetWidth(other2);
                     h = GetHeight(other1);
                     area = w * h;
@@ -100,6 +102,7 @@ namespace BaekJoon.etc
                     }
                 }
 
+                // 최소값 출력
                 sw.Write($"{ret1} X {ret2} = {ret3}\n");
             }
 

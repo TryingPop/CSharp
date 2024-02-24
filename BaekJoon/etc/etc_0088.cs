@@ -15,5 +15,27 @@ namespace BaekJoon.etc
 {
     internal class etc_0088
     {
+
+        static void Main88(string[] args)
+        {
+
+
+        }
+
+        static int ReadInt(StreamReader _sr)
+        {
+
+            int ret = 0, c;
+
+            while ((c = _sr.Read()) != -1 && c != '\n' && c != ' ')
+            {
+
+                if (c == '\r') continue;
+
+                ret = ret * 10 + c - '0';
+            }
+
+            return ret;
+        }
     }
 }

@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
-using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
 /*
 날짜 : 2024. 2. 27
 이름 : 배성훈
-내용 : 배열 돌리기 1
-    문제번호 : 16926번
+내용 : 배열 돌리기 1, 배열 돌리기 2
+    문제번호 : 16926번, 16927번
 
     N * M 사각형을 끝부분으로 나눠서 풀었다
     6 * 6 의 경우를 보면
@@ -34,6 +32,8 @@ using System.Threading.Tasks;
     재귀로 이동시켰다 많아야 4번 재귀한다
 
     그래서 제출하니 이상없이 통과했다
+
+    2도 회전 범위만 10억까지 늘어났을 뿐, 같은 속도로 풀렸다
 */
 
 namespace BaekJoon.etc

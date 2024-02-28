@@ -56,16 +56,24 @@ namespace BaekJoon.etc
                     if (dp[mid] <= arr[i])
                     {
 
+                        // dp[mid]가 작으면 right를 이동시켜야
+                        // 내림차순이 유지된다
                         right = mid - 1;
                     }
                     else
                     {
 
+                        // dp[mid]가 크면 left를 이동!
                         left = mid + 1;
                     }
                 }
 
+                // left는 dp에서 arr[i] 값보다 크거나 같은 위치를 가리킨다
+                // 같은경우 left를 이동안시켰기에 가능하다!
+                // 만약 같은 경우를 살리고 싶다면 위에서 이꼴을 빼면 된다
                 dp[left] = arr[i];
+
+                // 현재 기록된 최장 길이!
                 if (curLen < left + 1) curLen = left + 1;
             }
 

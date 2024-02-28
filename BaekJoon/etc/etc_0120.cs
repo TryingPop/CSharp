@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
-날짜 : 2024. 2. -
+날짜 : 2024. 2. 28
 이름 : 배성훈
 내용 : 배스킨라빈스~N~귀엽고~깜찍하게~
     문제번호 : 25179번

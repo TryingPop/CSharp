@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
-날짜 : 2024. 2. -
+날짜 : 2024. 2. 28
 이름 : 배성훈
 내용 : 욱제는 도박쟁이야!!
     문제번호 : 14655번

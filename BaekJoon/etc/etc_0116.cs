@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
-날짜 : 2024. 2. -
+날짜 : 2024. 2. 28
 이름 : 배성훈
 내용 : 놀이공원
     문제번호 : 2594번

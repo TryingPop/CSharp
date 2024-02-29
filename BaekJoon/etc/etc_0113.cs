@@ -15,5 +15,13 @@ namespace BaekJoon.etc
 {
     internal class etc_0113
     {
+
+        static void Main113(string[] args)
+        {
+
+            StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
+
+
+        }
     }
 }

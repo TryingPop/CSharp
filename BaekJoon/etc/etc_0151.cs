@@ -64,6 +64,7 @@ namespace BaekJoon.etc
 
                 ret += 2;
             }
+            sr.Close();
 
             Console.WriteLine(ret);
         }

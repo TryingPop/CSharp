@@ -89,6 +89,7 @@ namespace BaekJoon.etc
                 }
             }
 
+            sr.Close();
             Console.WriteLine(ret);
         }
 

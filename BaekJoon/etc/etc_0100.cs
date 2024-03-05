@@ -19,6 +19,8 @@ using System.Threading.Tasks;
 
     일단 도전! -> 시간 초과다
     -> 실상 Meet In Middle 아이디어도 안썼다;
+
+    4%에서 시간초과다
 */
 
 namespace BaekJoon.etc
@@ -29,7 +31,7 @@ namespace BaekJoon.etc
         static void Main100(string[] args)
         {
 
-            StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
+            StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()), bufferSize: 1024 * 1024);
 
             int test = ReadInt(sr);
             StringBuilder sb = new StringBuilder(20 * test);

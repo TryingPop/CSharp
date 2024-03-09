@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 이름 : 배성훈
 내용 : 결혼식
     문제번호 : 5567번
+
+    그래프이론? 구현문제?
 */
 
 namespace BaekJoon.etc
@@ -16,7 +18,7 @@ namespace BaekJoon.etc
     internal class etc_0164
     {
 
-        static void Main(string[] args)
+        static void Main164(string[] args)
         {
 
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
@@ -48,11 +50,13 @@ namespace BaekJoon.etc
             Queue<int> q = new Queue<int>();
             bool[] accept = new bool[n + 1];
 
+            // 자기자신 초대(추후에 중복방지용!)
             accept[1] = true;
 
             for (int i = 0; i < friends[1].Count; i++)
             {
                 
+                // 상근이의 친구들 초대
                 q.Enqueue(friends[1][i]);
             }
 
@@ -70,6 +74,9 @@ namespace BaekJoon.etc
                 }
             }
 
+            // 초대된 사람들 센다
+            // 상근이도 카운팅하기에 -1부터 시작했다
+            // 그런데 0부터하고 for문을 2부터해도 된다
             int ret = -1;
             for (int i = 1; i <= n; i++)
             {

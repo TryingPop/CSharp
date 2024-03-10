@@ -16,7 +16,7 @@ namespace BaekJoon.etc
     internal class etc_0163
     {
 
-        static void Main(string[] args)
+        static void Main163(string[] args)
         {
 
             StreamReader sr = new(Console.OpenStandardInput());

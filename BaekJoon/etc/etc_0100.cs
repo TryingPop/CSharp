@@ -21,6 +21,10 @@ using System.Threading.Tasks;
     -> 실상 Meet In Middle 아이디어도 안썼다;
 
     4%에서 시간초과다
+
+
+    해당 아이디어를 참고해서 해봐야겠다
+    https://ji-gwang.tistory.com/369
 */
 
 namespace BaekJoon.etc

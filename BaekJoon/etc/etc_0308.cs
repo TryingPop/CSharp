@@ -5,20 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
-날짜 : 2024. 2. -
+날짜 : 2024. 3. 21
 이름 : 배성훈
-내용 : Missing Piece 2001
-    문제번호 : 9985번
+내용 : 보석 도둑
+    문제번호 : 1202번
 
-    중간에서 만나기 미정;
+
 */
 
 namespace BaekJoon.etc
 {
-    internal class etc_0112
+    internal class etc_0308
     {
 
-        static void Main112(string[] args)
+        static void Main308(string[] args)
         {
 
 

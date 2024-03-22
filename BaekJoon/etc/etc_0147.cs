@@ -15,5 +15,6 @@ namespace BaekJoon.etc
 {
     internal class etc_0147
     {
+
     }
 }

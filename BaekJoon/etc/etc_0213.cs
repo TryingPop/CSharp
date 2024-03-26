@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
-날짜 : 2024. 3. -
+날짜 : 2024. 3. 24
 이름 : 배성훈
 내용 : 모자이크
     문제번호 : 2539번

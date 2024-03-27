@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
-날짜 : 2024. 3. -
+날짜 : 2024. 3. 27
 이름 : 배성훈
 내용 : 카드게임
     문제번호 : 10835번

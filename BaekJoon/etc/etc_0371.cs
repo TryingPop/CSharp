@@ -22,6 +22,8 @@ namespace BaekJoon.etc
         static void Main371(string[] args)
         {
 
+
+            /*
             string NOISE = "NOISE";
 
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
@@ -96,6 +98,10 @@ namespace BaekJoon.etc
 
                 return ret;
             }
+
+            */
+
+           
         }
     }
 }

@@ -71,6 +71,7 @@ namespace BaekJoon.etc
                 if (type == 1)
                 {
 
+                    // 필요 hp 계산해서 저장
                     long eAtk = ReadInt();
                     long eHp = ReadInt();
 
@@ -82,6 +83,7 @@ namespace BaekJoon.etc
                 else
                 {
 
+                    // 회복하는 곳인 경우
                     atk += ReadInt();
                     arr[i] = -ReadInt();
                 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 /*
 날짜 : 2024. 4. 3
@@ -15,5 +16,7 @@ namespace BaekJoon.etc
 {
     internal class etc_0443
     {
+
+
     }
 }

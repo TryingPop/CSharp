@@ -25,6 +25,10 @@ using System.Threading.Tasks;
 
     해당 아이디어를 참고해서 해봐야겠다
     https://ji-gwang.tistory.com/369
+
+    힌트가 있었다.
+    https://www.acmicpc.net/category/detail/3519
+    보고 조만간 다시 해봐야겠다!
 */
 
 namespace BaekJoon.etc
@@ -35,45 +39,45 @@ namespace BaekJoon.etc
         static void Main100(string[] args)
         {
 
-            StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()), bufferSize: 1024 * 1024);
+            StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
 
-            int test = ReadInt(sr);
+            int test = ReadInt();
             StringBuilder sb = new StringBuilder(20 * test);
             Dictionary<long, long> lcmDic = new Dictionary<long, long>(20);
             Dictionary<long, long> gcdDic = new Dictionary<long, long>(20);
-            List<long> calc = new List<long>(20);
+            long[] calc = new long[20];
             long[] ret = new long[2];
 
-            List<(long fst, long sec)> left = new List<(long fst, long sec)>(1 << 8);
-            List<(long fst, long sec)> right = new List<(long fst, long sec)>(1 << 8);
+            List<long> left = new(1 << 8);
+            List<long> right = new(1 << 8);
 
-            while(test-- > 0)
+            while (test-- > 0)
             {
 
-                int len = ReadInt(sr);
+                int len = ReadInt();
 
                 long lcm = 1;
                 for (int i = 0; i < len; i++)
                 {
 
-                    long cur = ReadLong(sr);
+                    long cur = ReadLong();
                     lcm *= cur;
 
                     if (lcmDic.ContainsKey(cur)) lcmDic[cur] *= cur;
                     else lcmDic[cur] = cur;
                 }
 
-                len = ReadInt(sr);
-                for (int i = 0; i <len; i++)
+                len = ReadInt();
+                for (int i = 0; i < len; i++)
                 {
 
-                    long cur = ReadLong(sr);
+                    long cur = ReadLong();
 
                     if (gcdDic.ContainsKey(cur)) gcdDic[cur] *= cur;
                     else gcdDic[cur] = cur;
                 }
 
-                foreach(var key in lcmDic.Keys)
+                foreach (var key in lcmDic.Keys)
                 {
 
                     gcdDic[key] /= lcmDic[key];
@@ -83,7 +87,7 @@ namespace BaekJoon.etc
                 foreach (var key in gcdDic.Keys)
                 {
 
-                    calc.Add(gcdDic[key]);
+                    calc[idx++] = gcdDic[key];
                 }
 
                 gcdDic.Clear();
@@ -111,40 +115,38 @@ namespace BaekJoon.etc
 
                 sw.Write(sb);
             }
-        }
 
-
-        static int ReadInt(StreamReader _sr)
-        {
-
-            int c, ret = 0;
-
-            while ((c = _sr.Read()) != -1 && c != '\n' && c != ' ')
+            int ReadInt()
             {
 
-                if (c == '\r') continue;
+                int c, ret = 0;
 
-                ret = ret * 10 + c - '0';
+                while ((c = sr.Read()) != -1 && c != '\n' && c != ' ')
+                {
+
+                    if (c == '\r') continue;
+
+                    ret = ret * 10 + c - '0';
+                }
+
+                return ret;
             }
-
-            return ret;
-        }
-
-        static long ReadLong(StreamReader _sr)
-        {
-
-            int c;
-            long ret = 0;
-
-            while((c = _sr.Read()) != -1 && c != '\n' && c != ' ')
+            long ReadLong()
             {
 
-                if (c == '\r') continue;
+                int c;
+                long ret = 0;
 
-                ret = ret * 10 + c - '0';
+                while ((c = sr.Read()) != -1 && c != '\n' && c != ' ')
+                {
+
+                    if (c == '\r') continue;
+
+                    ret = ret * 10 + c - '0';
+                }
+
+                return ret;
             }
-
-            return ret;
         }
     }
 }

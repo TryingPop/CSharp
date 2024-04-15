@@ -1,4 +1,8 @@
-﻿/*
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
+
+/*
 날짜 : 2024. 4. 2
 이름 : 배성훈
 내용 : 안전 영역

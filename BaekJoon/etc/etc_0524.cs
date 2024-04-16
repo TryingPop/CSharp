@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Numerics;
 
 /*
-날짜 : 2024. 4. -
+날짜 : 2024. 4. 15
 이름 : 배성훈
 내용 : A + B
     문제번호 : 9267번

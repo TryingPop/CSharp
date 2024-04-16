@@ -21,6 +21,8 @@ using System.Threading.Tasks;
     해시셋으로 설정해 단어 확인을... 할까싶다
     일단 시간 나면 나중에 풀어봐야겠다;
     Small, Large 두 문제를 해결하려면 먼저 말들을 그룹화해서, 엮고, dp를 써야하지 않을까 싶다
+
+    찾아보니 최대 유량 알고리즘을 써야한다
 */
 
 namespace BaekJoon.etc

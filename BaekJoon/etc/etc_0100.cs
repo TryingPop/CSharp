@@ -93,6 +93,8 @@ namespace BaekJoon.etc
                 gcdDic.Clear();
                 lcmDic.Clear();
 
+                Array.Sort(calc, 0, idx);
+
                 ret[0] = 1_000_000_000_000_000_000;
                 ret[1] = 1;
 

@@ -14,8 +14,8 @@ using System.Threading.Tasks;
     이분매칭 연습용으로 풀었다
     그런데, 다른 사람 풀이를 보니 그리디가 빨라보인다
     
-    그리디 방법은 etc_0549의 회의실 배정 4로 다른 문제로 한다
-    (간단히 n의 최대값이 10만으로 확장되고 가중치가 생겼다고 보면 된다)
+    그리디 방법은 etc_0551의 회의실 배정, 다른 문제에 적는다
+    (간단히 n의 최대값이 10만으로 확장되었다고 보면 된다)
     여기서는 이분매칭으로 해결하고 넘어간다
 */
 
@@ -69,7 +69,12 @@ namespace BaekJoon.etc
                     for (int i = 1; i <= n; i++)
                     {
 
-                        Array.Fill(visit, false);
+                        for (int j = 1; j <= m; j++)
+                        {
+
+                            visit[j] = false;
+                        }
+
                         if (DFS(i)) ret++;
                     }
 

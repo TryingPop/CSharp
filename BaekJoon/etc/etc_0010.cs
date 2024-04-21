@@ -27,7 +27,7 @@ using System.Text;
     시간은 5.2초 나왔다
 
     어차피 고속 푸리에변환은 2달 안으로 만날거 같으니 그때가서 C++로 풀어야겠다
-
+    2달안에 안됬다;
 */
 
 namespace BaekJoon.etc

@@ -133,4 +133,94 @@ namespace BaekJoon.etc
             }
         }
     }
+
+#if other
+def DFS(nx):
+    for mx in G[nx]:
+        if not check[mx]:
+            check[mx] = 1
+            if V[mx] == -1 or DFS(V[mx]):
+                V[mx] = nx
+                return True
+    return False
+
+N, M = map(int, input().split())
+G = [[] for _ in range(N + 1)]
+g = list(map(int, input().split()))
+b = list(map(int, input().split()))
+l = list(map(int, input().split()))
+u = list(map(int, input().split()))
+for i in range(N):
+    for j in range(M):
+        if b[j] < l[i] and g[i] > u[j]:
+            G[i].append(j)
+V = [-1] * (M + 1)
+ans = 0
+for i in range(N):
+    check = [0] * M
+    if DFS(i):
+        ans += 1
+print(ans)
+#elif other2
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+    static boolean[] visit;
+    static int[] connect;
+    static ArrayDeque<Integer>[] list;
+
+    static boolean match(int n) {
+        if (visit[n])
+            return false;
+        visit[n] = true;
+        Iterator<Integer> I = list[n].iterator();
+        int v;
+        while (I.hasNext()) {
+            v = I.next();
+            if (connect[v] == 0 || match(connect[v])) {
+                connect[v] = n;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken()), M = Integer.parseInt(st.nextToken());
+        int[] G = new int[N + 1], B = new int[M + 1], L = new int[N + 1], U = new int[M + 1];
+        list = new ArrayDeque[N + 1];
+        for (int i = 1; i <= N; i++)
+            list[i] = new ArrayDeque<>();
+        st = new StringTokenizer(br.readLine());
+        for (int i = 1; i <= N; i++)
+            G[i] = Integer.parseInt(st.nextToken());
+        st = new StringTokenizer(br.readLine());
+        for (int i = 1; i <= M; i++)
+            B[i] = Integer.parseInt(st.nextToken());
+        st = new StringTokenizer(br.readLine());
+        for (int i = 1; i <= N; i++)
+            L[i] = Integer.parseInt(st.nextToken());
+        st = new StringTokenizer(br.readLine());
+        for (int i = 1; i <= M; i++)
+            U[i] = Integer.parseInt(st.nextToken());
+        for (int i = 1; i <= N; i++)
+            for (int j = 1; j <= M; j++)
+                if (G[i] > U[j] && B[j] < L[i])
+                    list[i].addLast(j);
+        int ans = 0;
+        connect = new int[M + 1];
+        for (int i = 1; i <= N; i++) {
+            visit = new boolean[N + 1];
+            if (match(i))
+                ans++;
+        }
+        System.out.println(ans);
+    }
+}
+#endif
 }

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 이름 : 배성훈
 내용 : 리유나는 세일러복을 좋아해
     문제번호 : 18138번
+
+    이분 매칭 문제다
 */
 
 namespace BaekJoon.etc

@@ -22,7 +22,7 @@ namespace BaekJoon.etc
 
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
 
-            int n = ReadInt(sr);
+            int n = ReadInt();
             int[] seg;
             {
 
@@ -31,20 +31,22 @@ namespace BaekJoon.etc
 
 
             }
-        }
 
-        static int ReadInt(StreamReader _sr)
-        {
-
-            int c, ret = 0;
-            while((c = _sr.Read()) != -1 && c != ' ' && c != '\n')
+            int ReadInt()
             {
 
-                if (c == '\r') continue;
-                ret = ret * 10 + c - '0';
-            }
+                int c, ret = 0;
+                while ((c = sr.Read()) != -1 && c != ' ' && c != '\n')
+                {
 
-            return ret;
+                    if (c == '\r') continue;
+                    ret = ret * 10 + c - '0';
+                }
+
+                return ret;
+            }
         }
+
+        
     }
 }

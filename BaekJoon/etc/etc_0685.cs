@@ -11,7 +11,7 @@ using System.Threading.Tasks;
     문제번호 : 17219번
 
     해시 문제다
-
+    조건대로 구현했다
 */
 
 namespace BaekJoon.etc

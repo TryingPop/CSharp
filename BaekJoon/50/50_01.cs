@@ -82,7 +82,7 @@ using System.Threading.Tasks;
 
 namespace BaekJoon._50
 {
-    internal class etc_50_01
+    internal class _50_01
     {
 
         static void Main1(string[] args)

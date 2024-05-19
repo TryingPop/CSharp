@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 이름 : 배성훈
 내용 : 용액
     문제번호 : 2467번
+
+    이분 탐색, 두 포인터 문제다
 */
 
 namespace BaekJoon.etc

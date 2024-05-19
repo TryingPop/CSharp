@@ -18,6 +18,9 @@ using System.Threading.Tasks;
     계산기로 5이하인 경우는 4가 26만 조금 넘고, 3, 2, 1은 1자리 수이므로 직접 구했다
     그래서 5 이상이면 phi보다는 항상 크다고 결론을 냈고 5 미만에서만 비교했다
     이외는 한단계씩 직접 연산하면서 찾아갔다
+
+
+    https://cp-algorithms.com/algebra/phi-function.html#generalization
 */
 
 namespace BaekJoon.etc

@@ -22,6 +22,22 @@ using System.Threading.Tasks;
     그리고 다른 길로 갈 수 있다면 다른 길로 보내고 해당 노드의 탐색을 끝낸다
     반면 보낼 수 없다면 다른 길을 탐색하고 앞을 반복한다
     모든 경우를 했음에도 갈 수 없다면 해당 노드는 못잇는다고 결론 짓고 종료한다
+
+    호프크로프트 카프 알고리즘을 적용해 봤다
+    시간 복잡도는 정점의 개수를 V, 간선의 수를 E라하자
+    그러면 O((root V) * E)가 된다
+
+    처음에 A의 각 정점에 0의 단계를 부여하고 DFS로 최대한 매칭을 해준다
+    일반적인 이분 매칭에서 B 노드의 재방문 초기화를 제외하고 최대한 매칭해준다
+    
+    매칭이 끝나면 다시 처음으로 돌아와서 레벨을 다시 부여해준다
+    여기서 매칭되지 않은 점만 0의 단계를 부여하고
+    매칭된 점은 매칭 안된 점에서 몇 단계 거쳐야 A로 오는 레벨을 부여한다
+
+    그리고 다시 매칭을 해준다 여기서 만약 다음 단계인 경우 매칭을 시켜주고, 
+    아니면 다른 점으로 이을 수 있는지 확인한다
+
+    이렇게 갱신이 안되는 경우까지 매칭해준게 이분매칭이 된다
 */
 
 namespace BaekJoon.etc
@@ -32,6 +48,7 @@ namespace BaekJoon.etc
         static void Main547(string[] args)
         {
 
+#if first
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
 
             int n = ReadInt();
@@ -104,6 +121,170 @@ namespace BaekJoon.etc
 
                 return ret;
             }
+
+#else
+
+            int INF = 1_000_000_000;
+            StreamReader sr;
+            StreamWriter sw;
+
+            int[] A;
+            int[] B;
+            bool[] visit;
+
+            List<int>[] line;
+
+            Queue<int> q;
+            int[] lvl;
+
+            int n, m;
+
+            Solve();
+
+            void Solve()
+            {
+
+                Init();
+
+                int ret = 0;
+
+
+                while (true)
+                {
+
+                    BFS();
+
+                    int match = 0;
+                    for (int i = 1; i <= n; i++)
+                    {
+
+                        if (!visit[i] && DFS(i)) match++;
+                    }
+
+                    if (match == 0) break;
+
+                    ret += match;
+                }
+
+                sw.Write($"{ret}");
+                sr.Close();
+                sw.Close();
+            }
+
+            void Init()
+            {
+
+                sr = new(Console.OpenStandardInput(), bufferSize: 65536 * 16);
+                sw = new(Console.OpenStandardOutput(), bufferSize: 65536);
+
+                n = ReadInt();
+                m = ReadInt();
+
+                line = new List<int>[n + 1];
+                for (int i = 1; i < n + 1; i++)
+                {
+
+                    int len = ReadInt();
+                    line[i] = new(len);
+                    for (int j = 0; j < len; j++)
+                    {
+
+                        line[i].Add(ReadInt());
+                    }
+                }
+
+                A = new int[n + 1];
+                visit = new bool[n + 1];
+                lvl = new int[n + 1];
+                q = new(n + 1);
+
+                B = new int[m + 1];
+
+                Array.Fill(A, -1, 1, n);
+                Array.Fill(B, -1, 1, m);
+                Array.Fill(visit, false, 1, n);
+            }
+
+            void BFS()
+            {
+
+                ///
+                /// A그룹의 정점에 단계 재부여
+                /// 매칭 안된 점은 0
+                /// 매칭 된 점은 다른 정점에서 줄타기로 해당 레벨로 올 수 있다면
+                /// 단계 + 1이 된다
+                ///
+
+                for (int i = 1; i <= n; i++)
+                {
+
+                    // 매칭 안된 점들은 0인채로 시작
+                    if (!visit[i])
+                    {
+
+                        lvl[i] = 0;
+                        q.Enqueue(i);
+                    }
+                    // 이미 레벨이 매겨진 경우
+                    else lvl[i] = INF;
+                }
+
+                // A에 레벨을 쌓아간다 
+                while (q.Count > 0)
+                {
+
+                    int a = q.Dequeue();
+
+                    for (int i = 0; i < line[a].Count; i++)
+                    {
+
+                        int b = line[a][i];
+                        if (B[b] != -1 && lvl[B[b]] == INF)
+                        {
+
+                            lvl[B[b]] = lvl[a] + 1;
+                            q.Enqueue(B[b]);
+                        }
+                    }
+                }
+            }
+
+            bool DFS(int _a)
+            {
+
+                for (int i = 0; i < line[_a].Count; i++)
+                {
+
+                    int b = line[_a][i];
+                    // 기존 이분 매칭에 다음 레벨인 경우도 잇는다
+                    if (B[b] == -1 || lvl[B[b]] == lvl[_a] + 1 && DFS(B[b]))
+                    {
+
+                        visit[_a] = true;
+                        A[_a] = b;
+                        B[b] = _a;
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            int ReadInt()
+            {
+
+                int c, ret = 0;
+
+                while ((c = sr.Read()) != -1 && c != ' ' && c != '\n')
+                {
+
+                    if (c < '0' || c > '9') continue;
+                    ret = ret * 10 + c - '0';
+                }
+
+                return ret;
+            }
+#endif
         }
     }
 #if other

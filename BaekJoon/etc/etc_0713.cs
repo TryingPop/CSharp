@@ -177,10 +177,9 @@ namespace BaekJoon.etc
 
                     int b = line[_a][i];
 
-                    // 레벨 차이가 1이면
+                    // 레벨 차이가 1이고 이전 점에서 다른 점으로 매칭될 때
                     // Alternating Path (교차 경로)
                     //
-                    // 혹은 매칭된 점이 다른 점으로 옮겨갈 수 있거나
                     // 아직 매칭 안된경우 매칭 성공이라 본다!
                     // Augmenting Path (증가 경로)
                     if (B[b] == -1 || lvl[B[b]] == lvl[_a] + 1 && DFS(B[b]))

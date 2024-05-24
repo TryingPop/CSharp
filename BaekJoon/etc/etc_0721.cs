@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
     수학, 미적분학, 분할 정복을 이용한 거듭제곱
     b = 0인 경우와 오버플로우로 문제로 4번 틀렸다
+    그리고 입력 자체에 문제가 있다; 즉, 57% 쯤에서 탭으로 간격 띄운게 있다!
 */
 
 namespace BaekJoon.etc

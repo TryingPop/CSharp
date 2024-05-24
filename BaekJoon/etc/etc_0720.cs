@@ -48,7 +48,6 @@ namespace BaekJoon.etc
                     int f = ReadInt();
                     int b = ReadInt();
 
-                    if (b == 0) continue;
                     ret += f * b;
                 }
 

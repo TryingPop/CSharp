@@ -57,8 +57,8 @@ namespace BaekJoon.etc
             List<int>[] line;
 
             Queue<int> q;
-            int[] lvl;
-
+            int[] lvl, d;
+            
             int n;
 
             Solve();
@@ -79,6 +79,7 @@ namespace BaekJoon.etc
                     while (true)
                     {
 
+                        Array.Fill(d, 0, 0, n);
                         // 레벨 부여
                         BFS();
 
@@ -122,6 +123,7 @@ namespace BaekJoon.etc
                 visit = new bool[MAX];
 
                 lvl = new int[MAX];
+                d = new int[MAX];
                 q = new(MAX);
             }
 
@@ -172,10 +174,10 @@ namespace BaekJoon.etc
             bool DFS(int _a)
             {
 
-                for (int i = 0; i < line[_a].Count; i++)
+                for (; d[_a] < line[_a].Count; d[_a]++)
                 {
 
-                    int b = line[_a][i];
+                    int b = line[_a][d[_a]];
 
                     // 레벨 차이가 1이고 이전 점에서 다른 점으로 매칭될 때
                     // Alternating Path (교차 경로)

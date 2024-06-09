@@ -24,7 +24,7 @@ namespace BaekJoon._53
     internal class _53_07
     {
 
-        static void Main(string[] args)
+        static void Main7(string[] args)
         {
 
             StreamReader sr;

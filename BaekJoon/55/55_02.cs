@@ -104,7 +104,6 @@ namespace BaekJoon._55
                 sr.Close();
             }
 
-
             void FFT(Complex[] _arr, bool _inv)
             {
 

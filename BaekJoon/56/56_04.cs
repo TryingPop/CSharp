@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 내용 : 반복 패턴
     문제번호 : 166229번
 
-    현재 계속해서 틀린다;
+    문자열, z알고리즘이다
+    z알고리즘을 제대로 이해 못해서 이상하게 계속 틀렸따
 */
 
 namespace BaekJoon._56
@@ -18,7 +19,7 @@ namespace BaekJoon._56
     internal class _56_04
     {
 
-        static void Main4(string[] args)
+        static void Main(string[] args)
         {
 
             int n, k;
@@ -32,20 +33,31 @@ namespace BaekJoon._56
 
                 Input();
 
+                int ret = GetRet();
+
+                Console.Write(ret);
+            }
+
+            int GetRet()
+            {
+
                 zArr = Z();
 
+                if (k >= n) return n;
                 int max = n + k;
-                int ret = max >= 2 * n ? n : 0;
+                int ret = 0;
 
                 for (int i = 1; i < zArr.Length; i++)
                 {
 
-                    int len = n - zArr[i];
-                    if (len == n || max < 2 * len) continue;
-                    if (ret < len) ret = len;
+                    if (n - i != zArr[i]) continue;
+                    int chk = i * ((n - 1) / i) + i;
+                    if (max < chk) continue;
+
+                    if (ret < i) ret = i;
                 }
 
-                Console.Write(ret);
+                return ret;
             }
 
             void Input()
@@ -57,12 +69,13 @@ namespace BaekJoon._56
                 n = int.Parse(temp[0]);
                 k = int.Parse(temp[1]);
 
+                string chk = sr.ReadLine().Trim();
                 str = new int[n];
 
-                for (int i = n - 1; i >= 0; i--)
+                for (int i = 0; i < n; i++)
                 {
 
-                    str[i] = sr.Read();
+                    str[i] = chk[i];
                 }
 
                 sr.Close();
@@ -87,6 +100,7 @@ namespace BaekJoon._56
 
                         arr[i]++;
                     }
+
                     if (i > r) l = i;
                     r = Math.Max(r, i + arr[i] - 1);
                 }

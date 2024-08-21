@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 /*
 날짜 : 2024. 4. -
@@ -15,5 +17,6 @@ namespace BaekJoon.etc
 {
     internal class etc_0651
     {
+
     }
 }

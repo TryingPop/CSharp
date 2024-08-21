@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
 /*
-날짜 : 2024. 3. 28
+날짜 : 2024. 7. 9
 이름 : 배성훈
 내용 : 도청 장치
     문제번호 : 9319번
 
-    ...? 25%에서 틀린다
+    수학, 구현 문제다
+    ... 도청장치 번호를 출력해야 한다;
+    여태까지 갯수로 하다가 엄청나게 틀렸다;
+    이후 이 부분을 수정하니 이상없이 통과했다;
 */
 
 namespace BaekJoon.etc
@@ -22,68 +24,106 @@ namespace BaekJoon.etc
         static void Main371(string[] args)
         {
 
+            string NOISE = "NOISE\n";
 
-            /*
-            string NOISE = "NOISE";
+            StreamReader sr;
+            StreamWriter sw;
 
-            StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
-            StreamWriter sw = new StreamWriter(new BufferedStream(Console.OpenStandardOutput()));
+            (int x, int y) lis;
+            (int x, int y)[] pos;
 
-            int test = ReadInt();
-            decimal[] r = new decimal[100_000];
-            (int x, int y, int s)[] tool = new (int x, int y, int s)[100_001];
+            decimal[] r;
+            decimal[] s;
+            decimal sum;
+            int n, b;
 
-            while (test-- > 0)
+            Solve();
+
+            void Solve()
             {
 
-                int n = ReadInt();
-                int B = ReadInt();
+                Init();
 
-                tool[0].x = ReadInt();
-                tool[0].y = ReadInt();
+                int test = ReadInt();
 
-                for (int i = 1; i <= n; i++)
+                while(test-- > 0)
                 {
 
-                    tool[i] = (ReadInt(), ReadInt(), ReadInt());
+                    n = ReadInt();
+                    b = ReadInt();
+
+                    lis = (ReadInt(), ReadInt());
+
+                    for (int i = 0; i < n; i++)
+                    {
+
+                        pos[i] = (ReadInt(), ReadInt());
+                        s[i] = ReadInt();
+                    }
+
+                    SetR();
+
+                    int ret = 0;
+                    for (int i = 0; i < n; i++)
+                    {
+
+                        if (ChkR(i)) 
+                        {
+
+                            sw.Write($"{i + 1}\n");
+                            ret++;
+                            break;
+                        }
+                    }
+
+                    if (ret == 0) sw.Write(NOISE);
                 }
 
-                decimal total = 0;
+                sr.Close();
+                sw.Close();
+            }
+
+            void SetR()
+            {
+
+                sum = 0;
                 for (int i = 0; i < n; i++)
                 {
 
-                    r[i] = GetR(i);
-                    total += r[i];
+                    r[i] = s[i] / (GetEuclidDis(ref pos[i]));
+                    sum += r[i];
                 }
-
-                int ret = 0;
-                for (int i = 0; i < n; i++)
-                {
-
-                    decimal curR = r[i];
-                    decimal comp = 6 * (B + total - curR);
-
-                    if (curR > comp) ret++;
-                }
-
-                if (ret == 0) sw.WriteLine(NOISE);
-                else sw.WriteLine(ret);
             }
 
-            sr.Close();
-            sw.Close();
-
-            decimal GetR(int _idx)
+            bool ChkR(int _idx)
             {
 
-                _idx++;
-                int dis = (tool[0].x - tool[_idx].x) * (tool[0].x - tool[_idx].x);
-                dis += (tool[0].y - tool[_idx].y) * (tool[0].y - tool[_idx].y);
-                decimal ret = tool[_idx].s;
-                ret /= dis;
-
-                return ret;
+                return r[_idx] > 6 * (b + sum - r[_idx]);
             }
+
+            int GetEuclidDis(ref (int x, int y) _pos1)
+            {
+
+                int x = _pos1.x - lis.x;
+                x *= x;
+
+                int y = _pos1.y - lis.y;
+                y *= y;
+
+                return x + y;
+            }
+
+            void Init()
+            {
+
+                sr = new(Console.OpenStandardInput(), bufferSize: 65536);
+                sw = new(Console.OpenStandardOutput(), bufferSize: 65536);
+
+                pos = new (int x, int y)[100_000];
+                s = new decimal[100_000];
+                r = new decimal[100_000];
+            }
+
 
             int ReadInt()
             {
@@ -98,10 +138,62 @@ namespace BaekJoon.etc
 
                 return ret;
             }
-
-            */
-
-           
         }
     }
+
+#if other
+// #define MAX 100000
+// #include<iostream>
+// #include<algorithm>
+// #include<vector>
+using namespace std;
+
+int t, n, B, x, y;
+int xi[MAX + 5];
+int yi[MAX + 5];
+int si[MAX + 5];
+
+double dist(const double& x1, const double& y1,
+	const double& x2, const double& y2) {
+	double x_diff = abs(x2 - x1);
+	double y_diff = abs(y2 - y1);
+	return x_diff*x_diff + y_diff * y_diff; //제곱한거
+}
+
+void solve() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+	cin >> n >> B;
+	cin >> x >> y;
+	for (int i = 1; i <= n; i++) {
+		cin >> xi[i] >> yi[i] >> si[i];
+	}
+
+	double totalSum = 0;
+	for (int j = 1; j <= n; j++) {
+		totalSum += (si[j] / dist(x, y, xi[j], yi[j]));
+	}
+	double sum;
+	for (int i = 1; i <= n; i++) {
+		double ri = si[i] / dist(x, y, xi[i], yi[i]);
+		double sum = totalSum - ri;
+		if ( ri > 6 * (B + sum)) {
+			cout << i << "\n";
+			return;
+		}
+	}
+	cout << "NOISE" << "\n";
+	return;
+}
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+
+	cin >> t;
+	while (t--) {
+		solve();
+	}
+	return 0;
+}
+#endif
 }

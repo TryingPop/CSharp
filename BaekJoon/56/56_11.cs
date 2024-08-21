@@ -23,10 +23,10 @@ namespace BaekJoon._56
     internal class _56_11
     {
 
-        static void Main(string[] args)
+        static void Main11(string[] args)
         {
 
-            int QUERY = 100;
+            int QUERY = 250;
             StreamReader sr;
             string find;
             int[] use;

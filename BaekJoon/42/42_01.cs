@@ -242,6 +242,101 @@ namespace BaekJoon._42
         static void Main1(string[] args)
         {
 
+            string text, pattern;
+            int[] jump;
+            List<int> ret;
+
+            Solve();
+            void Solve()
+            {
+
+                Input();
+
+                jump = SetPattern(pattern);
+                KMP(text, pattern, jump, ret);
+
+                Output();
+            }
+
+            void Output()
+            {
+
+                StreamWriter sw = new(Console.OpenStandardOutput(), bufferSize: 65536);
+
+                sw.Write($"{ret.Count}\n");
+
+                for (int i = 0; i < ret.Count; i++)
+                {
+
+                    sw.Write($"{ret[i] + 1} ");
+                }
+
+                sw.Close();
+            }
+
+            void Input()
+            {
+
+                StreamReader sr = new(Console.OpenStandardInput(), bufferSize: 65536);
+
+                text = sr.ReadLine();
+                pattern = sr.ReadLine();
+
+                ret = new();
+                sr.Close();
+            }
+
+            int[] SetPattern(string _pattern)
+            {
+
+                int backPos = 0;
+                int[] jump = new int[_pattern.Length];
+
+                for (int curPos = 1; curPos < _pattern.Length; curPos++)
+                {
+
+                    while (backPos > 0 && _pattern[backPos] != _pattern[curPos])
+                    {
+
+                        backPos = jump[backPos - 1];
+                    }
+
+                    if (_pattern[backPos] == _pattern[curPos]) jump[curPos] = ++backPos;
+                }
+
+                return jump;
+            }
+
+            void KMP(string _text, string _pattern, int[] _jump, List<int> _ret)
+            {
+
+                int match = 0;
+                _ret.Clear();
+
+                for (int i = 0; i < _text.Length; i++)
+                {
+
+                    while (match > 0 && _text[i] != _pattern[match])
+                    {
+
+                        match = _jump[match - 1];
+                    }
+
+                    if (_text[i] == _pattern[match])
+                    {
+
+                        match++;
+
+                        if (match == _pattern.Length)
+                        {
+
+                            _ret.Add(i - match + 1);
+                            match = _jump[match - 1];
+                        }
+                    }
+                }
+            }
+#if first
             StreamReader sr = new StreamReader(new BufferedStream(Console.OpenStandardInput()));
 
             string text = sr.ReadLine();
@@ -349,8 +444,7 @@ namespace BaekJoon._42
                     sw.Write(' ');
                 }
             }
-
-            
+#endif
         }
     }
 }

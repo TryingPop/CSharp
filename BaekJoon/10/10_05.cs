@@ -8,6 +8,7 @@ using System.Threading.Tasks;
  * 내용 : 백준 10단계 5번 문제
  * 
  * 영화감독 숌
+ * 1만 범위 넘어가면 성립하지 않는 코드다!
  */
 
 namespace BaekJoon._10

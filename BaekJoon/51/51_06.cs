@@ -612,5 +612,311 @@ public class Main {
 		return prev[sink] != null;
 	}
 }
+#elif other3
+using ProblemSolving.Templates;
+using ProblemSolving.Templates.MaxFlow;
+using ProblemSolving.Templates.Utility;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+namespace ProblemSolving.Templates {}
+namespace ProblemSolving.Templates.MaxFlow {}
+namespace ProblemSolving.Templates.Utility {}
+namespace System {}
+namespace System.Collections.Generic {}
+namespace System.IO {}
+namespace System.Linq {}
+
+#nullable disable
+
+public record struct Node(bool IsInNode, int Y, int X);
+
+public static class Program
+{
+    public static void Main()
+    {
+        using var sr = new StreamReader(Console.OpenStandardInput(), bufferSize: 65536);
+        using var sw = new StreamWriter(Console.OpenStandardOutput(), bufferSize: 65536);
+
+        Solve(sr, sw);
+    }
+
+    public static void Solve(StreamReader sr, StreamWriter sw)
+    {
+        var (n, m) = sr.ReadLine().Split(' ').Select(Int32.Parse).ToArray();
+        var kpos = (y: 0, x: 0);
+        var hpos = (y: 0, x: 0);
+
+        var map = new Char[n, m];
+        for (var y = 0; y < n; y++)
+        {
+            var s = sr.ReadLine();
+            for (var x = 0; x < m; x++)
+            {
+                map[y, x] = s[x];
+
+                if (s[x] == 'K')
+                    kpos = (y, x);
+                if (s[x] == 'H')
+                    hpos = (y, x);
+            }
+        }
+
+        if (Math.Abs(hpos.y - kpos.y) + Math.Abs(hpos.x - kpos.x) == 1)
+        {
+            sw.WriteLine(-1);
+            return;
+        }
+
+        var flow = new MaxFlowHelper<Node>();
+        for (var y = 0; y < n; y++)
+            for (var x = 0; x < m; x++)
+            {
+                if (map[y, x] == '#')
+                    continue;
+
+                flow.AddEdge(new Node(true, y, x), new Node(false, y, x), 1, 0);
+
+                foreach (var (dy, dx) in Moveset.Moveset4)
+                {
+                    var (ny, nx) = (y + dy, x + dx);
+                    if (ny < 0 || nx < 0 || ny >= n || nx >= m)
+                        continue;
+
+                    if (map[ny, nx] == '#')
+                        continue;
+
+                    flow.AddEdge(new Node(false, y, x), new Node(true, ny, nx), 1, 0);
+                }
+            }
+
+        var f = flow.FindMaxFlow(new Node(false, kpos.y, kpos.x), new Node(true, hpos.y, hpos.x));
+        sw.WriteLine(f);
+    }
+}
+
+namespace ProblemSolving.Templates.Utility
+{
+    public static class DeconstructHelper
+    {
+        public static void Deconstruct<T>(this T[] arr, out T v1, out T v2) => (v1, v2) = (arr[0], arr[1]);
+        public static void Deconstruct<T>(this T[] arr, out T v1, out T v2, out T v3) => (v1, v2, v3) = (arr[0], arr[1], arr[2]);
+        public static void Deconstruct<T>(this T[] arr, out T v1, out T v2, out T v3, out T v4) => (v1, v2, v3, v4) = (arr[0], arr[1], arr[2], arr[3]);
+        public static void Deconstruct<T>(this T[] arr, out T v1, out T v2, out T v3, out T v4, out T v5) => (v1, v2, v3, v4, v5) = (arr[0], arr[1], arr[2], arr[3], arr[4]);
+        public static void Deconstruct<T>(this T[] arr, out T v1, out T v2, out T v3, out T v4, out T v5, out T v6) => (v1, v2, v3, v4, v5, v6) = (arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]);
+        public static void Deconstruct<T>(this T[] arr, out T v1, out T v2, out T v3, out T v4, out T v5, out T v6, out T v7) => (v1, v2, v3, v4, v5, v6, v7) = (arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6]);
+        public static void Deconstruct<T>(this T[] arr, out T v1, out T v2, out T v3, out T v4, out T v5, out T v6, out T v7, out T v8) => (v1, v2, v3, v4, v5, v6, v7, v8) = (arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7]);
+    }
+}
+
+
+namespace ProblemSolving.Templates.MaxFlow
+{
+    public class MaxFlowHelper<TNode>
+        where TNode : struct
+    {
+        private struct FlowEdge
+        {
+            public int Dst;
+            public int Opp;
+            public long Flow;
+            public long Capacity;
+
+            public FlowEdge(int dst, int opp, long capacity)
+            {
+                this.Dst = dst;
+                this.Opp = opp;
+                this.Flow = 0;
+                this.Capacity = capacity;
+            }
+
+            public bool CanFlow => Flow < Capacity;
+        }
+
+        private Dictionary<TNode, int> _map;
+        private List<RefableList<FlowEdge>> _graph;
+
+        public MaxFlowHelper()
+        {
+            _map = new Dictionary<TNode, int>();
+            _graph = new List<RefableList<FlowEdge>>();
+        }
+
+        private int GetId(TNode node)
+        {
+            if (!_map.TryGetValue(node, out var v))
+            {
+                v = _map.Count;
+                _map[node] = v;
+                _graph.Add(new RefableList<FlowEdge>());
+            }
+
+            return v;
+        }
+        public void AddEdge(TNode src, TNode dst, long forwardCap, long backwardCap)
+        {
+            var srcId = GetId(src);
+            var dstId = GetId(dst);
+
+            var srcopp = _graph[dstId].Count;
+            var dstopp = _graph[srcId].Count;
+
+            _graph[srcId].Add(new(dstId, srcopp, forwardCap));
+            _graph[dstId].Add(new(srcId, dstopp, backwardCap));
+        }
+
+        public long FindMaxFlow(TNode source, TNode destination)
+        {
+            var sourceId = GetId(source);
+            var destinationId = GetId(destination);
+            var flow = 0L;
+
+            var n = _graph.Count;
+            var levelGraph = new int[n];
+
+            while (true)
+            {
+                var flowOccured = false;
+                RebuildLevelGraph(sourceId, destinationId, levelGraph);
+
+                while (true)
+                {
+                    var f = MakeFlow(sourceId, destinationId, levelGraph, Int64.MaxValue);
+                    if (f == 0)
+                        break;
+
+                    flow += f;
+                    flowOccured = true;
+                }
+
+                if (!flowOccured)
+                    break;
+            }
+
+            return flow;
+        }
+
+        private long MakeFlow(int pos, int sink, int[] levelGraph, long currFlow)
+        {
+            if (currFlow == 0)
+            {
+                levelGraph[pos] = -1;
+                return 0;
+            }
+
+            if (pos == sink)
+                return currFlow;
+
+            var currlevel = levelGraph[pos];
+            var g = _graph[pos];
+            var count = g.Count;
+            for (var idx = 0; idx < count; idx++)
+            {
+                ref var forward = ref g[idx];
+
+                if (!forward.CanFlow)
+                    continue;
+
+                if (currlevel >= levelGraph[forward.Dst])
+                    continue;
+
+                var flow = MakeFlow(forward.Dst, sink, levelGraph, Math.Min(forward.Capacity - forward.Flow, currFlow));
+                if (flow == 0)
+                    continue;
+
+                ref var backward = ref _graph[forward.Dst][forward.Opp];
+                forward.Flow += flow;
+                backward.Flow -= flow;
+
+                return flow;
+            }
+
+            levelGraph[pos] = -1;
+            return 0;
+        }
+
+        private void RebuildLevelGraph(int source, int destination, int[] levelGraph)
+        {
+            var q = new Queue<(int pos, int level)>();
+            q.Enqueue((source, 0));
+
+            Array.Fill(levelGraph, -1);
+            levelGraph[source] = 0;
+
+            while (q.TryDequeue(out var state))
+            {
+                var (pos, level) = state;
+
+                if (pos == destination)
+                    continue;
+
+                var g = _graph[pos];
+                var count = g.Count;
+                for (var idx = 0; idx < count; idx++)
+                {
+                    ref var e = ref g[idx];
+                    if (e.CanFlow && levelGraph[e.Dst] == -1)
+                    {
+                        levelGraph[e.Dst] = level + 1;
+                        q.Enqueue((e.Dst, level + 1));
+                    }
+                }
+            }
+        }
+    }
+}
+
+namespace ProblemSolving.Templates
+{
+    public static class Moveset
+    {
+        public static readonly (int dy, int dx)[] Moveset4 = new (int dy, int dx)[]
+        {
+            (-1,0),(1,0),(0,-1),(0,1),
+        };
+
+        public static readonly (int dy, int dx)[] Moveset8 = new (int dy, int dx)[]
+        {
+            (-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1)
+        };
+    }
+}
+
+
+namespace ProblemSolving.Templates
+{
+    internal class RefableList<T>
+    {
+        private T[] _arr;
+        public int Count { get; private set; }
+
+        public RefableList() : this(16)
+        {
+        }
+        public RefableList(int capacity)
+        {
+            _arr = new T[capacity];
+        }
+
+        public void Add(T elem)
+        {
+            if (Count == _arr.Length)
+            {
+                var newarr = new T[_arr.Length * 2];
+                Array.Copy(_arr, newarr, _arr.Length);
+                _arr = newarr;
+            }
+
+            _arr[Count++] = elem;
+        }
+
+        public ref T this[int idx] => ref _arr[idx];
+    }
+}
+
+// This is source code merged w/ template
+// Timestamp: 2024-07-07 22:16:55 UTC+9
+
 #endif
 }

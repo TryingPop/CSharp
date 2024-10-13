@@ -31,7 +31,7 @@ namespace BaekJoon.etc
     internal class etc_1059
     {
 
-        static void Main(string[] args)
+        static void Main1059(string[] args)
         {
 
             int n;

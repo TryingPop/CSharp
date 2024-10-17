@@ -4,8 +4,6 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using static BaekJoon.etc.etc_0513;
-using static System.Net.Mime.MediaTypeNames;
 
 /*
 날짜 : 2024. 10. 5

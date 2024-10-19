@@ -31,7 +31,7 @@ NAROCK<br/>
 4<br/>
 
 ## 힌트
-#### NAROCK, NAROCK, NAROCK, NAROCK 총 4개이다.
+#### NAROCK, NROCK, AROCK, ROCK 총 4개이다.
 
 ## 문제 링크
 https://www.acmicpc.net/problem/26156

@@ -22,7 +22,7 @@ namespace Ch05
         // virtual - new : 자식클래스의 메서드가 나오는게 아니라 부모클래스의 것이 나온다
         // virtual 지우면 animal로 통일
         // 만약 자식 클래스에 변수 a가 있고, 부모에 변수 a가 없으면 변수 a를 참조 못한다
-        static void Main(string[] args)
+        static void Main6(string[] args)
         {
             // 다형성을 적용한 객체 생성
             // 

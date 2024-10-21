@@ -20,7 +20,7 @@ namespace Ch04
         // 반환타입으로는 안된다 오직 매개변수만!
         // 이렇게 구분하는걸 오버로드
 
-        static void Main(string[] args)
+        static void Main3(string[] args)
         {
             int r1 = Plus(1, 2);
             int r2 = Plus(1, 2, 3);

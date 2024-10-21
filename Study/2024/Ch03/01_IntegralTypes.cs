@@ -31,7 +31,7 @@ namespace Study._2024.Ch03
     internal class _01_IntegralTypes
     {
 
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
 
             sbyte a = -10;

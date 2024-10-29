@@ -19,9 +19,9 @@ using System.Threading.Tasks;
     a는 int(System.Int32) 자료구조가 될 것이다
     b는 string(System.String) 자료구조가 될 것이다
 
-    보통 int 범위에 들어가면 정수형 자료구조는 int로 변환한다
-    반면 int 범위를 벗어나고 long 범위에 들어가면 long 범위로 변환
-    하지만 long 범위도 벗어나면 컴파일 에러를 일으킨다
+    보통 리터럴 정수형 데이터는 int 범위에 들어가면 정수형 자료구조는 int로 변환한다
+    반면 리터럴 정수형 데이터는 int 범위를 벗어나고 long 범위에 들어가면 long 범위로 변환
+    하지만 리터럴 정수형 데이터가 long 범위도 벗어나면 컴파일 에러를 일으킨다
 */
 
 namespace Study._2024.Ch03

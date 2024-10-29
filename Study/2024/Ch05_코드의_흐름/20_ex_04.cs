@@ -31,7 +31,7 @@ namespace Study._2024.Ch05_코드의_흐름
     internal class _20_ex_04
     {
 
-        static void Main(string[] args)
+        static void Main20(string[] args)
         {
 
             Console.WriteLine("반복 횟수를 입력하세요 : -10");

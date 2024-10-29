@@ -18,7 +18,7 @@ namespace BaekJoon.etc
 
         static void Main1000(string[] args)
         {
-
+            
             StreamReader sr;
 
             int n;

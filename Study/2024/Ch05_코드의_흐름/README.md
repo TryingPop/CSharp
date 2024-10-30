@@ -265,3 +265,51 @@ C#에서 제공하는 점프문은 다음과 같다.<br/>
   - throw
 
 여기서는 break, continue, goto만 다루고 return, throw는 뒤에서 다룬다.<br/>
+
+
+## break
+break 문은 반복문이나 switch 문의 실행을 중단하고자 할 때 사용하는 키워드이다.<br/>
+사용 방법은 그저 중단을 원하는 곳에 break; 을 추가하면 된다.<br/>
+
+
+## continue
+continue 문은 한 회 건너 뛰어 반복을 수행하게 하는 기능을 제공한다.<br/>
+continue 문이 반복문 안에 사용되면 현재 실행중인 반복을 건너 뒤고 다음 반복 준비로 간다.<br/>
+for문의 경우 반복식을 거쳐 조건식으로 가고, while 문이나 do while문이면 조건식으로 바로 간다.<br/>
+뒤에 어떤 코드가 있더라도 실행하지 않고(무시하고) 지나간다.<br/>
+
+continue 문은 잘만 이용하면 가독성을 높일 수 있다.<br/>
+
+
+	for (int i = 1; i <= 10; i++)
+	{
+	
+	    // i가 짝수인 경우
+	    if (i % 2 == 0) continue;
+	    ...
+	}
+
+
+i가 짝수인 경우 무시하고 지나가는 코드이다.<br/>
+
+
+## goto
+이동할 레이블명을 붙여 goto 레이블명; 형식으로 사용한다.<br/>
+goto는 이곳 저곳으로 옮겨가기에 흐름을 자주 끊어 코드를 읽기 힘들게 해서 지양하는게 좋다.<br/>
+사용법만 확인하자.<br/>
+
+
+
+	    for (int i = 2; i <= n; i++)
+	    {
+	
+	        if (i * i > n) goto EXIT;
+	        ...
+	    }
+	
+	EXIT:
+	    return;
+
+
+## return, throw
+return은 6장에서, throw는 13장에서 설명한다.<br/>

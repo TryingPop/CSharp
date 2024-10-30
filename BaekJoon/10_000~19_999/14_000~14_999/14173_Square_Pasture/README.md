@@ -34,7 +34,7 @@ In the example above, the first original rectangle has corners (6,6) and (8,8). 
 
 ## 풀이
 두 직사각형 전체를 포함하는 가장 작은 직사각형을 찾는다.<br/>
-그리고 해당 직사각형을 포함하는 가장 작은 정사각형아 풀었다.<br/>
+그리고 해당 직사각형을 포함하는 가장 작은 정사각형을 찾아 풀었다.<br/>
 
 ## 문제 링크
 https://www.acmicpc.net/problem/14173

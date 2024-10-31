@@ -59,7 +59,7 @@ namespace Study._2024.Ch08_인터페이스와_추상_클래스.코드
             }
         }
 
-        static void Main(string[] args)
+        static void Main5(string[] args)
         {
 
             AbstractBase obj = new Derived();

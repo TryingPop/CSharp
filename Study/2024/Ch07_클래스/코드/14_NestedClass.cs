@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 날짜 : 2024. 10. 31
 이름 : 배성훈
 내용 : 중첩 클래스
-    교재 p 271 ~ 
+    교재 p 271 ~ 274
 
     중첩 클래스(Nested Class)는 클래스 안에 선언되어 있는 클래스를 말한다.
     클래스 안에 클래스를 선언하는 것이 전부다.
@@ -84,7 +84,7 @@ namespace Study._2024.Ch07_클래스.코드
             }
         }
 
-        static void Main(string[] args)
+        static void Main14(string[] args)
         {
 
             Configuration config = new Configuration();

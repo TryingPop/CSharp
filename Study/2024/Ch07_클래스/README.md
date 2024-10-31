@@ -139,3 +139,96 @@ static으로 한정하지 않은 필드는 자동으로 인스턴스에 소속�
 static으로 한정한 필드는 클래스에 소속된다.<br/>
 
 static으로 수식한 필드는 프로그램 전체에 걸쳐 공유해야 하는 변수가 있다면 정적 필드를 이용해야한다.<br/>
+
+
+## 얕은 복사와 깊은 복사
+클래스는 태생이 참조형식이라 클래스가 생성될 때 힙 영역에 객체를 할당하고, 스택에 있는 클래스 변수는 힙 영역에 할당된 메모리를 가리킨다.<br/>
+
+
+	class ClassA
+	{
+
+	    // 필드
+	    public int a;
+	}
+
+	static void Main()
+	{
+	
+	    ClassA src = new ClassA();
+	    ClassB dst = src;
+	}
+
+
+위와 같이 할당 연산자 =로 dst에 src 클래스를 복사하는 경우 힙에 있는 같은 객체를 참조하는 현상이 일어난다.<br/>
+이를 얕은 복사라 한다. dst에 필드의 값을 수정해도 src역시 같은 객체를 가리키므로 같은 필드 값을 출력하게된다.<br/>
+완전히 새로운 객체를 만들고 싶다면 깊은 복사를 수행하는 코드로 만들어야 한다.<br/>
+이는 새로운 객체를 힙 영역에 할당한 뒤 필드 값을 복사하면 된다.<br/>
+
+
+	class ClassA
+	{
+
+	    // 필드
+	    public int a;
+
+	    ClassA Clone()
+	    {
+
+	        ClassA dst = new ClassA();
+	        dst.a = this.a;
+	        return dst;
+	    }
+	}
+
+	static void Main()
+	{
+	
+	    ClassA src = new ClassA();
+	    ClassB dst = src.Clone();
+	}
+
+
+위 처럼 새로운 객체를 만든뒤 복사하면 dst의 필드값을 새로운 값으로 변화해도 src의 값은 변하지 않는다.<br/>
+단순히 Clone 메소드를 만들어 구현하는 것보다는 ICloneable 인터페이스를 상속하여 Clone 메소드를 정의 하는게 클래스를 분석하는 가독성에 좋다.<br/>
+this 키워드는 아래서 다룬다.<br/>
+
+
+## this
+객체 외부에서는 객체의 필드나 메소드에 접근할 때 객체의 이름(변수 또는 식별자)을 사용한다면,<br/>
+객체 내부에서는 자신의 필드나 메소드에 접근할 때 this 키워드를 사용한다.<br/>
+this는 객체가 자신을 지칭하는 키워드이다.<br/>
+this를 이용하면 메소드에서 매개변수와 필드 이름이 같은 경우 모호성을 풀 수 있다.<br/>
+
+
+## this() 생성자
+this가 객체 자신을 지칭하는 키워드인 것처럼, this()는 자기자신의 생성자를 가리킨다.<br/>
+this()는 생성자에서만 사용할 수 있고, 사용하면 생성자들간 중복되는 코드를 제거할 수 있다.<br/>
+
+
+	class ClassA
+	{
+	
+	    int a, b, c;
+	
+	    ClassA()
+	    {
+	
+	        this.a = 1;
+	        Console.WriteLine("ClassA()");
+	    }
+	    
+	    ClassA(int b) : this()
+	    {
+	
+	        this.b = b;
+	        Console.WriteLine("ClassA(int)");
+	    }
+	
+	    classA(int b, int c) : this(b)
+	    {
+
+	        this.c = c;
+	        Console.WriteLine("ClassA(int, int)");
+	    }
+	}

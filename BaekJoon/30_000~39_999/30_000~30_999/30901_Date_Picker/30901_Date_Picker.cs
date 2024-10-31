@@ -122,4 +122,45 @@ namespace BaekJoon.etc
             }
         }
     }
+
+#if other
+// #include <algorithm>
+// #include <cstdio>
+// #include <functional>
+// #include <vector>
+
+using namespace std;
+
+int main(){
+    char schedule[8][30];
+    for(int i = 0; i < 7; ++i){
+        scanf("%s", schedule[i]);
+    }
+    int d, h;
+    scanf("%d %d", &d, &h);
+    vector<int> bitmask(d, 1);
+    bitmask.resize(7);
+    int answer = 0;
+    do{
+        vector<int> v;
+        for(int j = 0; j < 24; ++j){
+            int cnt = 0;
+            for(int i = 0; i < 7; ++i){
+                if(bitmask[i] && schedule[i][j] == '.'){
+                    ++cnt;
+                }
+            }
+            v.push_back(cnt);
+        }
+        sort(v.begin(), v.end(), greater<int>());
+        int sum = 0;
+        for(int j = 0; j < h; ++j){
+            sum += v[j];
+        }
+        answer = max(answer, sum);
+    }while(prev_permutation(bitmask.begin(), bitmask.end()));
+    printf("%.12f\n", answer / (double)(d * h));
+    return 0;
+}
+#endif
 }

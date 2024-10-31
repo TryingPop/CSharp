@@ -11,7 +11,6 @@ using System.Threading.Tasks;
     교재 p 242 ~ 245
 
     this 생성자를 이용하면 생성자에 중복되는 코드를 많이 제거할 수 있다.
-    
 */
 
 namespace Study._2024.Ch07_클래스.코드
@@ -52,7 +51,7 @@ namespace Study._2024.Ch07_클래스.코드
             }
         }
 
-        static void Main(string[] args)
+        static void Main6(string[] args)
         {
 
             MyClass a = new MyClass();      // MyClass()

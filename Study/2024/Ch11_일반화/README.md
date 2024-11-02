@@ -95,3 +95,15 @@ Current, MoveNext, Dispose 함수는 알아서 구현해주나 초기화하는 R
 System.Collections.Generic.IEnumerator<T>을 상속 받으면 IDisposable 인터페이스를 상속받아 직접 구현해야한다.<br/>
 마찬가지로 System.Collections.IEnumerator의 메소드도 구현해야한다.<br/>
 msdn : https://learn.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/iterators<br/>
+
+상속 받아야하는 메소드들을 확인하자.<br/>
+
+|상속_받아야할_메소드|해당_인터페이스|
+|:---:|:---:|
+|System.Collections.IEnumerator GetEnumerator()|IEnumerable<T>|
+|System.Collections.Generic.IEnumerator<T> GetEnumerator()|IEnumerable<T>|
+|bool MoveNext()|IEnumerator<T>|
+|void Reset()|IEnumerator<T>|
+|T Current { get; }|IEnumerator<T>|
+|object Current { get; }|IEnumerator<T>|
+|void Dispose()|IEnumerator<T>|

@@ -76,7 +76,7 @@ T는 값 형식만 받는다는 의미다. 제약에는 다음과 같이 줄 수
 ## System.Collections.Generic
 System.Collections에서 ArrayList, Queue, Stack, Hashtable 자료구조를 확인했었다.<br/>
 해당 자료구조들은 object 형식에 기반하고 있어 형식 변환(박싱, 언박싱)이 빈번하게 일어나 성능저하가 심하다.<br/>
-일반화 컬렉션인 System.Collections.Genric의 List<T>, Queue<T>, Stack<T>, Dictionary<T>는<br/>
+일반화 컬렉션인 System.Collections.Genric의 List\<T\>, Queue\<T\>, Stack\<T\>, Dictionary\<T\>는<br/>
 일반화에 기반해서 만들어져 있기 때문에 컬렉션에 사용할 형식이 결정되어 불필요한 형 변환이 없다.<br/>
 또한 다른 형식의 데이터를 담을 수 없어 잘못된 데이터의 입력 위험도 피할 수 있다.<br/>
 
@@ -86,13 +86,13 @@ System.Collections에서 ArrayList, Queue, Stack, Hashtable 자료구조를 확�
 하지만 순회할 때마다 형식 변환을 수행하는 오버로드가 발생한다. object Current를 기억하자!<br/>
 
 이러한 문제를 해결하기 위해서는 System.Collections.Generic 네임스페이스에<br/>
-IEnumerable<T> 인터페이스를 상속받으면 된다.<br/>
-IEnumerable<T>는 IEnumerable 을 상속받기에 System.Collections.IEnumerator GetEnumerator()와<br/>
-System.Collections.Generic.IEnumerator<T> GetEnumerator() 의 메소드를 둘 다 구현해야 한다.<br/>
+IEnumerable\<T\> 인터페이스를 상속받으면 된다.<br/>
+IEnumerable\<T\>는 IEnumerable 을 상속받기에 System.Collections.IEnumerator GetEnumerator()와<br/>
+System.Collections.Generic.IEnumerator\<T\> GetEnumerator() 의 메소드를 둘 다 구현해야 한다.<br/>
 
 yield 문을 이용하면 컴파일러가 알아서 IEnumerator 상속 받았었다.<br/>
 Current, MoveNext, Dispose 함수는 알아서 구현해주나 초기화하는 Reset 함수는 사용할 수 없다.<br/>
-System.Collections.Generic.IEnumerator<T>을 상속 받으면 IDisposable 인터페이스를 상속받아 직접 구현해야한다.<br/>
+System.Collections.Generic.IEnumerator\<T\>을 상속 받으면 IDisposable 인터페이스를 상속받아 직접 구현해야한다.<br/>
 마찬가지로 System.Collections.IEnumerator의 메소드도 구현해야한다.<br/>
 msdn : https://learn.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concepts/iterators<br/>
 
@@ -100,10 +100,10 @@ msdn : https://learn.microsoft.com/ko-kr/dotnet/csharp/programming-guide/concept
 
 |상속_받아야할_메소드|해당_인터페이스|
 |:---:|:---:|
-|System.Collections.IEnumerator GetEnumerator()|IEnumerable<T>|
-|System.Collections.Generic.IEnumerator<T> GetEnumerator()|IEnumerable<T>|
-|bool MoveNext()|IEnumerator<T>|
-|void Reset()|IEnumerator<T>|
-|T Current { get; }|IEnumerator<T>|
-|object Current { get; }|IEnumerator<T>|
-|void Dispose()|IEnumerator<T>|
+|System.Collections.IEnumerator GetEnumerator()|IEnumerable\<T\>|
+|System.Collections.Generic.IEnumerator\<T\> GetEnumerator()|IEnumerable\<T\>|
+|bool MoveNext()|IEnumerator\<T\>|
+|void Reset()|IEnumerator\<T\>|
+|T Current { get; }|IEnumerator\<T\>|
+|object Current { get; }|IEnumerator\<T\>|
+|void Dispose()|IEnumerator\<T\>|

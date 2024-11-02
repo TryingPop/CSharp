@@ -67,7 +67,7 @@ System.Range는 Index 두 개를 갖고 있고 이로 인덱스 범위를 표현
 선언방법은 1차원 배열처럼 할 수 있다.<br/>
 
 
-	int[,] arr2D_1 = new int[3, 4] { { 1, 2, 3 }, { 4, 5, 6 } };
+	int[,] arr2D_1 = new int[2, 3] { { 1, 2, 3 }, { 4, 5, 6 } };
 	int[,] arr2D_2 = new int[,] { { 1, 2, 3 }, { 4, 5, 6 } };
 	int[,] arr2D_3 = { { 1, 2, 3 }, { 4, 5, 6 } };
 
@@ -88,3 +88,128 @@ System.Range는 Index 두 개를 갖고 있고 이로 인덱스 범위를 표현
 |1, 0|1, 1|1, 2|
 
 
+코드로는 다음처럼 접근할 수 있다.
+
+
+	int[,] arr2D = new int[2, 3] { { 1, 2, 3 }, { 4, 5, 6 } };
+	int one = arr2D[0, 0];	// 1
+	int two = arr2D[0, 1];	// 2
+	int five = arr2D[1, 1];	// 5
+
+
+2차원 배열은 구분 기준이 하나에서 두 개로 늘어난 것 뿐이다.<br/>
+다차원 배열은 2차원 배열 확장하듯이 구분 기준을 여러 개로 늘린 것이다.<br/>
+3차원 이상의 배열은 그림으로 그리기 힘들고 머릿속으로 내용을 유지하는것도 힘들다.<br/>
+이는 버그를 일으킬 위험을 내포하고 있고 유지보수가 힘들다.<br/>
+
+
+## 가변 배열
+가변 배열은 배열을 요소로 갖는 배열이라 보면 된다.<br/>
+다차원 배열은 해당 차원에서 봤을 때 배열의 크기가 고정되어있지만 가변 배열은 원소간 길이가 서로 달라도 된다.<br/>
+선언 방법은 다음과 같다.<br/>
+
+
+	데이터_형식[][] 배열_이름 = new 데이터_형식[ 가변배열의_용량 ][];
+
+
+
+## System.Collections
+컬렉션(Collection)은 같은 성격을 띈 데이터의 모음을 담는 자료구조다.<br/>
+.NET에서 제공하는 컬렉션은 다음과 같다.<br/>
+  - ArrayList
+  - Queue
+  - Stack
+  - Hashtable
+
+System.Array역시 ICloneable, IList, ICollection, IEnumerable 인터페이스를 상속받음으로<br/>
+컬렉션 중 하나임을 알 수 있다.<br/>
+
+System.Collections에 있는 자료구조는 모두 object 형식으로 박싱해 데이터를 보관하고,<br/>
+값을 가져올 때는 언박싱해서 가져오기에 많은 데이터를 담으면 성능저하가 심하다.<br/>
+Collections.Generic 클래스의 자료구조를 위한 발판으로만 보면 된다.<br/>
+
+Queue나 Stack은 
+
+
+## ArrayList
+ArrayList의 장점은 용량을 지정할 필요가 없다. 필요에 따라 자동으로 용량이 늘어나거나 줄어든다.<br/>
+Add(), RemoveAt(), Insert() 메소드가 있다.<br/>
+Add 메소드는 원소를 뒤에 추가하는 것이다. RemoveAt은 특정 위치의 원소를 제거하는 것이다.<br/>
+Insert는 특정 위치에 원소를 추가하는 것이다.<br/>
+
+
+## Queue
+큐는 먼저 들어온게 먼저 나가는 FIFO(First In First Out)인 자료구조다.<br/>
+원소를 추가할 때는 Enqueue(), 원소를 뺄 때는 Dequeue() 메소드를 이용하면 된다.<br/>
+내부는 두 포인터로 구현되어져 있다. 그리고 알아서 원소의 개수에 맞게 용량을 늘린다.<br/>
+
+
+## Stack
+스택은 나중에 들어온게 먼저 나가는 LIFO(Last In First Out)인 자료구조다.<br/>
+원소를 추가할 때는 Push(), 원소를 뺄 때는 Pop()을 하면 된다.<br/>
+내부는 끝을 나타내는 하나의 포인터로 작동한다. Queue와 마찬가지로 원소의 개수에 맞게 용량을 늘린다.<br/>
+
+
+## Hashtable
+Hashtable은 키(Key)와 값(Value)쌍으로 이루어진 데이터를 다룰 때 사용한다.<br/>
+Hashtable은 배열에서 인덱스를 이용해 배열 요소에 접근하는 것에 준하는 탐색속도를 자랑한다.<br/>
+키를 사용해 데이터가 저장된 컬렉션 내의 주소를 계산하는데 이 작업을 해싱이라 한다.<br/>
+SourceLink의 설명에보니 충돌시 다음 값에 결정은 다음 2개의 값으로 연산한다.<br/>
+
+
+	h1(key) = GetHash(key);  // default implementation calls key.GetHashCode();
+	h2(key) = 1 + (((h1(key) >> 5) + 1) % (hashsize - 1));
+
+
+구문이 있음을 확인할 수 있다. 여기에 n은 충돌 횟수이고 h1(key)는 모든 수를 나타낼 수 있다고 한다.<br/>
+Knuth's Art of Computer Programming, Vol. 3, p. 528-9 해당 부분을 참고했다고 한다.<br/>
+
+
+## 인덱서
+인덱서(Indexer)는 인덱스(Index)를 이용해서 객체 내의 데이터에 접근하게 해주는 프로퍼티라고 생각하면 이해하기 쉽다.<br/>
+인덱서는 다음과 같이 선언할 수 있다.<br/>
+
+
+	class 클래스_이름
+	{
+	
+	    한정자 인덱서_형식 this[ 형식 index ]
+	    {
+	
+	        get
+	        {
+	
+	            // index를 이용하여 내부 데이터 반환
+	        }
+	
+	        set
+	        {
+	
+	            // index를 이용하여 내부 데이터 저장
+	        }
+	    }
+	}
+
+
+## foreach 가능한 객체 만들기
+foreach문은 for문처럼 요소의 위치를 위한 인덱스 선언을 할 필요가 없다.<br/>
+foreach문은 코드도 쓰기 좋고 읽기도 쉽다.<br/>
+
+foreach문은 IEnumerable을 상속하는 형식만 지원한다.<br/>
+System.Collections.IEnumerator를 반환하는 GetEnumerator()를 정의하고 yield문을 이용해 정의하면,<br/>
+컴파일러가 알아서 IEnumerable 인터페이스를 상속한다.<br/>
+
+각 호출마다 yield return이나 yield break문을 만날 때까지 나머지 작업을 실행한다.<br/>
+
+
+IEnumerator에는 다음 메소드와 프로퍼티가 있다.<br/>
+
+
+|타입|이름|기능|
+|:---:|:---:|:---|
+|메소드|bool MoveNext()|다음 요소로 이동한다. 끝을 지난 경우에 false, 이동이 성공한 경우 true|
+|메소드|void Reset()|컬렉션의 첫 번재 위치의 앞으로 이동한다.|
+|프로퍼티|object Current|컬렉션의 현재 요소를 반환|
+
+
+GetEnumerator 메소드를 구현할 때는 자기자신을 반환하면 된다.<br/>

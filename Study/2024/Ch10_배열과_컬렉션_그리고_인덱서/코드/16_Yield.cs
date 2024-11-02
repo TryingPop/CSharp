@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
     object에서 사용하기 위해서는 IEnumerable을 상속해야지 foreach 문을 이용할 수 있다.
     IEnumerable이 갖고 있는 메소드는 GetEnumerator 메소드 하나 뿐이다.
-    컴파일러가 알아서 IEnumerable을 상속하지 않아도 상속해준다.
+    yield문을 이용하면 컴파일러가 알아서 IEnumerable을 상속하지 않아도 상속해준다.
 */
 
 namespace Study._2024.Ch10_배열과_컬렉션_그리고_인덱서.코드

@@ -84,5 +84,14 @@
   - 2차원 배열, 다차원 배열, 그리고 가변 배열
   - 컬렉션(ArrayList, Queue, Stack, Hashtable)
   - 인덱서
-  - foreach 문을 만들 수 있게 하는 System.Collections.IEnumerable, System.Collections.IEnumerator
+  - foreach 문
   - 연습문제 5개
+
+
+## Ch11 일반화
+### 교재 p403 ~ 429
+  - 일반화 프로그래밍(일반화 메소드, 일반화 클래스)
+  - 형식 매개변수 제약
+  - 일반화 컬렉션(List\<T\>, Queue\<T\>, Stack\<T\>, Dictionary\<TKey, TValue\>)
+  - foreach 문
+  - 연습문제 2개

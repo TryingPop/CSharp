@@ -75,3 +75,14 @@
   - 무명 형식
   - 인터페이스, 추상 클래스의 프로퍼티
   - 연습문제 2개
+
+
+## Ch10 배열과 컬렉션 그리고 인덱서
+### 교재 p355 ~ 402
+  - 배열 (선언, 초기화, 분할)
+  - System.Array
+  - 2차원 배열, 다차원 배열, 그리고 가변 배열
+  - 컬렉션(ArrayList, Queue, Stack, Hashtable)
+  - 인덱서
+  - foreach 문을 만들 수 있게 하는 System.Collections.IEnumerable, System.Collections.IEnumerator
+  - 연습문제 5개

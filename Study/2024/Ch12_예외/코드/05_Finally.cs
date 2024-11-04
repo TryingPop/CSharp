@@ -27,6 +27,7 @@ namespace Study._2024.Ch12_예외.코드
 
             try
             {
+
                 Console.WriteLine("Divide() 시작");
                 return divided / divisor;
             }

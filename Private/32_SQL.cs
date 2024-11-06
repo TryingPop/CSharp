@@ -19,7 +19,7 @@ namespace Private
     internal class _32_SQL
     {
 
-        static void Main(string[] args)
+        static void Main32(string[] args)
         {
 
             DB db = new DB(3306, "root", "2580", "userdb");

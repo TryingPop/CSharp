@@ -14,5 +14,9 @@
 		<PackageReference Include="MySql.Data" Version="9.1.0" />
 		<FrameworkReference Include="Microsoft.WindowsDesktop.App" />
 	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="2024\Ch22_가비지_컬렉션\" />
+	</ItemGroup>
 
 </Project>

@@ -58,7 +58,7 @@ namespace Study._2024.Ch13_대리자와_이벤트.코드
                 Console.WriteLine(message);
             }
 
-            static void Main(string[] args)
+            static void Main6(string[] args)
             {
 
                 MyNotifier notifier = new MyNotifier();
